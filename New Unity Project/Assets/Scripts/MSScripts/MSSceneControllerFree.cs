@@ -87,12 +87,9 @@ public class MSSceneControllerFree : MonoBehaviour {
 	//
 	Button nextVehicle;
 	Button previousVehicle;
-	Text gearText;
-	Text kmhText;
-	Text mphText;
-	Text handBrakeText;
-	Text pauseText;
-	Image backGround;
+
+    Text gearText;
+    Text mphText;
 
 	#region customizeInputs
 	[HideInInspector]
@@ -182,14 +179,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 			buttonDown = transform.Find ("Canvas/MSButtonDown").GetComponent<MSButtonFree> ();
 			joystickCamera = transform.Find ("Canvas/MSJoystickCamera").GetComponent<JoystickFree> ();
 
-			nextVehicle = transform.Find ("Canvas/nextVehicle").GetComponent<Button> ();
-			previousVehicle = transform.Find ("Canvas/previousVehicle").GetComponent<Button> ();
-			gearText = transform.Find ("Canvas/Strings/gearText").GetComponent<Text> ();
-			kmhText = transform.Find ("Canvas/Strings/kmhText").GetComponent<Text> ();
-			mphText = transform.Find ("Canvas/Strings/mphText").GetComponent<Text> ();
-			handBrakeText = transform.Find ("Canvas/Strings/handBrakeText").GetComponent<Text> ();
-			pauseText = transform.Find ("Canvas/Strings/pauseText").GetComponent<Text> ();
-			backGround = transform.Find ("Canvas/Strings").GetComponent<Image> ();
 			//end transform.find
 
 			if (nextVehicle) {
@@ -397,17 +386,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 					}
 				}
 			}
-			//
-			if (!playerIsNull) {
-				if (player.gameObject.activeInHierarchy) {
-					EnableUI (false);
-				} else {
-					EnableUI (UIVisualizer);
-				}
-			} else {
-				EnableUI (UIVisualizer);
-			}
-			//
 			if (vehicles.Length > 0 && currentVehicle < vehicles.Length && UIVisualizer && vehicleCode) {
 				if (vehicleCode.isInsideTheCar) {
 					clampGear = Mathf.Clamp (vehicleCode.currentGear, -1, 1);
@@ -415,11 +393,9 @@ public class MSSceneControllerFree : MonoBehaviour {
 						clampGear = 1;
 					}
 
-					gearText.text = "Gear: " + vehicleCode.currentGear;
-					kmhText.text = "Velocity(km/h): " + (int)(vehicleCode.KMh * clampGear);
-					mphText.text = "Velocity(mp/h): " + (int)(vehicleCode.KMh * 0.621371f * clampGear);
-					handBrakeText.text = "HandBreak: " + vehicleCode.handBrakeTrue;
-					pauseText.text = "Pause: " + pause;
+					//gearText.text =  vehicleCode.currentGear + "GEAR";
+					//mphText.text = (int)(vehicleCode.KMh * 0.621371f * clampGear) + "MPH";
+
 				}
 			}
 		}
@@ -427,14 +403,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 	void EnableUI(bool enable){
 		if (nextVehicle.gameObject.activeSelf != enable) {
-			nextVehicle.gameObject.SetActive(enable);
-			previousVehicle.gameObject.SetActive (enable);
-			gearText.gameObject.SetActive (enable);
-			kmhText.gameObject.SetActive (enable);
-			mphText.gameObject.SetActive (enable);
-			handBrakeText.gameObject.SetActive (enable);
-			pauseText.gameObject.SetActive (enable);
-			backGround.gameObject.SetActive (enable);
+
 		}
 	}
 

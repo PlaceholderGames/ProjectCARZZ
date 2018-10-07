@@ -275,7 +275,6 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	float mouseYInput = 0;
 	float mouseScrollWheelInput = 0;
 	#endregion
-
 	bool changinGearsAuto;
 	bool theEngineIsRunning;
 	bool enableEngineSound;
@@ -478,6 +477,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	public bool isInsideTheCar;
 
 	MSSceneControllerFree controls;
+
 
 	void Awake(){
 		enableSkidMarksOnStart = true;
@@ -997,7 +997,10 @@ public class MSVehicleControllerFree : MonoBehaviour {
 		//
 		if (!changinGearsAuto) {
 			engineInput = Mathf.Clamp01 (verticalInput);
-		} else {
+
+
+
+        } else {
 			engineInput = 0;
 		}
 		if (isInsideTheCar) {
@@ -1769,8 +1772,9 @@ public class MSVehicleControllerFree : MonoBehaviour {
 		if (!isInsideTheCar) {
 			return 0;
 		}
-		if ((Mathf.Abs (verticalInput) < 0.5f) || KMh > _vehicleTorque.maxVelocityKMh) {
-			return 0;
+        if ((Mathf.Abs(verticalInput) < 0.5f) || KMh > _vehicleTorque.maxVelocityKMh) {
+
+            return 0;
 		}
 		if ((rpmTempTorque*wheelCollider.radius) > (50.0f * _vehicleTorque.numberOfGears*_vehicleTorque.speedOfGear)){
 			return 0;

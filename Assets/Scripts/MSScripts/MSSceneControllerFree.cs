@@ -126,7 +126,45 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 	Vector2 vectorDirJoystick;
 
-	void Awake () {
+
+    //ADDONS BY RICHARD
+    public Camera fpsCam;
+    public Camera tpsCam;
+    public Canvas UIcanvas;
+    public Text kmhText;
+    public Text gearTxt;
+    public Slider fuelSlider;
+
+
+    void Start()
+    {
+        UIcanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
+        kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
+        gearTxt = GameObject.Find("gearTxt").GetComponent<Text>();
+        fuelSlider = GameObject.Find("fuelSlider").GetComponent<Slider>();
+        fuelSlider.value = 100;
+
+    }
+
+    void FuelSystem()
+    {
+
+        kmhText.text = (int)vehicleCode.KMh + " /kmh";
+        gearTxt.text = vehicleCode.currentGear + "";
+        fuelSlider.value -= (vehicleCode.KMh / 1000.0f);
+
+        if(fuelSlider.value <= 0.1)
+        {
+            vehicleCode.theEngineIsRunning = false;
+        }
+
+    }
+
+    //END ADDONS
+
+
+
+    void Awake () {
 		error = false;
 		CheckEqualKeyCodes ();
 		MSSceneControllerFree[] sceneControllers = FindObjectsOfType(typeof(MSSceneControllerFree)) as MSSceneControllerFree[];
@@ -393,19 +431,20 @@ public class MSSceneControllerFree : MonoBehaviour {
 						clampGear = 1;
 					}
 
-					//gearText.text =  vehicleCode.currentGear + "GEAR";
-					//mphText.text = (int)(vehicleCode.KMh * 0.621371f * clampGear) + "MPH";
+                    //gearText.text =  vehicleCode.currentGear + "GEAR";
+                    //mphText.text = (int)(vehicleCode.KMh * 0.621371f * clampGear) + "MPH";
+                   
 
 				}
 			}
+
+            FuelSystem();
 		}
 	}
 
-	void EnableUI(bool enable){
-		if (nextVehicle.gameObject.activeSelf != enable) {
 
-		}
-	}
+
+   
 
 	public void PreviousVehicle(){
 		if (playerIsNull) {
@@ -436,7 +475,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 	}
 
 	IEnumerator WaitToInteract(){
-		yield return new WaitForSeconds (0.7f);
+		yield return new WaitForSeconds (0.3f);
 		blockedInteraction = false;
 	}
 
@@ -521,4 +560,5 @@ public class MSSceneControllerFree : MonoBehaviour {
 			enterAndExitBool = true;
 		}
 	}
+
 }

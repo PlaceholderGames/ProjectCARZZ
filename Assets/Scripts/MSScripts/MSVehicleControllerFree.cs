@@ -276,7 +276,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	float mouseScrollWheelInput = 0;
 	#endregion
 	bool changinGearsAuto;
-	bool theEngineIsRunning;
+	public bool theEngineIsRunning;
 	bool enableEngineSound;
 	bool youCanCall;
 	bool brakingAuto;

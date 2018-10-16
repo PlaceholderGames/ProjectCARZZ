@@ -130,12 +130,23 @@ public class MSSceneControllerFree : MonoBehaviour {
     //ADDONS BY RICHARD
     public Camera fpsCam;
     public Camera tpsCam;
+    public Camera playerCam;
     public Canvas UIcanvas;
+
     public Text kmhText;
     public Text gearTxt;
+
     public Slider fuelSlider;
     public Text fuelText;
     public int fuelValue;
+
+    public Text coinText;
+    public int coinValue;
+
+    public Slider healthSlider;
+    public Text repairText;
+    public int repairValue;
+
     public Text EngineOn;
 
     void Start()
@@ -146,29 +157,75 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelSlider = GameObject.Find("fuelSlider").GetComponent<Slider>();
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         EngineOn = GameObject.Find("engineText").GetComponent<Text>();
+        repairText = GameObject.Find("repairText").GetComponent<Text>();
+        coinText = GameObject.Find("coinText").GetComponent<Text>();
+
+        healthSlider.value = 50;
         fuelSlider.value = 100;
         fuelValue = 0;
+        repairValue = 0;
+        coinValue = 0;
 
     }
 
+
+    void RepairSystem()
+    {
+        repairText.text = "Repair: "+repairValue;
+
+        if (fuelSlider.value <= 0.1)
+            vehicleCode.theEngineIsRunning = false;
+        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
+            Invoke("Refill", 0.5f);
+    }
+
+    void CoinSystem()
+    {
+        coinText.text = "Coins: "+coinValue;
+    }
 
     void FuelSystem()
     {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 1000.0f);
-        fuelText.text = fuelValue+ "";
+        fuelText.text = "Fuel: "+fuelValue;
+        EngineOn.text = "Engine on: " + vehicleCode.theEngineIsRunning;
 
-        if(fuelSlider.value <= 0.1)
+        if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
         if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
             Invoke("Refill", 0.5f);
+    }
+
+    void Repair()
+    {
+        repairValue -= 1;
+        healthSlider.value += 25;
     }
 
     void Refill()
     {
         fuelValue -= 1;
         fuelSlider.value += 25;
+    }
+
+    void ChangeCanvasCam()
+    {
+        if (fpsCam.gameObject.activeSelf == true)
+            UIcanvas.worldCamera = fpsCam;
+        else if (tpsCam.gameObject.activeSelf == true)
+            UIcanvas.worldCamera = tpsCam;
+        else if (playerCam.gameObject.activeSelf == true)
+            UIcanvas.worldCamera = playerCam;
+    }
+
+    void Manager()
+    {
+        FuelSystem();
+        CoinSystem();
+        RepairSystem();
+        ChangeCanvasCam();
     }
 
     //END ADDONS
@@ -449,7 +506,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 				}
 			}
 
-            FuelSystem();
+            Manager();
 		}
 	}
 

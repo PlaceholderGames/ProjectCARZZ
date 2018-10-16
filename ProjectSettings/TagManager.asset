@@ -8,6 +8,7 @@ TagManager:
   - CameraFPS
   - Vehicle
   - Fuel
+  - CameraPlayer
   layers:
   - Default
   - TransparentFX

@@ -11,8 +11,8 @@ public class CustomTerrain : MonoBehaviour {
     public Vector3 heightMapScale = new Vector3(1, 1, 1);
 
     //Perlin Noise
-    public float perlinXScale = 0.01f;
-    public float perlinYScale = 0.01f;
+    public float perlinXScale;
+    public float perlinYScale;
 
     public Terrain terrain;
     public TerrainData terrainData;
@@ -26,7 +26,7 @@ public class CustomTerrain : MonoBehaviour {
             for (int x = 0; x < terrainData.heightmapWidth; x++)
             {//using += will add to existing terrain = not
                 //Feed a value into the PerlinNoise function to produce a result on a location on the map represented by x and y
-                heightMap[x, y] += Mathf.PerlinNoise(x * perlinXScale, y * perlinYScale);
+                heightMap[x, y] = Mathf.PerlinNoise(x * perlinXScale, y * perlinYScale);
             }
         }
         terrainData.SetHeights(0, 0, heightMap);

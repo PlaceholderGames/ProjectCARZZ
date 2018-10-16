@@ -57,8 +57,9 @@ public class NewBehaviourScript : Editor {
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             GUILayout.Label("Perlin Noise", EditorStyles.boldLabel);
-            EditorGUILayout.Slider(perlinXScale, 0, 1, new GUIContent("X Scale"));
-            EditorGUILayout.Slider(perlinYScale, 0, 1, new GUIContent("Y Scale"));
+            //EditorGUILayout.Slider(perlinXScale, 0.5f, 1, new GUIContent("X Scale"));
+            //EditorGUILayout.Slider(perlinYScale, 0f, 1f, new GUIContent("Y Scale"));
+            EditorGUILayout.PropertyField(perlinXScale);
             if (GUILayout.Button("Apply"))
             {
                 terrain.Perlin();

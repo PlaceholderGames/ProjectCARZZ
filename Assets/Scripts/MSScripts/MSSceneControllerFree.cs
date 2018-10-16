@@ -134,7 +134,9 @@ public class MSSceneControllerFree : MonoBehaviour {
     public Text kmhText;
     public Text gearTxt;
     public Slider fuelSlider;
-
+    public Text fuelText;
+    public int fuelValue;
+    public Text EngineOn;
 
     void Start()
     {
@@ -142,22 +144,31 @@ public class MSSceneControllerFree : MonoBehaviour {
         kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
         gearTxt = GameObject.Find("gearTxt").GetComponent<Text>();
         fuelSlider = GameObject.Find("fuelSlider").GetComponent<Slider>();
+        fuelText = GameObject.Find("fuelText").GetComponent<Text>();
+        EngineOn = GameObject.Find("engineText").GetComponent<Text>();
         fuelSlider.value = 100;
+        fuelValue = 0;
 
     }
 
+
     void FuelSystem()
     {
-
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 1000.0f);
+        fuelText.text = fuelValue+ "";
 
         if(fuelSlider.value <= 0.1)
-        {
             vehicleCode.theEngineIsRunning = false;
-        }
+        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+            Invoke("Refill", 0.5f);
+    }
 
+    void Refill()
+    {
+        fuelValue -= 1;
+        fuelSlider.value += 25;
     }
 
     //END ADDONS

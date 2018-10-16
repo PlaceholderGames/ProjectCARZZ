@@ -4,8 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class FuelSystem : MonoBehaviour {
+    public MSSceneControllerFree _MSC;
 
-    public float Velocity = 0.0f;
-  
+    void Awake()
+    {
+        _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
+    }
+
+
+    public void OnTriggerEnter()
+    {
+        Destroy(gameObject);
+        Debug.Log("HIT");
+        _MSC.fuelValue++;
+    }
+
 }
 

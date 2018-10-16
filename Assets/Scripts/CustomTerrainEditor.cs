@@ -12,17 +12,19 @@ public class NewBehaviourScript : Editor {
     SerializedProperty randomHeightRange;
     SerializedProperty heightMapScale;
     SerializedProperty heightMapImage;
+    SerializedProperty perlinXScale;
+    SerializedProperty perlinYScale;
 
     //fold outs -------------------------------
     bool showRandom = false;
-    bool showLoadHeights = false;
-    bool showResetTerrain = false;
 
     void OnEnable()
     {
         randomHeightRange = serializedObject.FindProperty("randomHeightRange");//one in customTerrain.cs
         heightMapScale = serializedObject.FindProperty("heightMapScale");
         heightMapImage = serializedObject.FindProperty("heightMapImage");
+        perlinXScale = serializedObject.FindProperty("perlinXScale");
+        perlinYScale = serializedObject.FindProperty("perlinYScale");
     }
 
     public override void OnInspectorGUI()//The display in the editor
@@ -34,17 +36,6 @@ public class NewBehaviourScript : Editor {
         showRandom = EditorGUILayout.Foldout(showRandom, "Procedural Generation Config");//hide/unhide in editor
         if (showRandom)
         {
-            GUILayout.Label("Set Heights Between Random Values:", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(randomHeightRange);
-            if (GUILayout.Button("Random Heights"))
-            {
-                terrain.RandomTerrain();
-            }
-        }
-
-        showLoadHeights = EditorGUILayout.Foldout(showLoadHeights, "Heightmap Config");
-        if (showLoadHeights)
-        {
             GUILayout.Label("Load Heights From Texture:", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(heightMapImage);
             EditorGUILayout.PropertyField(heightMapScale);
@@ -52,17 +43,33 @@ public class NewBehaviourScript : Editor {
             {
                 terrain.LoadTexture();
             }
-        }
 
-        showResetTerrain = EditorGUILayout.Foldout(showResetTerrain, "Reset Terrain");
-        if (showResetTerrain)
-        {
-            GUILayout.Label("Reset Terrain to Flat surface", EditorStyles.label);
+
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Set Heights Between Random Values:", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(randomHeightRange);
+            if (GUILayout.Button("Random Heights"))
+            {
+                terrain.RandomTerrain();
+            }
+
+
+
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Perlin Noise", EditorStyles.boldLabel);
+            EditorGUILayout.Slider(perlinXScale, 0, 1, new GUIContent("X Scale"));
+            EditorGUILayout.Slider(perlinYScale, 0, 1, new GUIContent("Y Scale"));
+            if (GUILayout.Button("Apply"))
+            {
+                terrain.Perlin();
+            }
+
+
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             if (GUILayout.Button("Reset Terrain"))
             {
                 terrain.ResetTerrain();
             }
-            serializedObject.ApplyModifiedProperties();//applies any changes
         }
     }
     // Use this for initialization

@@ -16,6 +16,7 @@ public class CustomTerrain : MonoBehaviour {
     public Terrain terrain;
     public TerrainData terrainData;
 
+    //====================================================Smooth======================================================
     float[,] GetHeightMap()
     {
         if (!resetTerrain)
@@ -85,6 +86,8 @@ public class CustomTerrain : MonoBehaviour {
     }
 
 
+
+    //====================================================RandomTerrain===============================================
     public void RandomTerrain()
     {
         float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth,
@@ -100,6 +103,9 @@ public class CustomTerrain : MonoBehaviour {
         terrainData.SetHeights(0, 0, heightMap);
     }
 
+
+
+    //====================================================LoadTexture=================================================
     public void LoadTexture()
     {
         float[,] heightMap;
@@ -117,6 +123,9 @@ public class CustomTerrain : MonoBehaviour {
         terrainData.SetHeights(0, 0, heightMap);
     }
 
+
+
+    //====================================================ResetTerrain================================================
     public void ResetTerrain()
     {
         float[,] heightMap;
@@ -131,6 +140,62 @@ public class CustomTerrain : MonoBehaviour {
         }
         terrainData.SetHeights(0, 0, heightMap);
     }
+
+
+
+    //====================================================SplatMaps====================================================
+    [System.Serializable]
+    public class SplatHeights
+    {
+        public Texture2D texture = null;
+        public float minHeight = 0.01f;
+        public float minWidth = 0.2f;
+        public bool remove = false;
+    }
+
+    public List<SplatHeights> splatHeights = new List<SplatHeights>()
+    {
+        new SplatHeights()
+    };
+
+    public void AddNewSplatHeight()
+    {
+        splatHeights.Add(new SplatHeights());
+    }
+
+    public void RemoveSplatHeight()
+    {
+        List<SplatHeights> keptSplatHeights = new List<SplatHeights>();
+        for ( int i = 0; i < splatHeights.Count; i++){
+            if (!splatHeights[i].remove)
+                keptSplatHeights.Add(splatHeights[i]);
+        }
+        if(keptSplatHeights.Count == 0)//if don't want to keep any
+            keptSplatHeights.Add(splatHeights[0]);//add at least 1
+        splatHeights = keptSplatHeights;
+    }
+
+    public void SplatMaps()
+    {
+        SplatPrototype[] newSplatPrototypes;
+        newSplatPrototypes = new SplatPrototype[splatHeights.Count];
+        int spindex = 0;
+        foreach (SplatHeights sh in splatHeights)
+        {
+            newSplatPrototypes[spindex] = new SplatPrototype();
+            newSplatPrototypes[spindex].texture = sh.texture;
+            newSplatPrototypes[spindex].texture.Apply(true);
+            spindex++;
+        }
+        terrainData.splatPrototypes = newSplatPrototypes;
+    }
+
+    //void NormalizeVector(float[] v)
+    //{
+    //    float total = 0;
+    //    for (int i = 0; i < v.Length; i++)
+    //        total += v[i];
+    //}
 
     void OnEnable()
     {

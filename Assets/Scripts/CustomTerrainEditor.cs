@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
+using EditorGUITable;
 //Links code within here to the the customterrain class
 [CustomEditor(typeof(CustomTerrain))]
 //[CanEditMultipleObjects]
@@ -13,11 +13,15 @@ public class NewBehaviourScript : Editor {
 
     SerializedProperty smoothAmount;
 
+    GUITableState splatMapTable;
+    SerializedProperty splatHeights;
+
     //fold outs -------------------------------
     bool showRandom = false;
     bool showLoadHeights = false;
     bool showResetTerrain = false;
     bool showSmooth = false;
+    bool showSplatMap = false;
 
     void OnEnable()
     {
@@ -25,6 +29,8 @@ public class NewBehaviourScript : Editor {
         heightMapScale = serializedObject.FindProperty("heightMapScale");
         heightMapImage = serializedObject.FindProperty("heightMapImage");
         smoothAmount = serializedObject.FindProperty("smoothAmount");
+        splatMapTable = new GUITableState("splatMapTable");
+        splatHeights = serializedObject.FindProperty("splatHeights");
     }
 
     public override void OnInspectorGUI()//The display in the editor
@@ -72,6 +78,18 @@ public class NewBehaviourScript : Editor {
         {
             EditorGUILayout.IntSlider(smoothAmount, 1, 10, new GUIContent("smoothAmount"));
             if (GUILayout.Button("Smooth"))
+            {
+                terrain.Smooth();
+            }
+
+        }
+
+        showSplatMap = EditorGUILayout.Foldout(showSmooth, "Splat Maps");
+        if (showSplatMap)
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Splat Maps", EditorStyles.boldLabel);
+            if (GUILayout.Button("Apply SplatMaps"))
             {
                 terrain.Smooth();
             }

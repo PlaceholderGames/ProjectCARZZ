@@ -245,7 +245,42 @@ ModelImporter:
     9500000: //RootNode
     13700000: Mortimer_glass
     13700002: Mortimer_Hires_Geo
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mort_Body_MAT
+    second: {fileID: 2100000, guid: 3453e87b059048244ad503b0019c9930, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mort_EyeSpec_MAT
+    second: {fileID: 2100000, guid: c0f769bd9fe58db419c29122ae8b1928, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mort_Eyes_MAT
+    second: {fileID: 2100000, guid: 9d98fce2e2d088e45a564ba495d14a36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mort_Guard_MAT
+    second: {fileID: 2100000, guid: c694c6da31431f5478f46975f0a6a707, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Mortimer_diffuse
+    second: {fileID: 2800000, guid: ebc37b2fc6507504385f90ec2eac8994, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Mortimer_normal
+    second: {fileID: 2800000, guid: 63a4012d1f5172e4cb20a5f88e19f2b6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Mortimer_specular
+    second: {fileID: 2800000, guid: 03409144d91eaa24ab8110ea4f4c4a6a, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

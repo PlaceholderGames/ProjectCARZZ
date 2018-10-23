@@ -155,7 +155,32 @@ ModelImporter:
     13700002: FuzZombie
     13700004: Glass
     13700006: Hair
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body_M
+    second: {fileID: 2100000, guid: 6156c9e33ef5f634d9c5b3c72118bfe2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_hair_M
+    second: {fileID: 2100000, guid: 45bda9bf4e75afc409db34f49f29256a, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: FuzZombie__diffuse
+    second: {fileID: 2800000, guid: 053cbaae2bf8b084bbb171c1aa023b26, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: FuzZombie__normal
+    second: {fileID: 2800000, guid: c68a96d3291bbf54690792f5f5a0fbe0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: FuzZombie__specular
+    second: {fileID: 2800000, guid: d16ffc2f495c477478ad154ea0dd0d8e, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using EditorGUITable;
 //Links code within here to the the customterrain class
 [CustomEditor(typeof(CustomTerrain))]
 //[CanEditMultipleObjects]
@@ -12,8 +11,7 @@ public class NewBehaviourScript : Editor {
     SerializedProperty heightMapImage;
 
     SerializedProperty smoothAmount;
-
-    GUITableState splatMapTable;
+    
     SerializedProperty splatHeights;
 
     //fold outs -------------------------------
@@ -29,8 +27,6 @@ public class NewBehaviourScript : Editor {
         heightMapScale = serializedObject.FindProperty("heightMapScale");
         heightMapImage = serializedObject.FindProperty("heightMapImage");
         smoothAmount = serializedObject.FindProperty("smoothAmount");
-        splatMapTable = new GUITableState("splatMapTable");
-        splatHeights = serializedObject.FindProperty("splatHeights");
     }
 
     public override void OnInspectorGUI()//The display in the editor

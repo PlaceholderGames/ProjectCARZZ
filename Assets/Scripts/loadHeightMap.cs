@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class loadHeightMap : MonoBehaviour {
+public class LoadHeightMap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

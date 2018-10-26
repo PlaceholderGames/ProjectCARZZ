@@ -274,11 +274,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17e8ac96d0e0734cb32a318a4c4ecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splatHeights:
+  splatHeightsOld:
   - textureIndex: 0
     startingHeight: 0
   - textureIndex: 1
+    startingHeight: 5
+  - textureIndex: 2
     startingHeight: 10
+  - textureIndex: 3
+    startingHeight: 30
 --- !u!1 &1857811243
 GameObject:
   m_ObjectHideFlags: 0

@@ -149,7 +149,9 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     private Text EngineOn;
 
-    
+    public GameObject popUpMsg;
+
+    public GameObject CARUI;
 
     void Start()
     {
@@ -215,11 +217,23 @@ public class MSSceneControllerFree : MonoBehaviour {
     void ChangeCanvasCam()
     {
         if (fpsCam.gameObject.activeSelf == true)
+        {
             UIcanvas.worldCamera = fpsCam;
+            CARUI.gameObject.SetActive(true);
+        }
+   
         else if (tpsCam.gameObject.activeSelf == true)
+        {
             UIcanvas.worldCamera = tpsCam;
+            CARUI.gameObject.SetActive(true);
+        }
+
         else if (playerCam.gameObject.activeSelf == true)
+        {
             UIcanvas.worldCamera = playerCam;
+            CARUI.gameObject.SetActive(false);
+        }
+
     }
 
     void Manager()
@@ -228,15 +242,29 @@ public class MSSceneControllerFree : MonoBehaviour {
         CoinSystem();
         RepairSystem();
         ChangeCanvasCam();
+        PopUpMsgEnter();
     }
 
     void PopUpMsgEnter()
     {
+        currentDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[0].transform.position);
+        for (int x = 0; x < vehicleCode.doorPosition.Length; x++)
+        {
+            proximityDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[x].transform.position);
+            if (proximityDistanceTemp < currentDistanceTemp)
+            {
+                currentDistanceTemp = proximityDistanceTemp;
+            }
+        }
 
+        if (currentDistanceTemp < minDistance && !vehicleCode.isInsideTheCar)
+            popUpMsg.SetActive(true);
+
+        else
+            popUpMsg.SetActive(false);
     }
 
     //END ADDONS
-
 
 
     void Awake () {
@@ -365,8 +393,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 		}
 	}
 
-
-
 	void Update () {
 		if (!error) {
 			#region customizeInputsValues
@@ -398,6 +424,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 			vehicleCode = vehicles [currentVehicle].GetComponent<MSVehicleControllerFree> ();
 			EnableOrDisableButtons (vehicleCode.isInsideTheCar);
+
+
 
 			if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
 				SceneManager.LoadScene (sceneName);

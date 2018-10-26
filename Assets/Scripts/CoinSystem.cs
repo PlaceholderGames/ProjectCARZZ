@@ -17,4 +17,9 @@ public class CoinSystem : MonoBehaviour {
         Debug.Log("HIT");
         _MSC.coinValue++;
     }
+
+    void Update()
+    {
+        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+    }
 }

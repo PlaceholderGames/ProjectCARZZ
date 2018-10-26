@@ -18,4 +18,8 @@ public class RepairSystem : MonoBehaviour {
         _MSC.repairValue++;
 
     }
+    void Update()
+    {
+        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+    }
 }

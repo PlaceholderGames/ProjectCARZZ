@@ -19,5 +19,10 @@ public class FuelSystem : MonoBehaviour {
         _MSC.fuelValue++;
     }
 
+    void Update()
+    {
+        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+    }
+
 }
 

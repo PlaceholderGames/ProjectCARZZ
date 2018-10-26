@@ -131,23 +131,25 @@ public class MSSceneControllerFree : MonoBehaviour {
     public Camera fpsCam;
     public Camera tpsCam;
     public Camera playerCam;
-    public Canvas UIcanvas;
+    private Canvas UIcanvas;
 
-    public Text kmhText;
-    public Text gearTxt;
+    private Text kmhText;
+    private Text gearTxt;
 
-    public Slider fuelSlider;
-    public Text fuelText;
+    private Slider fuelSlider;
+    private Text fuelText;
     public int fuelValue;
 
-    public Text coinText;
+    private Text coinText;
     public int coinValue;
 
-    public Slider healthSlider;
-    public Text repairText;
+    private Slider healthSlider;
+    private Text repairText;
     public int repairValue;
 
-    public Text EngineOn;
+    private Text EngineOn;
+
+    
 
     void Start()
     {
@@ -226,6 +228,11 @@ public class MSSceneControllerFree : MonoBehaviour {
         CoinSystem();
         RepairSystem();
         ChangeCanvasCam();
+    }
+
+    void PopUpMsgEnter()
+    {
+
     }
 
     //END ADDONS
@@ -358,6 +365,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 		}
 	}
 
+
+
 	void Update () {
 		if (!error) {
 			#region customizeInputsValues
@@ -427,6 +436,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 							}
 						}
 						if (currentDistanceTemp < minDistance) {
+
 							vehicleCode.EnterInVehicle ();
 							if (player) {
 								player.SetActive (false);

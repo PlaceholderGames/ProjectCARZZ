@@ -207,7 +207,7 @@ public class EnviroSpawn_CS : MonoBehaviour {
 			lc = 0;
 			for(uint cn= 0; cn < c; cn++) //na - cycle number
 			{
-				float localCellOffset = fixedGridScale / c * cn; //p
+				//float localCellOffset = fixedGridScale / c * cn; //p
 				for(uint ay= 0; ay < y; ay++)
 					for(uint ax= 0; ax < x; ax++){
 						if(lc < raycastPositions.Length) raycastPositions[lc] = new Vector3(ax * fixedGridScale - x/2 + fixedGridScale/2,0,ay * fixedGridScale - y/2 + fixedGridScale/2);

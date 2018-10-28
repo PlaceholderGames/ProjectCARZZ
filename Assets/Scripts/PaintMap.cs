@@ -6,8 +6,11 @@ using UnityEngine;
 //Textures used
 //https://assetstore.unity.com/packages/2d/textures-materials/seamless-textures-realistic-105177
 //https://assetstore.unity.com/packages/tools/level-design/enviro-spawn-55594
-//https://www.youtube.com/watch?v=kuoTRMQXx6s&feature=youtu.be
+//https://assetstore.unity.com/packages/3d/vegetation/plants/yughues-free-bushes-13168
 //https://assetstore.unity.com/packages/3d/vegetation/trees/realistic-tree-9-rainbow-tree-54622
+//https://assetstore.unity.com/packages/3d/characters/easyroads3d-free-v3-987
+//https://www.youtube.com/watch?v=kuoTRMQXx6s&feature=youtu.be
+
 
 
 public class PaintMap : MonoBehaviour {
@@ -52,7 +55,7 @@ public class PaintMap : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
-        CallSplat();
+        //CallSplat();
     }
 	
 	// Update is called once per frame

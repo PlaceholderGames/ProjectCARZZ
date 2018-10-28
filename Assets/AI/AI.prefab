@@ -2796,7 +2796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 54379299073894004}
   target: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 0.03
   detectDistance: 200
 --- !u!114 &114384630042230940
 MonoBehaviour:

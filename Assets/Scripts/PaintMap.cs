@@ -7,6 +7,7 @@ using UnityEngine;
 //https://assetstore.unity.com/packages/2d/textures-materials/seamless-textures-realistic-105177
 //https://assetstore.unity.com/packages/tools/level-design/enviro-spawn-55594
 //https://www.youtube.com/watch?v=kuoTRMQXx6s&feature=youtu.be
+//https://assetstore.unity.com/packages/3d/vegetation/trees/realistic-tree-9-rainbow-tree-54622
 
 
 public class PaintMap : MonoBehaviour {

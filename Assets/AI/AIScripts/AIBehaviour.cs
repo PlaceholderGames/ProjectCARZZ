@@ -21,7 +21,9 @@ public class AIBehaviour : MonoBehaviour
         //if the player is inside the detectable distance
         if (Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance)
         {
-            Quaternion rotation = Quaternion.LookRotation(target.transform.position - transform.position);
+            Vector3 rot = target.transform.position - transform.position;
+            rot.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(rot);
             transform.rotation = rotation;
             //The AI gets the position of the player and it goes towards it.
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed);

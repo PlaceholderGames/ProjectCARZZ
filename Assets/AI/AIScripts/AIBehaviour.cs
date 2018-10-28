@@ -24,7 +24,7 @@ public class AIBehaviour : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(target.transform.position - transform.position);
             transform.rotation = rotation;
             //The AI gets the position of the player and it goes towards it.
-            rb.AddForce(Math.Max(xpos * moveSpeed, moveSpeed) * Time.deltaTime, 0, Math.Max(zpos * moveSpeed, moveSpeed) * Time.deltaTime, ForceMode.VelocityChange);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed);
         }
     }
 }

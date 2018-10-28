@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
+//Textures used
+//https://assetstore.unity.com/packages/2d/textures-materials/seamless-textures-realistic-105177
+//https://assetstore.unity.com/packages/tools/level-design/enviro-spawn-55594
+//https://www.youtube.com/watch?v=kuoTRMQXx6s&feature=youtu.be
+
 
 public class PaintMap : MonoBehaviour {
     [System.Serializable]
@@ -43,62 +48,7 @@ public class PaintMap : MonoBehaviour {
             terrainData.SetAlphamaps(0, 0, splatmapData);
         }
     }
-
-
-    //==================WIP=====================================================================================
-    ////SPLATMAPS ------------------------------------------
-    //public class SplatHeights
-    //{
-    //    public Texture2D texture = null;
-    //    public float minHeight = 0.1f;
-    //    public float maxHeight = 0.2f;
-    //    public bool remove = false;
-    //}
-
-    //public List<SplatHeights> splatHeights = new List<SplatHeights>()
-    //{
-    //    new SplatHeights()
-    //};
-
-    //public void AddNewSplatHeight()
-    //{
-    //    splatHeights.Add(new SplatHeights());
-    //}
-    //public void RemoveSplatHeight()
-    //{
-    //    List<SplatHeights> keptSplatHeights = new List<SplatHeights>();
-    //    for(int i = 0; i < splatHeights.Count; i++)
-    //    {
-    //        if (!splatHeights[i].remove)
-    //        {
-    //            keptSplatHeights.Add(splatHeights[i]);
-    //        }
-    //    }
-    //    if(keptSplatHeights.Count == 0)//don't want to keep any
-    //    {
-    //        keptSplatHeights.Add(splatHeights[0]);//add at least 1
-    //    }
-    //    splatHeights = keptSplatHeights;
-    //}
-
-    //public void SplatMaps()
-    //{
-    //    TerrainData terrainData = Terrain.activeTerrain.terrainData;
-    //    SplatPrototype[] newSplatPrototypes;
-    //    newSplatPrototypes = new SplatPrototype[splatHeights.Count];
-    //    int spindex = 0;
-    //    foreach (SplatHeights sh in splatHeights)
-    //    {
-    //        newSplatPrototypes[spindex] = new SplatPrototype();
-    //        newSplatPrototypes[spindex].texture = sh.texture;
-    //        newSplatPrototypes[spindex].texture.Apply(true);
-    //        spindex++;
-    //    }
-    //    terrainData.splatPrototypes = newSplatPrototypes;//applies textures to terains avaliable textures for painting
-    //}
-
-    //=================================================================================================================
-
+    
     // Use this for initialization
     void Start () {
         CallSplat();

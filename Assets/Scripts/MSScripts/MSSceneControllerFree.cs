@@ -147,8 +147,6 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text repairText;
     public int repairValue;
 
-    private Text EngineOn;
-
     public GameObject popUpMsg;
 
     public GameObject CARUI;
@@ -158,13 +156,13 @@ public class MSSceneControllerFree : MonoBehaviour {
         UIcanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
         gearTxt = GameObject.Find("gearTxt").GetComponent<Text>();
+        healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
         fuelSlider = GameObject.Find("fuelSlider").GetComponent<Slider>();
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
-        EngineOn = GameObject.Find("engineText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
 
-        healthSlider.value = 50;
+        healthSlider.value = 100;
         fuelSlider.value = 100;
         fuelValue = 0;
         repairValue = 0;
@@ -188,17 +186,20 @@ public class MSSceneControllerFree : MonoBehaviour {
         coinText.text = "Coins: "+coinValue;
     }
 
+    void PopUpMsg()
+    {
+    }
+
     void FuelSystem()
     {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
-        fuelSlider.value -= (vehicleCode.KMh / 1000.0f);
-        fuelText.text = "Fuel: "+fuelValue;
-        EngineOn.text = "Engine on: " + vehicleCode.theEngineIsRunning;
+        fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
+        fuelText.text = ""+fuelValue;
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
-        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+        if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
             Invoke("Refill", 0.5f);
     }
 
@@ -247,6 +248,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void PopUpMsgEnter()
     {
+
+        Text enterText = popUpMsg.transform.Find("Text").GetComponent<Text>();
         currentDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[0].transform.position);
         for (int x = 0; x < vehicleCode.doorPosition.Length; x++)
         {
@@ -258,7 +261,23 @@ public class MSSceneControllerFree : MonoBehaviour {
         }
 
         if (currentDistanceTemp < minDistance && !vehicleCode.isInsideTheCar)
+        {
             popUpMsg.SetActive(true);
+            enterText.text = "Press E to enter the vehicle";
+        }
+
+        else if(fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Fuel low! Press X to refill";
+        }
+
+        else if(fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Low Fuel! You better find some!";
+        }
+           
 
         else
             popUpMsg.SetActive(false);

@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurfaceTrigger : MonoBehaviour {
+public class IceSurface : MonoBehaviour {
 
     public MSSceneControllerFree _MSC;
     public MSVehicleControllerFree _MSV;
+    private float standardSlipValue;
 
     void Awake()
     {
         _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
         _MSV = GameObject.Find("Vehicle5(drift)").GetComponent<MSVehicleControllerFree>();
+    }
+
+    void Start()
+    {
+        standardSlipValue = _MSV._vehicleSettings.improveControl.tireSlipsFactor;
     }
 
     public void OnTriggerEnter()
@@ -21,7 +27,7 @@ public class SurfaceTrigger : MonoBehaviour {
 
     public void OnTriggerExit()
     {
-        _MSV._vehicleSettings.improveControl.tireSlipsFactor = 0.85f;
+        _MSV._vehicleSettings.improveControl.tireSlipsFactor = standardSlipValue;
         _MSV._skidMarks.standardColor = new Color(0, 0, 0);
     }
 

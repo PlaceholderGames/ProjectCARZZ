@@ -163,7 +163,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         coinText = GameObject.Find("coinText").GetComponent<Text>();
 
         healthSlider.value = 100;
-        fuelSlider.value = 100;
+        fuelSlider.value = 50;
         fuelValue = 0;
         repairValue = 0;
         coinValue = 0;
@@ -212,7 +212,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     void Refill()
     {
         fuelValue -= 1;
-        fuelSlider.value += 25;
+        fuelSlider.value += 50;
     }
 
     void ChangeCanvasCam()

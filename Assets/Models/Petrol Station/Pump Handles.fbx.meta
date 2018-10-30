@@ -1,0 +1,186 @@
+fileFormatVersion: 2
+guid: 1f212be659dfcfb49b33e23f92d83b0e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: DieselPump001
+    100002: PremiumDieselPump001
+    100004: //RootNode
+    100006: SuperUnleadedPump001
+    100008: UnleadedPump001
+    400000: DieselPump001
+    400002: PremiumDieselPump001
+    400004: //RootNode
+    400006: SuperUnleadedPump001
+    400008: UnleadedPump001
+    2100000: PumpHandleDiesel
+    2100002: PumpWire
+    2100004: PumpNozzle
+    2100006: PumpHandlePetrol
+    2100008: PumpHandlePremDiesel
+    2100010: PumpHandleSuperPetroleum
+    2300000: DieselPump001
+    2300002: PremiumDieselPump001
+    2300004: SuperUnleadedPump001
+    2300006: UnleadedPump001
+    3300000: DieselPump001
+    3300002: PremiumDieselPump001
+    3300004: SuperUnleadedPump001
+    3300006: UnleadedPump001
+    4300000: DieselPump001
+    4300002: UnleadedPump001
+    4300004: PremiumDieselPump001
+    4300006: SuperUnleadedPump001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpHandleDiesel
+    second: {fileID: 2100000, guid: 0c4c70250a0a71d49ac87f767aee56a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpHandlePetrol
+    second: {fileID: 2100000, guid: f587b9210b09c9c408d78ec7888af186, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpHandlePremDiesel
+    second: {fileID: 2100000, guid: 091d7631b42e52d4d9c81ad8cc106ddc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpHandleSuperPetroleum
+    second: {fileID: 2100000, guid: 8d9353e405f5eb946b725290c2cb2151, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpNozzle
+    second: {fileID: 2100000, guid: ffac953ca80118b48859cc5c298839d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpWire
+    second: {fileID: 2100000, guid: 7791b786bbde9154a9c390d680dc1bd2, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GasPumpHandleRegPetrolAlbedoTransparency
+    second: {fileID: 2800000, guid: f7a5afeeecb8a31428afd813d14db4be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GasPumpHandleSuperDiesel_AlbedoTransparency
+    second: {fileID: 2800000, guid: cd940db306990c24ca1daa9aac7e82d7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GasPumpHandleSuperUnleaded_AlbedoTransparency
+    second: {fileID: 2800000, guid: 818544719507e79479648a8b979f5a0c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GasPumpHandleSuperUnleaded_Normal
+    second: {fileID: 2800000, guid: f085d7e19f02add439dd610cf9aa0d5d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PumpHandleDiesel_AlbedoTransparency
+    second: {fileID: 2800000, guid: dd388f5859b238a498bdb099af103bfd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PumpHandleDiesel_Normal
+    second: {fileID: 2800000, guid: 0a8bbc4f73821b94bb9f8595f6a838ad, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PumpNozzle_PumpNozzle_AlbedoTransparency
+    second: {fileID: 2800000, guid: baa5f004a4bac1f4aaac9a2f5e388276, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PumpNozzle_PumpNozzle_Normal
+    second: {fileID: 2800000, guid: de79abeccc4aa02439b6c446c5eefc9a, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

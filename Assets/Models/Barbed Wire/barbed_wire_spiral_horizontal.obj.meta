@@ -11,6 +11,7 @@ ModelImporter:
     2300000: polySurface3
     3300000: polySurface3
     4300000: polySurface3
+    6400000: polySurface3
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -49,7 +50,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

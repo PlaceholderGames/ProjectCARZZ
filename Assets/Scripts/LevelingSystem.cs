@@ -32,12 +32,11 @@ public class LevelingSystem : MonoBehaviour
             nAi = FindObjectsOfType<AICollision>().Length;
             for (int i = 0; i < nAi; i++)
             {
-
-
                 if (AI[i].isDead)
                 {
                     Debug.Log("Zombie died!");
                     currentXP += 1;
+                    AI[i].isDead = false;
                 }
             }
 

@@ -131,7 +131,12 @@ public class MSSceneControllerFree : MonoBehaviour {
     public Camera fpsCam;
     public Camera tpsCam;
     public Camera playerCam;
-    private Canvas UIcanvas;
+    public Canvas UIcanvas;
+
+    private LevelingSystem LvlSystem;
+    private Slider experienceSlider;
+    private Text LevelText;
+    private Text XpText;
 
     private Text kmhText;
     private Text gearTxt;
@@ -149,6 +154,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject popUpMsg;
 
+
     public GameObject CARUI;
 
     void Start()
@@ -161,7 +167,16 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
+        experienceSlider = GameObject.Find("experienceSlider").GetComponent<Slider>();
+        LvlSystem = GameObject.Find("SceneController").GetComponent<LevelingSystem>();
+        XpText = GameObject.Find("XpText").GetComponent<Text>();
+        LevelText = GameObject.Find("LevelText").GetComponent<Text>();
+        
 
+        experienceSlider.value = LvlSystem.currentXP;
+        experienceSlider.maxValue = LvlSystem.totalXP;
+        XpText.text = ""+LvlSystem.currentXP;
+        LevelText.text = ""+LvlSystem.currentLevel;
         healthSlider.value = 100;
         fuelSlider.value = 50;
         fuelValue = 0;
@@ -170,6 +185,13 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     }
 
+    void LevelSystem()
+    {
+        experienceSlider.value = LvlSystem.currentXP;
+        XpText.text = "" + LvlSystem.currentXP;
+        LevelText.text = "" + LvlSystem.currentLevel;
+        experienceSlider.maxValue = LvlSystem.totalXP;
+    }
 
     void RepairSystem()
     {
@@ -184,10 +206,6 @@ public class MSSceneControllerFree : MonoBehaviour {
     void CoinSystem()
     {
         coinText.text = "Coins: "+coinValue;
-    }
-
-    void PopUpMsg()
-    {
     }
 
     void FuelSystem()
@@ -244,6 +262,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         RepairSystem();
         ChangeCanvasCam();
         PopUpMsgEnter();
+        LevelSystem();
     }
 
     void PopUpMsgEnter()

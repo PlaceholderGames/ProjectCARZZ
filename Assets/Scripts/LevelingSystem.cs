@@ -10,34 +10,33 @@ public class LevelingSystem : MonoBehaviour
     public int givenXP;
     public int currentXP;
     public int totalXP = 10;
-    private List<AICollision> AI;
+    private AICollision[] AI;
     private int nAi;
 
     // Use this for initialization
     void Start()
     {
-        nAi = GameObject.FindObjectsOfType<AICollision>().Length;
-        for (int i = 0; i < nAi; i++)
-        {
-            AI[i] = GameObject.FindObjectsOfType<AICollision>()[i];
-        }
+        AI = FindObjectsOfType<AICollision>();
+        Debug.Log(FindObjectsOfType<AICollision>());
+        Debug.Log(AI);
+        nAi = FindObjectsOfType<AICollision>().Length;
         totalExperience(currentLevel);
-        //Debug.Log("This is the exp" + currentXP);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nAi <= GameObject.FindObjectsOfType<AICollision>().Length)
+        if (nAi <= FindObjectsOfType<AICollision>().Length)
         {
-
-            nAi = GameObject.FindObjectsOfType<AICollision>().Length;
+            AI = FindObjectsOfType<AICollision>();
+            nAi = FindObjectsOfType<AICollision>().Length;
             for (int i = 0; i < nAi; i++)
             {
-                Debug.Log(nAi);
-                AI[i] = GameObject.FindObjectsOfType<AICollision>()[i];
+
+
                 if (AI[i].isDead)
                 {
+                    Debug.Log("Zombie died!");
                     currentXP += 1;
                 }
             }
@@ -56,7 +55,6 @@ public class LevelingSystem : MonoBehaviour
                 currentLevel++;
             }
             totalExperience(currentLevel);
-            Debug.Log("This is the exp 2" + currentXP);
         }
     }
 

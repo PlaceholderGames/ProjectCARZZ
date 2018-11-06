@@ -7,6 +7,7 @@ TagManager:
   - Zombie
   - floor
   - target
+  - Vehicle
   layers:
   - Default
   - TransparentFX

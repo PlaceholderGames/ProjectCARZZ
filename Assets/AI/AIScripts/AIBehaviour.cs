@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AIBehaviour : MonoBehaviour
 {
-
+    
     public Rigidbody rb;
     public Transform target;
     public float moveSpeed = 5f;
@@ -16,6 +16,7 @@ public class AIBehaviour : MonoBehaviour
     void FixedUpdate()
 
     {
+        
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
         //if the player is inside the detectable distance

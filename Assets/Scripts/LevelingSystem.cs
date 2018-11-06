@@ -2,41 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelingSystem : MonoBehaviour {
+public class LevelingSystem : MonoBehaviour
+{
 
     public int currentLevel = 1;
     private int maxLevel = 20;
     public int givenXP;
     public int currentXP;
     public int totalXP = 10;
-    private AiBehavior[] aiBehavior;
-    private AiBehavior nAi;
+    private List<AICollision> AI;
+    private int nAi;
 
-	// Use this for initialization
-	void Start () {
-        nAi = GameObject.FindGameObjectsWithTag("Zombie").GetLength;
-		for(int i = 0; i < nAi; i++)
+    // Use this for initialization
+    void Start()
+    {
+        nAi = GameObject.FindObjectsOfType<AICollision>().Length;
+        for (int i = 0; i < nAi; i++)
         {
-            aiBehavior[i] = GameObject.FindGameObjectsWithTag("Zombie")[i];
+            AI[i] = GameObject.FindObjectsOfType<AICollision>()[i];
         }
         totalExperience(currentLevel);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (nAi < GameObject.FindGameObjectsWithTag("Zombie").GetLength)
-        { 
-            nAi = GameObject.FindGameObjectsWithTag("Zombie").GetLength;
+        //Debug.Log("This is the exp" + currentXP);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (nAi <= GameObject.FindObjectsOfType<AICollision>().Length)
+        {
+
+            nAi = GameObject.FindObjectsOfType<AICollision>().Length;
             for (int i = 0; i < nAi; i++)
             {
-                aiBehavior[i] = GameObject.FindGameObjectsWithTag("Zombie")[i];
-                if (aiBehavior[i].isDead)
+                Debug.Log(nAi);
+                AI[i] = GameObject.FindObjectsOfType<AICollision>()[i];
+                if (AI[i].isDead)
                 {
                     currentXP += 1;
                 }
             }
+
         }
-        if(currentXP >= totalXP)
+        if (currentXP >= totalXP)
         {
             if (currentXP > totalXP)
             {
@@ -49,8 +56,8 @@ public class LevelingSystem : MonoBehaviour {
                 currentLevel++;
             }
             totalExperience(currentLevel);
+            Debug.Log("This is the exp 2" + currentXP);
         }
-        
     }
 
     private bool totalExperience(int lvl)
@@ -65,7 +72,7 @@ public class LevelingSystem : MonoBehaviour {
             totalXP = totalXP * lvl + (int)((float)totalXP / 2f);
             return true;
         }
-        else if (lvl == maxLevel+1)
+        else if (lvl == maxLevel + 1)
         {
             currentXP = totalXP;
             return true;

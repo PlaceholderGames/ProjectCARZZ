@@ -8,7 +8,7 @@ public class AIBehaviour : MonoBehaviour
     
     public Rigidbody rb;
     public Transform target;
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     float xpos, zpos;
     

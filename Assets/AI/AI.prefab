@@ -1434,7 +1434,7 @@ Transform:
   m_GameObject: {fileID: 1081653143893834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00053453445, y: 0.8997744, z: 0.02398163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4083878502623634}
   m_Father: {fileID: 0}
@@ -2795,7 +2795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 54379299073894004}
-  target: {fileID: 0}
+  target: {fileID: 4458371381296706, guid: c34f07d0b50581445ad86ecc856b5e15, type: 2}
   moveSpeed: 0.03
   detectDistance: 200
 --- !u!114 &114384630042230940

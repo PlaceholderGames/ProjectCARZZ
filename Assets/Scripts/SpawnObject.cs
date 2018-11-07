@@ -22,11 +22,6 @@ public class SpawnObject : MonoBehaviour {
     private float []aiEnemy;
     private bool isSpawning;
 
-    void Awake()
-    {
-        isSpawning = false;
-    }
-
     public void SpawnZombie()
     {
         Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
@@ -35,14 +30,18 @@ public class SpawnObject : MonoBehaviour {
         aiNumber++;
         aiSpeed = Random.Range(0.01f, 0.1f);//come back to this it changes all the ai as a whole and not individually
     }
-    
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = col;
         Gizmos.DrawCube(center, size);
     }
-    
+
+    void Awake()
+    {
+        isSpawning = false;
+    }
+
     // Use this for initialization
     void Start () {
         aIBehaiour = FindObjectsOfType<AIBehaviour>();
@@ -63,16 +62,13 @@ public class SpawnObject : MonoBehaviour {
         for (int i = 0; i < aIBehaiour.Length; i++)
         {
             aIBehaiour[i].target = target;
-            aIBehaiour[i].moveSpeed = aiSpeed[i];
+            aIBehaiour[i].moveSpeed = aiSpeed;
         }
         
         for (int i = 0; i < aICollision.Length; i++)
         {
             aICollision[i].aiKillTimer = aiKillTimer;
         }
-    
-
-        
     }
 
 }

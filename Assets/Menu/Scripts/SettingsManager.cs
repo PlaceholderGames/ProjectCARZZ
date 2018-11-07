@@ -1,70 +1,87 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class SettingsManager : MonoBehaviour {
+public class SettingsManager : MonoBehaviour { 
 
     public Toggle fullscreenToggle; // initialise UI elements
     public Dropdown resolutionDropdown;
     public Dropdown textureQualityDropdown;
-    public Dropdown antialisingDropdown;
+    public Dropdown antialiasingDropdown;
     public Dropdown vSyncDropdown;
     public Slider musicVolumeSlider;
     public Button applyVideoButton;
+    public Button applyAudioButton;
 
     public AudioSource musicSource;
     public Resolution[] resolutions;
-    public GameSettings gameSettings;
+    public GameSettings gameQualitySettings;
 
     void OnEnable()
     {
-        gameSettings = new GameSettings();
+
+        DontDestroyOnLoad(transform.gameObject);
+
+        gameQualitySettings = new GameSettings();
 
         fullscreenToggle.onValueChanged.AddListener(delegate { OnFullscreenToggle(); });
         resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
         textureQualityDropdown.onValueChanged.AddListener(delegate { OnTextureQualityChange(); });
-        antialisingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
+        antialiasingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
         vSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
         musicVolumeSlider.onValueChanged.AddListener(delegate { onMusicVolumeChange(); });
         applyVideoButton.onClick.AddListener(delegate { onVideoButtonClick(); });
+        applyAudioButton.onClick.AddListener(delegate { onAudioButtonClick(); });
 
 
-        resolutions = Screen.resolutions; // getting an array of resolutions
+
+        musicSource = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
+
+        resolutions = Screen.resolutions; // getting an array of all avaliable resolutions
         foreach(Resolution resolution in resolutions)
             {
             resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
         }
 
-        LoadSettings();
+        if (File.Exists(Application.persistentDataPath + "/qualitysettings.json") == true)
+        {
+            
+            LoadSettings();
+        }
     }
 
     public void OnFullscreenToggle()
     {
-      gameSettings.fullscreen = Screen.fullScreen = fullscreenToggle.isOn;
+        gameQualitySettings.fullscreen = Screen.fullScreen = fullscreenToggle.isOn;
 
     }
     public void OnResolutionChange()
     {
         Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height, Screen.fullScreen);
-        gameSettings.resolutionIndex = resolutionDropdown.value;
+        gameQualitySettings.resolutionIndex = resolutionDropdown.value;
+  
     }
     public void OnTextureQualityChange()
     {
-        QualitySettings.masterTextureLimit = gameSettings.textureQuality = textureQualityDropdown.value;
+        QualitySettings.masterTextureLimit = gameQualitySettings.textureQuality = textureQualityDropdown.value;
     }
     public void OnAntialiasingChange()
     {
-        QualitySettings.antiAliasing = gameSettings.antialiasing = (int)Mathf.Pow(2, antialisingDropdown.value);
+        QualitySettings.antiAliasing = (int)Mathf.Pow(2, antialiasingDropdown.value);
+        gameQualitySettings.antialiasing = antialiasingDropdown.value;
     }
     public void OnVSyncChange()
     {
-        QualitySettings.vSyncCount = gameSettings.vSync = vSyncDropdown.value;
+        QualitySettings.vSyncCount = gameQualitySettings.vSync = vSyncDropdown.value;
     }
     public void onMusicVolumeChange()
     {
-        musicSource.volume = gameSettings.musicVolume = musicVolumeSlider.value;
+        musicSource.volume = gameQualitySettings.musicVolume = musicVolumeSlider.value;
+    }
+    public void onAudioButtonClick()
+    {
+        SaveSettings();
     }
     public void onVideoButtonClick()
     {
@@ -72,24 +89,27 @@ public class SettingsManager : MonoBehaviour {
     }
     public void SaveSettings()
     {
-        string jsonData = JsonUtility.ToJson(gameSettings, true);
-        File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", jsonData);
+        string gameDataJson = JsonUtility.ToJson(gameQualitySettings, true);
+        File.WriteAllText(Application.persistentDataPath + "/qualitysettings.json", gameDataJson);
+        Debug.Log("Saving as JSON: " + gameDataJson);
     }
-    public void LoadSettings()
+    public void LoadSettings() 
     {
-        gameSettings = JsonUtility.FromJson<GameSettings>(Application.persistentDataPath + "/gamesettings.json");
+        File.ReadAllText(Application.persistentDataPath + "/qualitysettings.json");
+        gameQualitySettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/qualitysettings.json"));
 
-        musicVolumeSlider.value = gameSettings.musicVolume;
-        antialisingDropdown.value = gameSettings.antialiasing;
-        vSyncDropdown.value = gameSettings.vSync;
-        textureQualityDropdown.value = gameSettings.textureQuality;
-        resolutionDropdown.value = gameSettings.resolutionIndex;
-        fullscreenToggle.isOn = gameSettings.fullscreen;
-        Screen.fullScreen = gameSettings.fullscreen;
+ 
+        fullscreenToggle.isOn = gameQualitySettings.fullscreen;
+        textureQualityDropdown.value = gameQualitySettings.textureQuality;
+        antialiasingDropdown.value = gameQualitySettings.antialiasing;
+        vSyncDropdown.value = gameQualitySettings.vSync;
+        resolutionDropdown.value = gameQualitySettings.resolutionIndex;
+        musicVolumeSlider.value = gameQualitySettings.musicVolume;
+
+        Screen.fullScreen = gameQualitySettings.fullscreen;
         resolutionDropdown.RefreshShownValue();
-    }
 
-  
-  
+
+    }
 }
 

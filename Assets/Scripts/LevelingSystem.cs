@@ -36,7 +36,7 @@ public class LevelingSystem : MonoBehaviour
                 {
                     Debug.Log("Zombie died!");
                     currentXP += 1;
-                    AI[i].isDead = false;
+
                 }
             }
 

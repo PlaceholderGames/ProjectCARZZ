@@ -20,10 +20,10 @@ public class SettingsManager : MonoBehaviour {
 
     void OnEnable()
     {
-
-        DontDestroyOnLoad(transform.gameObject);
-
         gameQualitySettings = new GameSettings();
+
+
+
 
         fullscreenToggle.onValueChanged.AddListener(delegate { OnFullscreenToggle(); });
         resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
@@ -44,12 +44,19 @@ public class SettingsManager : MonoBehaviour {
             resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
         }
 
-        if (File.Exists(Application.persistentDataPath + "/qualitysettings.json") == true)
+        if (File.Exists(Application.persistentDataPath + "/qualitysettings.json") == true) // only load the file if it exists.
         {
-            
+
             LoadSettings();
         }
+        else
+        {
+            resolutionDropdown.RefreshShownValue();
+        }
+
     }
+
+    // when the ui is interacted with, change the values of the variables the ui elements represent.
 
     public void OnFullscreenToggle()
     {
@@ -75,15 +82,15 @@ public class SettingsManager : MonoBehaviour {
     {
         QualitySettings.vSyncCount = gameQualitySettings.vSync = vSyncDropdown.value;
     }
-    public void onMusicVolumeChange()
+    public void onMusicVolumeChange() 
     {
         musicSource.volume = gameQualitySettings.musicVolume = musicVolumeSlider.value;
     }
-    public void onAudioButtonClick()
+    public void onAudioButtonClick() //when the apply button is clicked, save the audio settings
     {
         SaveSettings();
     }
-    public void onVideoButtonClick()
+    public void onVideoButtonClick() //when the apply button is clicked, save the video settings
     {
         SaveSettings();
     }

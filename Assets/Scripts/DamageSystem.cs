@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Add script to Player or Vehicle
+//Add script to MSPlayerControllerFree or MSVehicleControllerFree
 public class DamageSystem : MonoBehaviour {
 
     private AICollision[] Ai;

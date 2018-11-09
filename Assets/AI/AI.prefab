@@ -2810,6 +2810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 1081653143893834}
+  isDead: 0
+  aiKillTimer: 0
 --- !u!136 &136864239010068546
 CapsuleCollider:
   m_ObjectHideFlags: 1

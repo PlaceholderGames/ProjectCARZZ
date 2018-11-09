@@ -14,7 +14,7 @@ public class CoinSystem : MonoBehaviour {
     public void OnTriggerEnter()
     {
         Destroy(gameObject);
-        Debug.Log("HIT");
+        Debug.Log("Player");
         _MSC.coinValue++;
     }
 

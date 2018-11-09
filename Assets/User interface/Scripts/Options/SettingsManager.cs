@@ -140,7 +140,6 @@ public class SettingsManager : MonoBehaviour {
     {
         string gameDataJson = JsonUtility.ToJson(gameQualitySettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", gameDataJson);
-        Debug.Log("Saving as JSON: " + gameDataJson);
     }
 
     

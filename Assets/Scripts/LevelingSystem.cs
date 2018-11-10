@@ -24,7 +24,7 @@ public class LevelingSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void UpdateLevelingSystem()
     {
         if (nAi <= FindObjectsOfType<AICollision>().Length)
         {

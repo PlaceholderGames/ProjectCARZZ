@@ -17,7 +17,7 @@ public class DamageSystem : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void UpdateDamageSystem() { // called in MSSceneController Update function
         Ai = FindObjectsOfType<AICollision>();
         for (int i = 0; i < Ai.Length; i++)
         {

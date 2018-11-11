@@ -36,5 +36,9 @@ public class pauseMenu : MonoBehaviour {
         gamePaused = true;
     }
 
+    public void quitToMenu()
+    {
+        Time.timeScale = 1f;
+    }
 
 }

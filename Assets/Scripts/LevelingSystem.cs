@@ -10,37 +10,16 @@ public class LevelingSystem : MonoBehaviour
     public int givenXP;
     public int currentXP;
     public int totalXP = 10;
-    private AICollision[] AI;
-    private int nAi;
 
     // Use this for initialization
     void Start()
     {
-        AI = FindObjectsOfType<AICollision>();
-        Debug.Log(FindObjectsOfType<AICollision>());
-        Debug.Log(AI);
-        nAi = FindObjectsOfType<AICollision>().Length;
         totalExperience(currentLevel);
     }
 
     // Update is called once per frame
-    void UpdateLevelingSystem()
+    public void UpdateLevelingSystem()
     {
-        if (nAi <= FindObjectsOfType<AICollision>().Length)
-        {
-            AI = FindObjectsOfType<AICollision>();
-            nAi = FindObjectsOfType<AICollision>().Length;
-            for (int i = 0; i < nAi; i++)
-            {
-                if (AI[i].isDead)
-                {
-                    Debug.Log("Zombie died!");
-                    currentXP += 1;
-
-                }
-            }
-
-        }
         if (currentXP >= totalXP)
         {
             if (currentXP > totalXP)

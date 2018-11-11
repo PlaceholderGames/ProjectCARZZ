@@ -11,7 +11,12 @@ public class AIBehaviour : MonoBehaviour
     public float moveSpeed = 5f;
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     float xpos, zpos;
-    
+    static Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void FixedUpdate()
 
@@ -22,6 +27,7 @@ public class AIBehaviour : MonoBehaviour
         //if the player is inside the detectable distance
         if (Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance)
         {
+            anim.SetBool("isIdle", false);
             Vector3 rot = target.transform.position - transform.position;
             rot.y = 0;
             Quaternion rotation = Quaternion.LookRotation(rot);
@@ -29,5 +35,10 @@ public class AIBehaviour : MonoBehaviour
             //The AI gets the position of the player and it goes towards it.
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed);
         }
+        else
+        {
+            anim.SetBool("isIdle", true);
+        }
+          
     }
 }

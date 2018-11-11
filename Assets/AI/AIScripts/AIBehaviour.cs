@@ -12,10 +12,16 @@ public class AIBehaviour : MonoBehaviour
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     float xpos, zpos;
     static Animator anim;
+    private Boolean hitPlayer = false;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        hitPlayer = true;
     }
 
     void FixedUpdate()
@@ -25,7 +31,7 @@ public class AIBehaviour : MonoBehaviour
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
         //if the player is inside the detectable distance
-        if (Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance)
+        if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance) && !hitPlayer)
         {
             anim.SetBool("isIdle", false);
             Vector3 rot = target.transform.position - transform.position;

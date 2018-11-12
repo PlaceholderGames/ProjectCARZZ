@@ -7,7 +7,8 @@ public class AICollision : MonoBehaviour
     private Animator anim;
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void OnCollisionEnter(Collision collisionInfo)

@@ -16,12 +16,14 @@ public class AIBehaviour : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collisionInfo)
     {
-        hitPlayer = true;
+        if (collisionInfo.collider.tag == "Player")
+            hitPlayer = true;
     }
 
     void FixedUpdate()

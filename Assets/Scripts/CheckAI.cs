@@ -12,7 +12,7 @@ public class CheckAI : MonoBehaviour {
     private AICollision[] Ai;
     private AIBehaviour[] aIBehaviours;
     private MSFPSControllerFree player;
-    private MSVehicleControllerFree[] vehicle;
+    private MSVehicleControllerFree vehicle;
     private Slider healthSlider;
     // Use this for initialization
     void Start () {
@@ -21,7 +21,7 @@ public class CheckAI : MonoBehaviour {
         Ai = FindObjectsOfType<AICollision>();
         aIBehaviours = FindObjectsOfType<AIBehaviour>();
         player = FindObjectOfType<MSFPSControllerFree>();
-        vehicle = FindObjectsOfType<MSVehicleControllerFree>();
+        vehicle = FindObjectOfType<MSVehicleControllerFree>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
         
 	}
@@ -30,38 +30,30 @@ public class CheckAI : MonoBehaviour {
 	public void UpdateCheckAI() {
 		for(int i = 0; i < Ai.Length; i++)
         {
-            for (int j = 0; j < vehicle.Length; j++)
+            if (Ai[i].isDead)
             {
-                if (Ai[i].isDead)
+                if (vehicle.KMh > 30.0f)
                 {
-                    if (vehicle[j].gameObject.activeSelf)
-                    {
-                        if (vehicle[j].KMh > 30.0f)
-                        {
-                            Debug.Log("GaveXP");
-                            ls.currentXP += 1;
-                            ls.UpdateLevelingSystem();
-                            Ai[i].isDead = false;
-                        }
-                    }
+                    Debug.Log("GaveXP");
+                    ls.currentXP += 1;
+                    ls.UpdateLevelingSystem();
+                    Ai[i].isDead = false;
                 }
-                if (Ai[i].gaveDamage)
-                {
-                    ds.RecievedDamage = Random.Range(1, 10);
-                    healthSlider.value -= ds.RecievedDamage;
-                    Ai[i].gaveDamage = false;
-                }
-                if (player.gameObject.activeSelf)
-                {
-                    aIBehaviours[i].target = player.transform;
-                }
-                else
-                {
-                    if(vehicle[j].gameObject.activeSelf)
-                    {
-                        aIBehaviours[i].target = vehicle[j].transform;
-                    }
-                }
+            }
+            if (Ai[i].gaveDamage)
+            {
+                ds.RecievedDamage = Random.Range(1, 10);
+                healthSlider.value -= ds.RecievedDamage;
+                Ai[i].gaveDamage = false;
+            }
+            if (player.gameObject.activeSelf)
+            {
+                aIBehaviours[i].target = player.transform;
+            }
+            else
+            {
+
+                aIBehaviours[i].target = vehicle.transform;
             }
         }
         

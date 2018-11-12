@@ -12,7 +12,7 @@ public class AICollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-       if (collisionInfo.collider.tag == "target")
+       if (collisionInfo.collider.tag == "Player")
         {
             anim.SetBool("isWon", true);
         }

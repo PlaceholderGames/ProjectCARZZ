@@ -11,7 +11,7 @@ public class AIBehaviour : MonoBehaviour
     public float moveSpeed = 5f;
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     float xpos, zpos;
-    static Animator anim;
+    private Animator anim;
     private Boolean hitPlayer = false;
 
     private void Start()

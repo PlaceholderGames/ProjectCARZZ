@@ -4,7 +4,7 @@ using UnityEngine;
 public class AICollision : MonoBehaviour
 {
     public GameObject ai;
-    static Animator anim;
+    private Animator anim;
     private void Start()
     {
         anim = GetComponent<Animator>();

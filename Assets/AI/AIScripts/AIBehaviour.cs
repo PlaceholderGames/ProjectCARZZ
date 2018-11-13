@@ -43,12 +43,14 @@ public class AIBehaviour : MonoBehaviour
                 anim.SetBool("isIdle", false); ///Player in car
                 if (vehicle.isInsideTheCar)
                 {
+                    anim.SetBool("isWalking", false);
                     anim.SetBool("isRunning", true); //Zombie runs
                     speed = runMoveSpeed;
                 }
                 else
                 {
                     anim.SetBool("isWalking", true); //Zombie walks
+                    anim.SetBool("isRunning", false);
                     speed = moveSpeed;
                 }
                 Vector3 rot = target.transform.position - transform.position;

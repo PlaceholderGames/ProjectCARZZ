@@ -2774,7 +2774,7 @@ Animator:
   m_GameObject: {fileID: 1685619513294400}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 658d281407bba4748b6334e44580e42f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7bcaf9152bb2df04caf0f040cc2043ec, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2797,7 +2797,9 @@ MonoBehaviour:
   rb: {fileID: 54379299073894004}
   target: {fileID: 4458371381296706, guid: c34f07d0b50581445ad86ecc856b5e15, type: 2}
   moveSpeed: 0.03
+  runMoveSpeed: 0.1
   detectDistance: 200
+  aiCollision: {fileID: 0}
 --- !u!114 &114384630042230940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2809,9 +2811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69163b2331024d4198e03a8e4f8b273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ai: {fileID: 1081653143893834}
+  despawnTime: 5
+  gaveDamage: 0
   isDead: 0
-  aiKillTimer: 0
+  hitPlayer: 0
+  ishit: 0
 --- !u!136 &136864239010068546
 CapsuleCollider:
   m_ObjectHideFlags: 1

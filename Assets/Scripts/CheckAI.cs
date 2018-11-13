@@ -10,8 +10,6 @@ public class CheckAI : MonoBehaviour {
     [HideInInspector]
     public LevelingSystem ls;
     private AICollision[] Ai;
-    private AIBehaviour[] aIBehaviours;
-    private MSFPSControllerFree player;
     private MSVehicleControllerFree vehicle;
     private Slider healthSlider;
     // Use this for initialization
@@ -19,8 +17,6 @@ public class CheckAI : MonoBehaviour {
         ds = FindObjectOfType<DamageSystem>();
         ls = FindObjectOfType<LevelingSystem>();
         Ai = FindObjectsOfType<AICollision>();
-        aIBehaviours = FindObjectsOfType<AIBehaviour>();
-        player = FindObjectOfType<MSFPSControllerFree>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
         
@@ -46,15 +42,15 @@ public class CheckAI : MonoBehaviour {
                 healthSlider.value -= ds.RecievedDamage;
                 Ai[i].gaveDamage = false;
             }
-            if (player.gameObject.activeSelf)
-            {
-                aIBehaviours[i].target = player.transform;
-            }
-            else
-            {
+            //if (player.gameObject.activeSelf)
+            //{
+            //    aIBehaviours[i].target = player.transform;
+            //}
+            //else
+            //{
 
-                aIBehaviours[i].target = vehicle.transform;
-            }
+            //    aIBehaviours[i].target = vehicle.transform;
+            //}
         }
         
 	}

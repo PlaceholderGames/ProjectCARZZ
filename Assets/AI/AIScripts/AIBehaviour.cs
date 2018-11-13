@@ -42,7 +42,7 @@ public class AIBehaviour : MonoBehaviour
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
         { ///Hit animation is not playing
             //if the player is inside the detectable distance
-            if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance) && !(aiCollision.hitPlayer))
+            if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
             {
                 anim.SetBool("isIdle", false); ///Player in car
                 if (inCar)

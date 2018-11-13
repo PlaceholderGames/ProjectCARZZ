@@ -16,9 +16,11 @@ public class SettingsManager : MonoBehaviour {
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
+    public Slider fovSlider;
 
     public Button applyVideoButton;
     public Button applyAudioButton;
+    public Button applyGameButton;
 
     public Resolution[] resolutions;
 
@@ -40,8 +42,11 @@ public class SettingsManager : MonoBehaviour {
         masterVolumeSlider.onValueChanged.AddListener(delegate { onMasterVolumeChange(); });
         musicVolumeSlider.onValueChanged.AddListener(delegate { onMusicVolumeChange(); });
         sfxVolumeSlider.onValueChanged.AddListener(delegate { onSFXVolumeChange(); });
+        fovSlider.onValueChanged.AddListener(delegate { onFovSliderChange(); });
         applyVideoButton.onClick.AddListener(delegate { onVideoButtonClick(); });
         applyAudioButton.onClick.AddListener(delegate { onAudioButtonClick(); });
+        applyGameButton.onClick.AddListener(delegate { onGameButtonClick(); });
+
 
         resolutions = Screen.resolutions; // getting an array of all avaliable resolutions
 
@@ -67,6 +72,7 @@ public class SettingsManager : MonoBehaviour {
         masterVolumeSlider.value = gameQualitySettings.masterVolume;
         musicVolumeSlider.value = gameQualitySettings.musicVolume;
         sfxVolumeSlider.value = gameQualitySettings.sfxVolume;
+        fovSlider.value = gameQualitySettings.fovValue;
 
 
         Screen.fullScreen = gameQualitySettings.fullscreen;
@@ -126,12 +132,24 @@ public class SettingsManager : MonoBehaviour {
 
     }
 
-    public void onAudioButtonClick() //when the apply button is clicked, save the audio settings
+    public void onFovSliderChange()
+    {
+        gameQualitySettings.fovValue = fovSlider.value;
+        Camera.main.fieldOfView = fovSlider.value;
+
+    }
+
+    public void onAudioButtonClick() //when the particular settings apply button is clicked, save the audio settings
     {
         SaveSettings();
     }
 
-    public void onVideoButtonClick() //when the apply button is clicked, save the video settings
+    public void onVideoButtonClick() 
+    {
+        SaveSettings();
+    }
+
+    public void onGameButtonClick() 
     {
         SaveSettings();
     }
@@ -140,7 +158,6 @@ public class SettingsManager : MonoBehaviour {
     {
         string gameDataJson = JsonUtility.ToJson(gameQualitySettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", gameDataJson);
-        Debug.Log("Saving as JSON: " + gameDataJson);
     }
 
     

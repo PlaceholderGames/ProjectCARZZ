@@ -11,5 +11,5 @@ public class GameSettings {
     public float masterVolume;
     public float musicVolume;
     public float sfxVolume;
-
+    public float fovValue;
 }

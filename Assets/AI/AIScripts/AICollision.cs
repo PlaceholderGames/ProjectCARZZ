@@ -1,48 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using System.Linq;
-using System;
 
 public class AICollision : MonoBehaviour
 {
-    private SpawnObject spawnObject;
-    //private LevelingSystem damageSystem;
-    //private Slider healthSlider;
-    private int aiNumber;
-    public GameObject ai;
+    
+    private Animator anim;
+    public float despawnTime = 5;
+    
+    public bool gaveDamage = false;
     public bool isDead = false;
-    public float aiKillTimer;
-    //private Text popUpText;
-
-    void Start()
+    public bool hitPlayer = false;
+    public bool ishit = false;
+    private void Start()
     {
-        //popUpText = GameObject.Find("popUpMsg").GetComponent<Text>();
-        //damageSystem = FindObjectOfType<LevelingSystem>();
-        //healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
+        
+        anim = GetComponentInChildren<Animator>();
+       
     }
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-       if (collisionInfo.collider.tag == "Vehicle")//collisionInfo.collider.tag == "Player"
+       if (collisionInfo.collider.tag == "Player")
         {
-            isDead = true;//sets variable to say its out of scene
-            Destroy(ai, aiKillTimer);
-            
-            spawnObject = FindObjectOfType<SpawnObject>();//Finds the AI object
-            spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
-
-            //Debug.Log(damageSystem.RecievedDamage);
-            //healthSlider.value -= damageSystem.RecievedDamage;
-
+            hitPlayer = true;
+            anim.SetBool("isWon", true);
         }
-
-        if (collisionInfo.collider.tag == "Player")//collisionInfo.collider.tag == "Player"
+        if (collisionInfo.collider.tag == "Vehicle")
         {
-            collisionInfo.gameObject.SetActive(false);
-            //popUpText.text = "You did Died Son";
+            if (vehicle.KMh > 30)
+                Destroy(gameObject, despawnTime);
+            else
+            {
+                anim.SetBool("isHit", true);
+            }
         }
     }
 

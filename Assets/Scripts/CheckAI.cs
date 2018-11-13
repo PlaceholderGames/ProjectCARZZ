@@ -24,10 +24,12 @@ public class CheckAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void UpdateCheckAI() {
-		for(int i = 0; i < Ai.Length; i++)
+        Ai = FindObjectsOfType<AICollision>();
+        for (int i = 0; i < Ai.Length; i++)
         {
             if (Ai[i].isDead)
             {
+                Debug.Log("isdead");
                 if (vehicle.KMh > 30.0f)
                 {
                     Debug.Log("GaveXP");

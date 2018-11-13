@@ -4,13 +4,16 @@ using UnityEngine;
 public class AICollision : MonoBehaviour
 {
     private Animator anim;
+    private SpawnObject spawnObject;
+    private MSVehicleControllerFree vehicle;
+
+
     public float despawnTime = 5;
-    
     public bool gaveDamage = false;
     public bool isDead = false;
     public bool hitPlayer = false;
     public bool ishit = false;
-    private MSVehicleControllerFree vehicle;
+  
     private void Start()
     {
         
@@ -27,24 +30,13 @@ public class AICollision : MonoBehaviour
         }
         if (collisionInfo.collider.tag == "Vehicle")
         {
-<<<<<<< HEAD
             if (vehicle.KMh > 30.0f)
             {
                 isDead = true;
                 Destroy(gameObject, despawnTime);
+                spawnObject = FindObjectOfType<SpawnObject>();//Finds the AI object
+                spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
             }
-            else
-=======
-            if (vehicle.KMh > 30)
->>>>>>> upstream/Sebastian
-            {
-                isDead = true;
-                Destroy(gameObject, despawnTime);
-            }
-<<<<<<< HEAD
-=======
-           
->>>>>>> upstream/Sebastian
             gaveDamage = true;
         }
     }

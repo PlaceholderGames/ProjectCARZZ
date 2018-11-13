@@ -36,9 +36,7 @@ public class AIBehaviour : MonoBehaviour
 
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
-        /// Checks if the hit animation is playing
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Zombie Reaction Hit"))
-        { ///Hit animation is not playing
+        
             //if the player is inside the detectable distance
             if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance) && !(aiCollision.hitPlayer))
             {
@@ -66,14 +64,7 @@ public class AIBehaviour : MonoBehaviour
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isRunning", false);
             }
-        }
-        else
-        {
-            anim.SetBool("isHit", false);
-            anim.SetBool("isIdle", true);
-            anim.SetBool("isWalking", false);
-            anim.SetBool("isRunning", false);
-        }
+       
 
     }
 }

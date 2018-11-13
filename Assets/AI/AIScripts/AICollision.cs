@@ -33,10 +33,7 @@ public class AICollision : MonoBehaviour
                 isDead = true;
                 Destroy(gameObject, despawnTime);
             }
-            else
-            {
-                anim.SetBool("isHit", true);
-            }
+           
             gaveDamage = true;
         }
     }

@@ -26,6 +26,7 @@ public class AICollision : MonoBehaviour
             hitPlayer = true;
             anim.SetBool("isWon", true);
         }
+       
         if (collisionInfo.collider.tag == "Vehicle")
         {
             if (vehicle.KMh > 30)
@@ -36,6 +37,7 @@ public class AICollision : MonoBehaviour
             
             gaveDamage = true;
         }
+        anim.SetBool("isWon", false);
     }
 
 }

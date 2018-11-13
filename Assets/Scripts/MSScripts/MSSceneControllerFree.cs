@@ -143,7 +143,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     private Slider fuelSlider;
     private Text fuelText;
-    public float fuelValue;
+    public int fuelValue;
 
     private Text coinText;
     public int coinValue;
@@ -156,11 +156,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 
     public GameObject CARUI;
-
-    //ADDONS BY JASON, PINEAPPLES
-    //private DamageSystem damageSystem;
-    private float currentHealth;
-    
+    private CheckAI cAI;
 
     void Start()
     {
@@ -172,22 +168,18 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
-        experienceSlider = GameObject.Find("levelSlider").GetComponent<Slider>();
-        LvlSystem = GameObject.Find("Vehicle").GetComponent<LevelingSystem>();
+        experienceSlider = GameObject.Find("experienceSlider").GetComponent<Slider>();
         XpText = GameObject.Find("XpText").GetComponent<Text>();
-        LevelText = GameObject.Find("levelText").GetComponent<Text>();
-        //damageSystem = GameObject.Find("Vehicle").GetComponent<DamageSystem>();
-        //Debug.Log(damageSystem);
+        LevelText = GameObject.Find("LevelText").GetComponent<Text>();
+        cAI = FindObjectOfType<CheckAI>();
 
-        //experienceSlider.value = LvlSystem.currentXP;
-        //experienceSlider.maxValue = LvlSystem.totalXP;
-        //XpText.text = ""+LvlSystem.currentXP;
-        //LevelText.text = ""+LvlSystem.currentLevel;
-        
+        experienceSlider.value = cAI.getCurrentXp();
+        experienceSlider.maxValue = cAI.getTotalXp();
+        XpText.text = ""+ cAI.getCurrentXp();
+        LevelText.text = ""+ cAI.getCurrentLevel();
         healthSlider.value = 100;
-        currentHealth = healthSlider.value;
         fuelSlider.value = 50;
-        fuelValue = 10;
+        fuelValue = 0;
         repairValue = 0;
         coinValue = 0;
 
@@ -195,35 +187,21 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void LevelSystem()
     {
-        LvlSystem.UpdateLevelingSystems();
-        experienceSlider.value = LvlSystem.currentXP;
-        XpText.text = "EXP: " + LvlSystem.currentXP + "/" + LvlSystem.totalXP;
-        LevelText.text = "" + LvlSystem.currentLevel;
-        Debug.Log("Joel is a noob: " + LvlSystem.currentXP);//Hi Mike You Won The Code Mini Game <3
-        Debug.Log("Joel is still a noob: " + LvlSystem.totalXP);
-        experienceSlider.maxValue = LvlSystem.totalXP;
-        if(healthSlider.value <= healthSlider.maxValue)
-        {
-            healthSlider.value -= LvlSystem.RecievedDamage;
-        }
-        
+        cAI.UpdateCheckAI();
+        experienceSlider.value = cAI.getCurrentXp();
+        XpText.text = "" + cAI.getCurrentXp();
+        LevelText.text = "" + cAI.getCurrentLevel();
+        experienceSlider.maxValue = cAI.getTotalXp();
     }
-    //void DamageSystem()
-    //{
-    //    damageSystem.UpdateDamageSystem();
-        
-    //    Debug.Log("Joel is still a noob Damage: " + damageSystem.RecievedDamage);
-    //    healthSlider.value -= damageSystem.RecievedDamage;
 
-    //}
     void RepairSystem()
     {
         repairText.text = "Repair: "+repairValue;
 
-        if (fuelSlider.value <= 0.1)
+        if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
         if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
-            Invoke("Refill", 0.5f);
+            Invoke("Repair", 0.5f);
     }
 
     void CoinSystem()
@@ -236,7 +214,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = "Fuel: "+fuelValue;
+        fuelText.text = ""+fuelValue;
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
@@ -247,12 +225,12 @@ public class MSSceneControllerFree : MonoBehaviour {
     void Repair()
     {
         repairValue -= 1;
-        healthSlider.value += 25;
+        healthSlider.value += 50;
     }
 
     void Refill()
     {
-        fuelValue -= 0.1f;
+        fuelValue -= 1;
         fuelSlider.value += 50;
     }
 
@@ -286,7 +264,6 @@ public class MSSceneControllerFree : MonoBehaviour {
         ChangeCanvasCam();
         PopUpMsgEnter();
         LevelSystem();
-        //DamageSystem();
     }
 
     void PopUpMsgEnter()

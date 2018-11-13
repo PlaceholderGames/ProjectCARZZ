@@ -42,7 +42,7 @@ public class CheckAI : MonoBehaviour {
             }
             if (Ai[i].gaveDamage)
             {
-                ds.RecievedDamage = Random.Range(1, 10);
+                ds.RecievedDamage = Random.Range(1, 10); 
                 healthSlider.value -= ds.RecievedDamage;
                 Ai[i].gaveDamage = false;
             }

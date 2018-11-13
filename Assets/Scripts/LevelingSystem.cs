@@ -9,15 +9,19 @@ public class LevelingSystem : MonoBehaviour
     private int maxLevel = 20;
     public int currentXP = 0;
     public int totalXP = 10;
+<<<<<<< HEAD
     public float MaxDamage;
     public float MinDamage;
     [HideInInspector]
     public float RecievedDamage; //Players/Vehicles health
 
+=======
+>>>>>>> upstream/joel
 
     // Use this for initialization
     void Start()
     {
+<<<<<<< HEAD
         
         TotalExperience(currentLevel);
     }
@@ -38,6 +42,14 @@ public class LevelingSystem : MonoBehaviour
                 }
             }
         
+=======
+        totalExperience(currentLevel);
+    }
+
+    // Update is called once per frame
+    public void UpdateLevelingSystem()
+    {
+>>>>>>> upstream/joel
         if (currentXP >= totalXP)
         {
             if (currentXP > totalXP)

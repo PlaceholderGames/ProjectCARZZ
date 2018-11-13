@@ -4,6 +4,7 @@ using UnityEngine;
 
 //Add script to MSPlayerControllerFree or MSVehicleControllerFree
 public class DamageSystem : MonoBehaviour {
+<<<<<<< HEAD
 
     public float MaxDamage;
     public float MinDamage;
@@ -30,4 +31,8 @@ public class DamageSystem : MonoBehaviour {
         }
 
 	}
+=======
+    [HideInInspector]
+    public float RecievedDamage; //Players/Vehicles health
+>>>>>>> upstream/joel
 }

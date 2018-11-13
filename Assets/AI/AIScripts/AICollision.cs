@@ -8,7 +8,7 @@ public class AICollision : MonoBehaviour
     private MSVehicleControllerFree vehicle;
 
 
-    public float despawnTime = 5;
+    public float despawnTime = 0.01f;
     public bool gaveDamage = false;
     public bool isDead = false;
     public bool hitPlayer = false;
@@ -28,7 +28,9 @@ public class AICollision : MonoBehaviour
             hitPlayer = true;
             anim.SetBool("isWon", true);
         }
-        if (collisionInfo.collider.tag == "Vehicle")
+
+
+       if (collisionInfo.collider.tag == "Vehicle")
         {
             if (vehicle.KMh > 30.0f)
             {

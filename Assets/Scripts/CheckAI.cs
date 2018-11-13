@@ -27,9 +27,11 @@ public class CheckAI : MonoBehaviour {
         Ai = FindObjectsOfType<AICollision>();
         for (int i = 0; i < Ai.Length; i++)
         {
+            Debug.Log("UpdateCheckAI Function");
+            Debug.Log(Ai[i].isDead);
             if (Ai[i].isDead)
             {
-                Debug.Log("isdead");
+               
                 if (vehicle.KMh > 30.0f)
                 {
                     Debug.Log("GaveXP");

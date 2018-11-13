@@ -33,7 +33,7 @@ public class AICollision : MonoBehaviour
                 isDead = true;
                 Destroy(gameObject, despawnTime);
             }
-           
+            
             gaveDamage = true;
         }
     }

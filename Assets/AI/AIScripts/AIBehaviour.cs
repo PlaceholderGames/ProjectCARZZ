@@ -70,7 +70,12 @@ public class AIBehaviour : MonoBehaviour
             }
         }
         else
+        {
             anim.SetBool("isHit", false);
+            anim.SetBool("isIdle", true);
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", false);
+        }
 
     }
 }

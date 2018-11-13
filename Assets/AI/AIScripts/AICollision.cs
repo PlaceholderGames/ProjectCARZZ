@@ -29,11 +29,15 @@ public class AICollision : MonoBehaviour
         if (collisionInfo.collider.tag == "Vehicle")
         {
             if (vehicle.KMh > 30)
+            {
+                isDead = true;
                 Destroy(gameObject, despawnTime);
+            }
             else
             {
                 anim.SetBool("isHit", true);
             }
+            gaveDamage = true;
         }
     }
 

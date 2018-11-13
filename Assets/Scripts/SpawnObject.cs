@@ -8,7 +8,7 @@ public class SpawnObject : MonoBehaviour {
     public Vector3 center;//visual for seeing spawn area
     public Vector3 size;//size of spawn area
 
-    public int aiKillTimer;//time before ai is killed
+    public float aiKillTimer;//time before ai is killed
     public int MaxNumberAi = 5;//max amount of ai at a time
     public float SpawnIntervalAi = 5;//time it takes for new ai to spawn
     public int CurrentNumberAi = 0;//number of ai at current time
@@ -29,7 +29,7 @@ public class SpawnObject : MonoBehaviour {
     private float []aiEnemy;//list of all ai in scene
     private bool isSpawning;
     //private bool isMoving;
-    private float aiSpeed = 0.01f;//speed at which ai move
+    private float aiSpeed = 0.015f;//speed at which ai move
     
 
     public void SpawnZombie()
@@ -61,7 +61,7 @@ public class SpawnObject : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         aIBehaiour = FindObjectsOfType<AIBehaviour>();
         aICollision = FindObjectsOfType<AICollision>();
         

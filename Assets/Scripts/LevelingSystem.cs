@@ -7,40 +7,37 @@ public class LevelingSystem : MonoBehaviour
 
     public int currentLevel = 1;
     private int maxLevel = 20;
-    public int givenXP;
-    public int currentXP;
+    public int currentXP = 0;
     public int totalXP = 10;
-    private AICollision[] AI;
-    private int nAi;
+    public float MaxDamage;
+    public float MinDamage;
+    [HideInInspector]
+    public float RecievedDamage; //Players/Vehicles health
+
 
     // Use this for initialization
     void Start()
     {
-        AI = FindObjectsOfType<AICollision>();
-        Debug.Log(FindObjectsOfType<AICollision>());
-        Debug.Log(AI);
-        nAi = FindObjectsOfType<AICollision>().Length;
-        totalExperience(currentLevel);
+        
+        TotalExperience(currentLevel);
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateLevelingSystems()
     {
-        if (nAi <= FindObjectsOfType<AICollision>().Length)
-        {
-            AI = FindObjectsOfType<AICollision>();
-            nAi = FindObjectsOfType<AICollision>().Length;
-            for (int i = 0; i < nAi; i++)
+        
+           
+            for (int i = 0; i < FindObjectsOfType<AICollision>().Length; i++)
             {
-                if (AI[i].isDead)
+                if (FindObjectsOfType<AICollision>()[i].isDead)
                 {
-                    Debug.Log("Zombie died!");
                     currentXP += 1;
+                    RecievedDamage = Random.Range(MinDamage, MaxDamage);
+                    FindObjectsOfType<AICollision>()[i].isDead = false;
 
                 }
             }
-
-        }
+        
         if (currentXP >= totalXP)
         {
             if (currentXP > totalXP)
@@ -53,11 +50,11 @@ public class LevelingSystem : MonoBehaviour
                 currentXP = 0;
                 currentLevel++;
             }
-            totalExperience(currentLevel);
+            TotalExperience(currentLevel);
         }
     }
 
-    private bool totalExperience(int lvl)
+    private bool TotalExperience(int lvl)
     {
         if (lvl == 1)
         {

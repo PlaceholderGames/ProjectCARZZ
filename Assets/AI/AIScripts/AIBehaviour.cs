@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AIBehaviour : MonoBehaviour
 {
     
     public Rigidbody rb;
     public Transform target;
-    public float moveSpeed = 0.01f;
+    public float moveSpeed = 0.02f;
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     float xpos, zpos;
     //public bool isMoving = false;

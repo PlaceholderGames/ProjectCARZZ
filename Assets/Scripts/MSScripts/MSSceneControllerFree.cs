@@ -143,7 +143,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     private Slider fuelSlider;
     private Text fuelText;
-    public int fuelValue;
+    public float fuelValue;
 
     private Text coinText;
     public int coinValue;
@@ -157,6 +157,11 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject CARUI;
 
+    //ADDONS BY JASON, PINEAPPLES
+    //private DamageSystem damageSystem;
+    private float currentHealth;
+    
+
     void Start()
     {
         UIcanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
@@ -167,19 +172,22 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
-        experienceSlider = GameObject.Find("experienceSlider").GetComponent<Slider>();
-        LvlSystem = GameObject.Find("SceneController").GetComponent<LevelingSystem>();
+        experienceSlider = GameObject.Find("levelSlider").GetComponent<Slider>();
+        LvlSystem = GameObject.Find("Vehicle").GetComponent<LevelingSystem>();
         XpText = GameObject.Find("XpText").GetComponent<Text>();
-        LevelText = GameObject.Find("LevelText").GetComponent<Text>();
-        
+        LevelText = GameObject.Find("levelText").GetComponent<Text>();
+        //damageSystem = GameObject.Find("Vehicle").GetComponent<DamageSystem>();
+        //Debug.Log(damageSystem);
 
-        experienceSlider.value = LvlSystem.currentXP;
-        experienceSlider.maxValue = LvlSystem.totalXP;
-        XpText.text = ""+LvlSystem.currentXP;
-        LevelText.text = ""+LvlSystem.currentLevel;
+        //experienceSlider.value = LvlSystem.currentXP;
+        //experienceSlider.maxValue = LvlSystem.totalXP;
+        //XpText.text = ""+LvlSystem.currentXP;
+        //LevelText.text = ""+LvlSystem.currentLevel;
+        
         healthSlider.value = 100;
+        currentHealth = healthSlider.value;
         fuelSlider.value = 50;
-        fuelValue = 0;
+        fuelValue = 10;
         repairValue = 0;
         coinValue = 0;
 
@@ -187,12 +195,27 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void LevelSystem()
     {
+        LvlSystem.UpdateLevelingSystems();
         experienceSlider.value = LvlSystem.currentXP;
-        XpText.text = "" + LvlSystem.currentXP;
+        XpText.text = "EXP: " + LvlSystem.currentXP + "/" + LvlSystem.totalXP;
         LevelText.text = "" + LvlSystem.currentLevel;
+        Debug.Log("Joel is a noob: " + LvlSystem.currentXP);//Hi Mike You Won The Code Mini Game <3
+        Debug.Log("Joel is still a noob: " + LvlSystem.totalXP);
         experienceSlider.maxValue = LvlSystem.totalXP;
+        if(healthSlider.value <= healthSlider.maxValue)
+        {
+            healthSlider.value -= LvlSystem.RecievedDamage;
+        }
+        
     }
+    //void DamageSystem()
+    //{
+    //    damageSystem.UpdateDamageSystem();
+        
+    //    Debug.Log("Joel is still a noob Damage: " + damageSystem.RecievedDamage);
+    //    healthSlider.value -= damageSystem.RecievedDamage;
 
+    //}
     void RepairSystem()
     {
         repairText.text = "Repair: "+repairValue;
@@ -213,7 +236,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = ""+fuelValue;
+        fuelText.text = "Fuel: "+fuelValue;
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
@@ -229,7 +252,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void Refill()
     {
-        fuelValue -= 1;
+        fuelValue -= 0.1f;
         fuelSlider.value += 50;
     }
 
@@ -263,6 +286,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         ChangeCanvasCam();
         PopUpMsgEnter();
         LevelSystem();
+        //DamageSystem();
     }
 
     void PopUpMsgEnter()

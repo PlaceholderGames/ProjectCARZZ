@@ -5,7 +5,6 @@ using UnityEngine;
 //Add script to MSPlayerControllerFree or MSVehicleControllerFree
 public class DamageSystem : MonoBehaviour {
 
-    private AICollision[] Ai;
     public float MaxDamage;
     public float MinDamage;
     [HideInInspector]
@@ -13,18 +12,21 @@ public class DamageSystem : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Ai = FindObjectOfType<AICollision>();
-	}
+
+    }
 	
 	// Update is called once per frame
-	void Update () {
-        Ai = FindObjectsOfType<AICollision>();
-        for (int i = 0; i < Ai.Length; i++)
+	public void UpdateDamageSystem() {
+        
+        for (int i = 0; i < FindObjectsOfType<AICollision>().Length; i++)
         {
-            if (Ai[i].isDead)
+            if (FindObjectsOfType<AICollision>()[i].isDead)
             {
+                
                 RecievedDamage = Random.Range(MinDamage, MaxDamage);
+
             }
+            
         }
 
 	}

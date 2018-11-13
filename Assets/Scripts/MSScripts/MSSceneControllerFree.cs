@@ -134,7 +134,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     public Canvas UIcanvas;
 
     private LevelingSystem LvlSystem;
-    private Slider experienceSlider;
+    private Slider levelSlider;
     private Text LevelText;
     private Text XpText;
 
@@ -168,13 +168,19 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
-        experienceSlider = GameObject.Find("experienceSlider").GetComponent<Slider>();
-        XpText = GameObject.Find("XpText").GetComponent<Text>();
-        LevelText = GameObject.Find("LevelText").GetComponent<Text>();
+        
+        
         cAI = FindObjectOfType<CheckAI>();
 
-        experienceSlider.value = cAI.getCurrentXp();
-        experienceSlider.maxValue = cAI.getTotalXp();
+        //Leveling and Xp Systems
+        levelSlider = GameObject.Find("levelSlider").GetComponent<Slider>();
+        LevelText = GameObject.Find("levelText").GetComponent<Text>();
+        XpText = GameObject.Find("XpText").GetComponent<Text>();
+
+
+
+        levelSlider.value = cAI.getCurrentXp();
+        levelSlider.maxValue = cAI.getTotalXp();
         XpText.text = ""+ cAI.getCurrentXp();
         LevelText.text = ""+ cAI.getCurrentLevel();
         healthSlider.value = 100;
@@ -188,10 +194,10 @@ public class MSSceneControllerFree : MonoBehaviour {
     void LevelSystem()
     {
         cAI.UpdateCheckAI();
-        experienceSlider.value = cAI.getCurrentXp();
+        levelSlider.value = cAI.getCurrentXp();
         XpText.text = "" + cAI.getCurrentXp();
         LevelText.text = "" + cAI.getCurrentLevel();
-        experienceSlider.maxValue = cAI.getTotalXp();
+        levelSlider.maxValue = cAI.getTotalXp();
     }
 
     void RepairSystem()

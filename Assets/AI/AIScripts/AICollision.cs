@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class AICollision : MonoBehaviour
 {
-    private MSVehicleControllerFree vehicle;
     private Animator anim;
     public float despawnTime = 5;
     
@@ -28,7 +27,7 @@ public class AICollision : MonoBehaviour
         }
         if (collisionInfo.collider.tag == "Vehicle")
         {
-            if (vehicle.KMh > 30f)
+            if (vehicle.KMh > 30.0f)
             {
                 isDead = true;
                 Destroy(gameObject, despawnTime);
@@ -37,6 +36,7 @@ public class AICollision : MonoBehaviour
             {
                 anim.SetBool("isHit", true);
             }
+            gaveDamage = true;
         }
     }
 

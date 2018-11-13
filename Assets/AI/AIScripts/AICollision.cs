@@ -11,11 +11,12 @@ public class AICollision : MonoBehaviour
     public bool isDead = false;
     public bool hitPlayer = false;
     public bool ishit = false;
+    private MSVehicleControllerFree vehicle;
     private void Start()
     {
         
         anim = GetComponentInChildren<Animator>();
-       
+        vehicle = FindObjectOfType<MSVehicleControllerFree>();
     }
 
     private void OnCollisionEnter(Collision collisionInfo)

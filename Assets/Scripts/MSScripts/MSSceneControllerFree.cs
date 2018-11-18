@@ -195,14 +195,14 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         cAI.UpdateCheckAI();
         levelSlider.value = cAI.getCurrentXp();
-        XpText.text = "" + cAI.getCurrentXp();
-        LevelText.text = "" + cAI.getCurrentLevel();
+        XpText.text = "XP Earned: " + cAI.getCurrentXp();
+        LevelText.text = "Level: " + cAI.getCurrentLevel();
         levelSlider.maxValue = cAI.getTotalXp();
     }
 
     void RepairSystem()
     {
-        repairText.text = "Repair: "+repairValue;
+        repairText.text = "Repair Kits: "+repairValue;
 
         if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
@@ -212,7 +212,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void CoinSystem()
     {
-        coinText.text = "Coins: "+coinValue;
+        coinText.text = "Money: "+coinValue;
     }
 
     void FuelSystem()
@@ -220,7 +220,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = ""+fuelValue;
+        fuelText.text = "Fuel Cans: "+fuelValue;  // changed to add text 
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;

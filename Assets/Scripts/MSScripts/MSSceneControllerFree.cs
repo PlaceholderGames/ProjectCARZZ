@@ -36,7 +36,7 @@ public class ControlsFree {
 	[Space(10)][Tooltip("If this variable is true, the control for this variable will be activated.")]
 	public bool enable_pause_Input = true;
 	[Tooltip("The key that must be pressed to pause the game.")]
-	public KeyCode pause = KeyCode.P;
+	public KeyCode pause = KeyCode.Escape;
 }
 
 public class MSSceneControllerFree : MonoBehaviour {
@@ -154,6 +154,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject popUpMsg;
 
+    public GameObject pauseMenu; // 
 
     public GameObject CARUI;
     private CheckAI cAI;
@@ -260,6 +261,26 @@ public class MSSceneControllerFree : MonoBehaviour {
             CARUI.gameObject.SetActive(false);
         }
 
+    }
+
+    void pauseMenuPause()
+    {
+        pause = true;
+        pauseMenu.SetActive(true);
+        Cursor.visible = true;
+
+    }
+    public void pauseMenuResume()
+    {
+        pause = false;
+        pauseMenu.SetActive(false);
+        Cursor.visible = false;
+    }
+    public void pauseMenuQuit()
+    {
+        pause = false;
+        pauseMenu.gameObject.SetActive(false);
+        Cursor.visible = true;
     }
 
     void Manager()
@@ -470,22 +491,37 @@ public class MSSceneControllerFree : MonoBehaviour {
 			vehicleCode = vehicles [currentVehicle].GetComponent<MSVehicleControllerFree> ();
 			EnableOrDisableButtons (vehicleCode.isInsideTheCar);
 
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    if (gamePaused)
+            //    {
+            //        pauseMenuResume();
+            //    }
+            //    else
+            //    {
+            //        pauseMenuPause();
+            //    }
+            //}
 
-
-			if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
+            if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
 				SceneManager.LoadScene (sceneName);
 			}
 
 			if (Input.GetKeyDown (controls.pause) && controls.enable_pause_Input) {
 				pause = !pause;
 			}
-			if (pause) {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 0.0f, Time.fixedDeltaTime * 5.0f);
-			} else {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 1.0f, Time.fixedDeltaTime * 5.0f);
-			}
+            if (pause)
+            {
+                pauseMenuPause();
+                Time.timeScale = Mathf.Lerp(Time.timeScale, 0.0f, Time.fixedDeltaTime * 5.0f);
+            }
+            else
+            {
+                pauseMenuResume();
+                Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, Time.fixedDeltaTime * 5.0f);
+            }
 
-			if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
+            if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
 				if (vehicles.Length <= 1) {
 					if (vehicleCode.isInsideTheCar) {
 						vehicleCode.ExitTheVehicle ();

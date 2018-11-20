@@ -329,10 +329,20 @@ public class MSSceneControllerFree : MonoBehaviour {
             popUpMsg.SetActive(true);
             enterText.text = "Low Fuel! You better find some!";
         }
-        else if (insidePetrolStation == true)
+        else if (insidePetrolStation == true && player.activeSelf == false)
         {
             popUpMsg.SetActive(true);
-            enterText.text = "Press Enter to buy fuel. 1 can costs £5";
+            enterText.text = "To purchase fuel, please leave your vehicle";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value == 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel cans for £5.";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value != 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel for £5.";
         }
 
         else

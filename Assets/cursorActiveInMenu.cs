@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class cursorActiveInMenu : MonoBehaviour {
 
-	void Start () {
+	void Start ()
+    {
         Cursor.visible = true;
     }
 }

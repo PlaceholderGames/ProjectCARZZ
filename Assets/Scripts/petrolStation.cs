@@ -10,18 +10,16 @@ public class petrolStation : MonoBehaviour {
     void Awake()
     {
         _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
-        _MSC.insidePetrolStation = false;
+        _MSC.insidePetrolStation = false; // being lazy and made a public variable so we can use the pop up messages.
     }
 
     void OnTriggerStay(Collider Player)
     {
         _MSC.insidePetrolStation = true;
 
-        Debug.Log("Inside Petrol Station");
-
-        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf) // checking to see if the player is out of the vehicle
         {
-            if (_MSC.coinValue >= 5 && _MSC.fuelSlider.value == 100)
+            if (_MSC.coinValue >= 5 && _MSC.fuelSlider.value == 100) // checking if player has enough money and determining whether or not they have a full tank of petrol
             {
                 Debug.Log("Buying Petrol for the can");
                 _MSC.coinValue -= 5;
@@ -34,14 +32,6 @@ public class petrolStation : MonoBehaviour {
                 _MSC.fuelSlider.value = 100;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf && _MSC.coinValue >= 5 && _MSC.fuelSlider.value < 100)
-        {
-            Debug.Log("Buying Petrol for the car");
-            _MSC.coinValue -= 5;
-            _MSC.fuelSlider.value = 100;
-        }
-
 
     }
 

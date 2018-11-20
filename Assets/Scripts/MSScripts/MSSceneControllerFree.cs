@@ -126,7 +126,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 	Vector2 vectorDirJoystick;
 
-
+    
     //ADDONS BY RICHARD
     public Camera fpsCam;
     public Camera tpsCam;
@@ -141,7 +141,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text kmhText;
     private Text gearTxt;
 
-    private Slider fuelSlider;
+    public Slider fuelSlider;
     private Text fuelText;
     public int fuelValue;
 
@@ -158,6 +158,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject CARUI;
     private CheckAI cAI;
+
+    public bool insidePetrolStation;
 
     void Start()
     {
@@ -284,7 +286,6 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         pause = false;
         pauseMenu.gameObject.SetActive(false);
-        Cursor.visible = true;
     }
 
     void Manager()
@@ -317,18 +318,22 @@ public class MSSceneControllerFree : MonoBehaviour {
             enterText.text = "Press E to enter the vehicle";
         }
 
-        else if(fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
+        else if (fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Fuel low! Press X to refill";
         }
 
-        else if(fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
+        else if (fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Low Fuel! You better find some!";
         }
-           
+        else if (insidePetrolStation == true)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel. 1 can costs £5";
+        }
 
         else
             popUpMsg.SetActive(false);
@@ -517,12 +522,12 @@ public class MSSceneControllerFree : MonoBehaviour {
             if (pause)
             {
                 pauseMenuPause();
-                Time.timeScale = Mathf.Lerp(Time.timeScale, 0.0f, Time.fixedDeltaTime * 5.0f);
+                Time.timeScale = 0.1f;
             }
             else
             {
                 pauseMenuResume();
-                Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f, Time.fixedDeltaTime * 5.0f);
+                Time.timeScale = 1.0f;
             }
 
             if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {

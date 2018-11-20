@@ -13,11 +13,13 @@ public class petrolStation : MonoBehaviour {
 
     void OnTriggerStay(Collider Player)
     {
-        Debug.Log("Petrol Station");
+        Debug.Log("Inside Petrol Station");
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (_MSC.coinValue >= 5)
             {
+                Debug.Log("Buying Petrol");
                 _MSC.coinValue = _MSC.coinValue - 5;
                 _MSC.fuelValue++;
             }

@@ -203,12 +203,15 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void RepairSystem()
     {
-        repairText.text = "Repair Kits: "+repairValue;
+        repairText.text = "Repair Kits: " + repairValue;
 
         if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
-        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
+        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue >= 1)
+        {
+            repairValue -= 1;
             Invoke("Repair", 0.5f);
+        }
     }
 
     void CoinSystem()
@@ -225,19 +228,20 @@ public class MSSceneControllerFree : MonoBehaviour {
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
-        if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+        if (Input.GetKeyDown(KeyCode.X) && vehicleCode.theEngineIsRunning == false && fuelValue >= 1)
+        {
+            fuelValue -= 1;
             Invoke("Refill", 0.5f);
+        }
     }
 
     void Repair()
     {
-        repairValue -= 1;
         healthSlider.value += 50;
     }
 
     void Refill()
     {
-        fuelValue -= 1;
         fuelSlider.value += 50;
     }
 

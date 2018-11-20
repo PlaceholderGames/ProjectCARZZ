@@ -27,7 +27,7 @@ public class ControlsFree {
 	public bool enable_handBrakeInput_Input = true;
 	[Tooltip("The key that must be pressed to activate or deactivate the vehicle hand brake.")]
 	public KeyCode handBrakeInput = KeyCode.Space;
-    public KeyCode handBrakeInput = KeyCode.Escape;
+
 
     [Space(10)][Tooltip("If this variable is true, the control for this variable will be activated.")]
 	public bool enable_switchingCameras_Input = true;
@@ -155,7 +155,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject popUpMsg;
 
-    public int LvlSystem = 1;
 
     public GameObject CARUI;
     private String vehicleChoice;
@@ -219,8 +218,23 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void LoadPP()
     {
-        repairText.text = "Repair Kits: " + repairValue;
 
+       for(int i = 0; i<vehicles.Length;i++)
+        {
+            if(vehicles[i].gameObject.tag == "Vehicle1")
+            {
+                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v1_torque");
+                vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v1_speed");
+                fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
+                healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
+            }
+
+            else if(vehicles[i].gameObject.tag == "Vehicle2")
+            {
+                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v2_torque");
+                vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
+                fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
+                healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
             }
 
             else if (vehicles[i].gameObject.tag == "Vehicle3")
@@ -229,9 +243,9 @@ public class MSSceneControllerFree : MonoBehaviour {
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
                 fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
                 healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
-
             }
         }
+   
     }
 
     void InitVehicle()

@@ -27,15 +27,14 @@ public class AIBehaviour : MonoBehaviour
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
     }
 
-   
 
+    private Vector3 AIPos;
     void FixedUpdate()
     {
-            
-       
-
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
+        
+        
         
             //if the player is inside the detectable distance
             if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
@@ -65,7 +64,9 @@ public class AIBehaviour : MonoBehaviour
                 anim.SetBool("isIdle", true);
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isRunning", false);
-            }
+            AIPos.x = transform.position.x;
+            AIPos.z = transform.position.z;
+        }
        
 
     }

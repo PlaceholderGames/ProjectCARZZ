@@ -36,7 +36,7 @@ public class ControlsFree {
 	[Space(10)][Tooltip("If this variable is true, the control for this variable will be activated.")]
 	public bool enable_pause_Input = true;
 	[Tooltip("The key that must be pressed to pause the game.")]
-	public KeyCode pause = KeyCode.P;
+	public KeyCode pause = KeyCode.Escape;
 }
 
 public class MSSceneControllerFree : MonoBehaviour {
@@ -126,7 +126,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 	Vector2 vectorDirJoystick;
 
-
+    
     //ADDONS BY RICHARD
     public Camera fpsCam;
     public Camera tpsCam;
@@ -141,7 +141,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text kmhText;
     private Text gearTxt;
 
-    private Slider fuelSlider;
+    public Slider fuelSlider;
     private Text fuelText;
     public int fuelValue;
 
@@ -154,9 +154,12 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     public GameObject popUpMsg;
 
+    public GameObject pauseMenu; // 
 
     public GameObject CARUI;
     private CheckAI cAI;
+
+    public bool insidePetrolStation;
 
     void Start()
     {
@@ -195,24 +198,27 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         cAI.UpdateCheckAI();
         levelSlider.value = cAI.getCurrentXp();
-        XpText.text = "" + cAI.getCurrentXp();
-        LevelText.text = "" + cAI.getCurrentLevel();
+        XpText.text = "XP Earned: " + cAI.getCurrentXp();
+        LevelText.text = "Level: " + cAI.getCurrentLevel();
         levelSlider.maxValue = cAI.getTotalXp();
     }
 
     void RepairSystem()
     {
-        repairText.text = "Repair: "+repairValue;
+        repairText.text = "Repair Kits: " + repairValue;
 
         if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
-        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
+        if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue >= 1)
+        {
+            repairValue -= 1;
             Invoke("Repair", 0.5f);
+        }
     }
 
     void CoinSystem()
     {
-        coinText.text = "Coins: "+coinValue;
+        coinText.text = "Money: "+coinValue;
     }
 
     void FuelSystem()
@@ -220,23 +226,24 @@ public class MSSceneControllerFree : MonoBehaviour {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
         fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = ""+fuelValue;
+        fuelText.text = "Fuel Cans: "+fuelValue;  // changed to add text 
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
-        if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+        if (Input.GetKeyDown(KeyCode.X) && vehicleCode.theEngineIsRunning == false && fuelValue >= 1)
+        {
+            fuelValue -= 1;
             Invoke("Refill", 0.5f);
+        }
     }
 
     void Repair()
     {
-        repairValue -= 1;
         healthSlider.value += 50;
     }
 
     void Refill()
     {
-        fuelValue -= 1;
         fuelSlider.value += 50;
     }
 
@@ -260,6 +267,25 @@ public class MSSceneControllerFree : MonoBehaviour {
             CARUI.gameObject.SetActive(false);
         }
 
+    }
+
+    void pauseMenuPause()
+    {
+        pause = true;
+        pauseMenu.SetActive(true);
+        Cursor.visible = true;
+
+    }
+    public void pauseMenuResume()
+    {
+        pause = false;
+        pauseMenu.SetActive(false);
+        Cursor.visible = false;
+    }
+    public void pauseMenuQuit()
+    {
+        pause = false;
+        pauseMenu.gameObject.SetActive(false);
     }
 
     void Manager()
@@ -292,18 +318,32 @@ public class MSSceneControllerFree : MonoBehaviour {
             enterText.text = "Press E to enter the vehicle";
         }
 
-        else if(fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
+        else if (fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Fuel low! Press X to refill";
         }
 
-        else if(fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
+        else if (fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Low Fuel! You better find some!";
         }
-           
+        else if (insidePetrolStation == true && player.activeSelf == false)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "To purchase fuel, please leave your vehicle";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value == 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel cans for £5.";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value != 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel for £5.";
+        }
 
         else
             popUpMsg.SetActive(false);
@@ -470,22 +510,37 @@ public class MSSceneControllerFree : MonoBehaviour {
 			vehicleCode = vehicles [currentVehicle].GetComponent<MSVehicleControllerFree> ();
 			EnableOrDisableButtons (vehicleCode.isInsideTheCar);
 
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    if (gamePaused)
+            //    {
+            //        pauseMenuResume();
+            //    }
+            //    else
+            //    {
+            //        pauseMenuPause();
+            //    }
+            //}
 
-
-			if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
+            if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
 				SceneManager.LoadScene (sceneName);
 			}
 
 			if (Input.GetKeyDown (controls.pause) && controls.enable_pause_Input) {
 				pause = !pause;
 			}
-			if (pause) {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 0.0f, Time.fixedDeltaTime * 5.0f);
-			} else {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 1.0f, Time.fixedDeltaTime * 5.0f);
-			}
+            if (pause)
+            {
+                pauseMenuPause();
+                Time.timeScale = 0.1f;
+            }
+            else
+            {
+                pauseMenuResume();
+                Time.timeScale = 1.0f;
+            }
 
-			if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
+            if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
 				if (vehicles.Length <= 1) {
 					if (vehicleCode.isInsideTheCar) {
 						vehicleCode.ExitTheVehicle ();

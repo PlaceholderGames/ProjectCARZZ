@@ -14,12 +14,12 @@ public class RepairSystem : MonoBehaviour {
     public void OnTriggerEnter()
     {
         Destroy(gameObject);
-        Debug.Log("HIT");
+        Debug.Log("Repair kit picked up");
         _MSC.repairValue++;
 
     }
     void Update()
     {
-        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+        gameObject.transform.Rotate(0, 1.0f, 0, Space.World);
     }
 }

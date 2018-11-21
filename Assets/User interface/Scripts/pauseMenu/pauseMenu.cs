@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class pauseMenu : MonoBehaviour {
 
+    public MSSceneControllerFree _MSC;
+
     public static bool gamePaused = false;
 
     public GameObject pauseMenuUI;
@@ -25,19 +27,25 @@ public class pauseMenu : MonoBehaviour {
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
         gamePaused = false;
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
+        pauseMenuUI.SetActive(false);
     }
     void Pause()
     {
-        pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gamePaused = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        pauseMenuUI.SetActive(true);
     }
 
     public void quitToMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 1f;
     }
 

@@ -38,7 +38,7 @@ public class Upgrade : MonoBehaviour {
     private Vehicle[] vehicle;
     private Player player;
     private int level, coin;
-    private GameObject upgradeButtons, lockIndicator, popUpPanel, unlockButton;
+    private GameObject upgradeButtons, lockIndicator, popUpPanel, unlockButton, buttonBackGround;
     private int currentVehicle;
 
     private Text driftText, torque, speedText, fuelText, healthText, levelText, popUpText;
@@ -78,6 +78,7 @@ public class Upgrade : MonoBehaviour {
         popUpText = GameObject.Find("PopUpPanel").GetComponentInChildren<Text>();
         popUpPanel.SetActive(false);
         tmp_lvltxt = GameObject.Find("tmp_lvltxt").GetComponent<TextMeshProUGUI>();
+        buttonBackGround = GameObject.Find("buttonBackGround");
     } 
     private void rotateVehicle(){
         for(int i=0; i<vehicle.Length;i++)
@@ -127,14 +128,10 @@ public class Upgrade : MonoBehaviour {
     public void lockVehicle()
     {
         if (vehicle[currentVehicle].isUnlocked == true) {
-            lockIndicator.SetActive(false);
-            unlockButton.SetActive(false);
-            upgradeButtons.SetActive(true);
+            StartCoroutine(upgradeButtonsAppear());
         }
         else {
-            lockIndicator.SetActive(true);
-            unlockButton.SetActive(true);
-            upgradeButtons.SetActive(false);
+            StartCoroutine(upgradeButtonsDisappear());
         }
     }
     public void selectVehicle()
@@ -155,6 +152,22 @@ public class Upgrade : MonoBehaviour {
         popUpText.DOColor(Color.clear, 1);
         yield return new WaitForSeconds(1);
         popUpPanel.SetActive(false);
+    }
+    IEnumerator upgradeButtonsAppear()
+    {
+        lockIndicator.SetActive(false);
+        unlockButton.SetActive(false);
+        buttonBackGround.transform.DOScaleX(4.85f, 1);
+        yield return new WaitForSeconds(1);
+        upgradeButtons.SetActive(true);
+    }
+    IEnumerator upgradeButtonsDisappear()
+    {
+        lockIndicator.SetActive(true);
+        unlockButton.SetActive(true);
+        upgradeButtons.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        buttonBackGround.transform.DOScaleX(1, 1);
     }
 
     private void upgradeSomething(bool isUpgrade, ref int upgradeable, ref int cost, int value, int maxvalue)

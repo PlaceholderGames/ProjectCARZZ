@@ -3,45 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using TMPro;
 
 public class Upgrade : MonoBehaviour {
 
-    public class Player{
+    public class Player {
         public int coin, level;
-        public Player(int coins, int levels){
+        public Player(int coins, int levels) {
             coin = coins;
             level = levels;
         }
     }
-
-    public class Vehicle{
+    public class Vehicle {
         public bool isUnlocked, driftModeEnabled;
         public GameObject vehicleObj;
-        public int maxSpeed, fuel, health;
-        public float tourqe;
-
-        public Vehicle(GameObject vehicleObj, bool isUnlocked, bool driftModeEnabled, float tourqe, int maxSpeed, int fuel, int health){
+        public int maxSpeed, fuel, health, torque, unlockCostCoin, unlockCostLvl;
+        public Vehicle(GameObject vehicleObj, bool isUnlocked, bool driftModeEnabled, int torque, int maxSpeed, int fuel, int health, int unlockCostCoin, int unlockCostLvl) {
             this.vehicleObj = vehicleObj;
             this.isUnlocked = isUnlocked;
             this.driftModeEnabled = driftModeEnabled;
-            this.tourqe = tourqe;
+            this.torque = torque;
             this.maxSpeed = maxSpeed;
             this.fuel = fuel;
             this.health = health;
+            this.unlockCostLvl = unlockCostLvl;
+            this.unlockCostCoin = unlockCostCoin;
+
+
         }
+
     }
 
-    public Vehicle[] vehicle;
-    public Player player;
+    private Vehicle[] vehicle;
+    private Player player;
     private int level, coin;
+    private GameObject upgradeButtons, lockIndicator, popUpPanel, unlockButton;
+    private int currentVehicle;
 
-    public GameObject upgradeButtons, image, popUpPanel;
-    public Button button;
-    public int currentVehicle;
+    private Text driftText, torque, speedText, fuelText, healthText, levelText, popUpText;
+    private TextMeshProUGUI tmp_lvltxt, tmp_cointxt;
 
-    private Text driftText, tourqeText, speedText, fuelText, healthText, coinText, levelText,popUpText;
-
-    private void Initalize()
+    private void Initialize()
     {
         //   coin = PlayerPrefs.GetInt("coinValue");
         //   xp = PlayerPrefs.GetInt("currentXp");
@@ -50,40 +53,55 @@ public class Upgrade : MonoBehaviour {
         player = new Player(coin, level);
 
         vehicle = new Vehicle[transform.childCount];
-        vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle1"), true, false, PlayerPrefs.GetFloat("v1_torque"), PlayerPrefs.GetInt("v1_speed"), PlayerPrefs.GetInt("v1_fuel"), PlayerPrefs.GetInt("v1_health"));
-        vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle2"), false, false, PlayerPrefs.GetFloat("v2_torque"), PlayerPrefs.GetInt("v2_speed"), PlayerPrefs.GetInt("v2_fuel"), PlayerPrefs.GetInt("v2_health"));
-        vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle3"), false, false, PlayerPrefs.GetFloat("v3_torque"), PlayerPrefs.GetInt("v3_speed"), PlayerPrefs.GetInt("v3_fuel"), PlayerPrefs.GetInt("v3_health"));
+        vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle1"), true, false, PlayerPrefs.GetInt("v1_torque"), PlayerPrefs.GetInt("v1_speed"), PlayerPrefs.GetInt("v1_fuel"), PlayerPrefs.GetInt("v1_health"), 0, 0);
+        vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle2"), false, false, PlayerPrefs.GetInt("v2_torque"), PlayerPrefs.GetInt("v2_speed"), PlayerPrefs.GetInt("v2_fuel"), PlayerPrefs.GetInt("v2_health"),100, 5);
+        vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle3"), false, false, PlayerPrefs.GetInt("v3_torque"), PlayerPrefs.GetInt("v3_speed"), PlayerPrefs.GetInt("v3_fuel"), PlayerPrefs.GetInt("v3_health"),200,15);
 
-        
+
 
         foreach (Vehicle vh in vehicle)
             vh.vehicleObj.SetActive(false);
         if (vehicle[0].vehicleObj)
             vehicle[0].vehicleObj.SetActive(true);
 
+        popUpPanel = GameObject.Find("popUpPanel");
+        unlockButton = GameObject.Find("unlockButton");
+        lockIndicator = GameObject.Find("lockIndicator");
+        upgradeButtons = GameObject.Find("UpgradeButtons");
         driftText = GameObject.Find("driftText").GetComponent<Text>();
-        tourqeText = GameObject.Find("tourqeText").GetComponent<Text>();
+        torque = GameObject.Find("torqueText").GetComponent<Text>();
         speedText = GameObject.Find("speedText").GetComponent<Text>();
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         healthText = GameObject.Find("healthText").GetComponent<Text>();
-        coinText = GameObject.Find("coinText").GetComponent<Text>();
-        levelText = GameObject.Find("levelText").GetComponent<Text>();
+        tmp_cointxt = GameObject.Find("tmp_cointxt").GetComponent<TextMeshProUGUI>();
         popUpPanel = GameObject.Find("PopUpPanel");
         popUpText = GameObject.Find("PopUpPanel").GetComponentInChildren<Text>();
-
-    }
-    private void rotateVehicle()
+        popUpPanel.SetActive(false);
+        tmp_lvltxt = GameObject.Find("tmp_lvltxt").GetComponent<TextMeshProUGUI>();
+    } 
+    private void rotateVehicle(){
+        for(int i=0; i<vehicle.Length;i++)
+            vehicle[i].vehicleObj.transform.Rotate(0, 0.5f, 0, Space.World);
+    } 
+    private void textUpdate()
     {
-            vehicle[currentVehicle].vehicleObj.transform.Rotate(0, 0.5f, 0, Space.World);
-    }
-    public void nextVehicle(){
+        driftText.text = "Drift mode:" + vehicle[currentVehicle].driftModeEnabled;
+        torque.text = "Torque:" + vehicle[currentVehicle].torque;
+        speedText.text = "Max speed:" + vehicle[currentVehicle].maxSpeed;
+        fuelText.text = "Fuel capacity:" + vehicle[currentVehicle].fuel;
+        healthText.text = "Max health:" + vehicle[currentVehicle].health;
+        tmp_cointxt.text = "" + player.coin;
+        tmp_lvltxt.text = "LvL: " + player.level;
+    } 
+
+    public void nextVehicle() {
         vehicle[currentVehicle].vehicleObj.SetActive(false);
         currentVehicle++;
         if (currentVehicle == vehicle.Length)
             currentVehicle = 0;
         vehicle[currentVehicle].vehicleObj.SetActive(true);
     }
-    public void previousVehicle(){
+    public void previousVehicle() {
         vehicle[currentVehicle].vehicleObj.SetActive(false);
         currentVehicle--;
         if (currentVehicle < 0)
@@ -91,100 +109,98 @@ public class Upgrade : MonoBehaviour {
 
         vehicle[currentVehicle].vehicleObj.SetActive(true);
     }
-    public void unlockVehicle(){
-        int Coin = 500;
-        int Level = 25;
-        if (Level <= player.level && Coin <= player.coin)
-        {
-            image.SetActive(false);
-            button.gameObject.SetActive(false);
+    public void unlockVehicle() {
+        if (vehicle[currentVehicle].unlockCostLvl <= player.level && vehicle[currentVehicle].unlockCostCoin <= player.coin){
+            lockIndicator.SetActive(false);
+            unlockButton.SetActive(false);
             vehicle[currentVehicle].isUnlocked = true;
-            player.coin -= Coin;
+            player.coin -= vehicle[currentVehicle].unlockCostCoin;
+            StartCoroutine(popUpMsgPop("Vehicle unlocked!"));
         }
-        else if (Level > player.level)
-           StartCoroutine(popUpMsgPop("Low LVL"));
-        else if (Coin > player.coin)
+        else if (vehicle[currentVehicle].unlockCostLvl > player.level)
+            StartCoroutine(popUpMsgPop("Low LVL"));
+        else if (vehicle[currentVehicle].unlockCostCoin > player.coin)
             StartCoroutine(popUpMsgPop("Low COIN"));
         else
-            StartCoroutine(popUpMsgPop("IDK boi"));
-
+            StartCoroutine(popUpMsgPop("IDK boii"));
     }
     public void lockVehicle()
     {
-        if(vehicle[currentVehicle].isUnlocked==true){
-            image.SetActive(false);
-            button.gameObject.SetActive(false);
+        if (vehicle[currentVehicle].isUnlocked == true) {
+            lockIndicator.SetActive(false);
+            unlockButton.SetActive(false);
             upgradeButtons.SetActive(true);
         }
-        else{
-            image.SetActive(true);
-            button.gameObject.SetActive(true);
+        else {
+            lockIndicator.SetActive(true);
+            unlockButton.SetActive(true);
             upgradeButtons.SetActive(false);
         }
     }
     public void selectVehicle()
     {
-        PlayerPrefs.SetString("vehicleChoice",vehicle[currentVehicle].vehicleObj.tag);
+        PlayerPrefs.SetString("vehicleChoice", vehicle[currentVehicle].vehicleObj.tag);
         SceneManager.LoadScene(1);
 
     }
+
     IEnumerator popUpMsgPop(string msg)
     {
         popUpPanel.SetActive(true);
         popUpText.text = msg;
-        popUpPanel.GetComponent<Image>().color = new Color(225,225,225,225);
-        yield return new WaitForSeconds(0.5f);
-        popUpPanel.GetComponent<Image>().color = new Color(225, 225, 225, 0);
-        yield return new WaitForSeconds(0.5f);
-        popUpPanel.GetComponent<Image>().color = new Color(225, 225, 225, 225);
-        yield return new WaitForSeconds(0.5f);
-        popUpPanel.GetComponent<Image>().color = new Color(225, 225, 225, 0);
-
-
-        yield return new WaitForSeconds(2);
+        popUpPanel.GetComponent<SpriteRenderer>().DOColor(Color.white, 1f);
+        popUpText.DOColor(Color.black, 1f);
+        yield return new WaitForSeconds(2f);
+        popUpPanel.GetComponent<SpriteRenderer>().DOColor(Color.clear, 1f);
+        popUpText.DOColor(Color.clear, 1);
+        yield return new WaitForSeconds(1);
         popUpPanel.SetActive(false);
-
     }
-    public void upgradeSpeed(bool upgrade)
+
+    private void upgradeSomething(bool isUpgrade, ref int upgradeable, ref int cost, int value, int maxvalue)
     {
-        int value = 10;
-        if (upgrade == true && player.coin >= value)
+        if (isUpgrade == true && player.coin >= cost && upgradeable + value <= maxvalue)
         {
-            vehicle[currentVehicle].maxSpeed += 10;
+            upgradeable += value;
+            player.coin -= cost;
+            cost = Mathf.FloorToInt((cost + 10) * 0.6f);
+            SavePP();
+            Debug.Log(upgradeable);
+        }
+        else if (isUpgrade == false)
+            upgradeable -= value;
+        else if (upgradeable + value > maxvalue)
+        {
+            //gameObject.GetComponent<Button>().interactable = false;
+            StartCoroutine(popUpMsgPop("max level reached!"));
         }
 
-        else if (value < player.coin)
-            Debug.Log("Get some money boi");
-
-        else if (upgrade == false)
-            vehicle[currentVehicle].maxSpeed -= 10;
+        else if (cost > player.coin)
+            StartCoroutine(popUpMsgPop("Get more coin boi"));
+        else
+            Debug.Log("U fckd up something");
     }
-    public void upgradeTourqe(bool upgrade)
-    {
-        if (upgrade == true)
-            vehicle[currentVehicle].tourqe += 1;
-        else if (upgrade == false)
-            vehicle[currentVehicle].tourqe -= 1;
+    public void upgradeSpeed(bool isUpgrade){
+        int cost = 10;
+        upgradeSomething(isUpgrade,ref vehicle[currentVehicle].maxSpeed, ref cost, 10, 280);
     }
-    public void upgradeFuel(bool upgrade)
-    {
-        if (upgrade == true)
-            vehicle[currentVehicle].fuel += 10;
-        else if (upgrade == false)
-            vehicle[currentVehicle].fuel -= 10;
+    public void upgradeTourqe(bool isUpgrade){
+        int cost = 15;
+        upgradeSomething(isUpgrade, ref vehicle[currentVehicle].torque, ref cost, 1, 50);
     }
-    public void upgradeHealth(bool upgrade)
-    {
-        if (upgrade == true)
-            vehicle[currentVehicle].health += 10;
-        else if (upgrade == false)
-            vehicle[currentVehicle].health -= 10;
+    public void upgradeFuel(bool isUpgrade){
+        int cost = 20;
+        upgradeSomething(isUpgrade, ref vehicle[currentVehicle].fuel, ref cost, 10,200);
     }
-    public void enableDrift(bool upgrade)
+    public void upgradeHealth(bool isUpgrade){
+        int cost = 20;
+        upgradeSomething(isUpgrade, ref vehicle[currentVehicle].health, ref cost, 10, 200);
+    }
+    public void enableDrift(bool isUpgrade)
     {
-        if (upgrade == true)
+        if (isUpgrade == true)
             vehicle[currentVehicle].driftModeEnabled = true;
-        else if (upgrade == false)
+        else if (isUpgrade == false)
             vehicle[currentVehicle].driftModeEnabled = false;
     }
 
@@ -194,14 +210,14 @@ public class Upgrade : MonoBehaviour {
         {
             if (vehicle[i].vehicleObj.tag == "Vehicle1")
             {
-                PlayerPrefs.SetFloat("v1_torque", vehicle[0].tourqe);
+                PlayerPrefs.SetFloat("v1_torque", vehicle[0].torque);
                 PlayerPrefs.SetInt("v1_speed", vehicle[0].maxSpeed);
                 PlayerPrefs.SetInt("v1_fuel", vehicle[0].fuel);
                 PlayerPrefs.SetInt("v1_health", vehicle[0].health);
             }
             else if (vehicle[i].vehicleObj.tag == "Vehicle2")
             {
-                PlayerPrefs.SetFloat("v2_torque", vehicle[1].tourqe);
+                PlayerPrefs.SetFloat("v2_torque", vehicle[1].torque);
                 PlayerPrefs.SetInt("v2_speed", vehicle[1].maxSpeed);
                 PlayerPrefs.SetInt("v2_fuel", vehicle[1].fuel);
                 PlayerPrefs.SetInt("v2_health", vehicle[1].health);
@@ -210,7 +226,7 @@ public class Upgrade : MonoBehaviour {
 
             else if (vehicle[i].vehicleObj.tag == "Vehicle3")
             {
-                PlayerPrefs.SetFloat("v3_torque", vehicle[2].tourqe);
+                PlayerPrefs.SetFloat("v3_torque", vehicle[2].torque);
                 PlayerPrefs.SetInt("v3_speed", vehicle[2].maxSpeed);
                 PlayerPrefs.SetInt("v3_fuel", vehicle[2].fuel);
                 PlayerPrefs.SetInt("v3_health", vehicle[2].health);
@@ -218,21 +234,20 @@ public class Upgrade : MonoBehaviour {
             }
         }
     }
-
     private void LoadPP()
     {
         for (int i = 0; i < vehicle.Length; i++)
         {
             if (vehicle[i].vehicleObj.tag == "Vehicle1")
             {
-                vehicle[0].tourqe = PlayerPrefs.GetFloat("v1_torque");
+                vehicle[0].torque = PlayerPrefs.GetInt("v1_torque");
                 vehicle[0].maxSpeed = PlayerPrefs.GetInt("v1_speed");
                 vehicle[0].fuel = PlayerPrefs.GetInt("v1_fuel");
                 vehicle[0].health = PlayerPrefs.GetInt("v1_health");
             }
             else if (vehicle[i].vehicleObj.tag == "Vehicle2")
             {
-                vehicle[1].tourqe = PlayerPrefs.GetFloat("v2_torque");
+                vehicle[1].torque = PlayerPrefs.GetInt("v2_torque");
                 vehicle[1].maxSpeed= PlayerPrefs.GetInt("v2_speed");
                 vehicle[1].fuel = PlayerPrefs.GetInt("v2_fuel");
                 vehicle[1].health = PlayerPrefs.GetInt("v2_health");
@@ -241,7 +256,7 @@ public class Upgrade : MonoBehaviour {
 
             else if (vehicle[i].vehicleObj.tag == "Vehicle3")
             {
-                vehicle[2].tourqe = PlayerPrefs.GetFloat("v3_torque");
+                vehicle[2].torque = PlayerPrefs.GetInt("v3_torque");
                 vehicle[2].maxSpeed = PlayerPrefs.GetInt("v3_speed");
                 vehicle[2].fuel = PlayerPrefs.GetInt("v3_fuel");
                 vehicle[2].health = PlayerPrefs.GetInt("v3_health");
@@ -250,24 +265,14 @@ public class Upgrade : MonoBehaviour {
         }
     }
 
-
     private void Start(){
-        Initalize();
+        Initialize();
         LoadPP();
-        popUpPanel.SetActive(false);
     }
-
     private void Update(){
         rotateVehicle();
         lockVehicle();
-        driftText.text = "Drift mode:"+vehicle[currentVehicle].driftModeEnabled;
-        tourqeText.text = "Tourqe:" + vehicle[currentVehicle].tourqe;
-        speedText.text = "Max speed:" + vehicle[currentVehicle].maxSpeed;
-        fuelText.text = "Fuel capacity:" + vehicle[currentVehicle].fuel;
-        healthText.text = "Max health:" + vehicle[currentVehicle].health;
-        coinText.text = "Coins: " + player.coin;
-        levelText.text = "LvL: " + player.level;
-        SavePP();
+        textUpdate();
     }
     
 }

@@ -20,6 +20,9 @@ public class RepairSystem : MonoBehaviour {
     }
     void Update()
     {
-        gameObject.transform.Rotate(0, 1.0f, 0, Space.World);
+        if (Time.timeScale == 1.0f)
+        {
+            gameObject.transform.Rotate(0, 1.0f, 0, Space.World);
+        }
     }
 }

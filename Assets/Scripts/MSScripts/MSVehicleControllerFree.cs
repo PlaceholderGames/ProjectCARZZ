@@ -971,7 +971,12 @@ public class MSVehicleControllerFree : MonoBehaviour {
 
 	void Update(){
 
-		wheelFDIsGrounded = _wheels.rightFrontWheel.wheelCollider.isGrounded;
+        if (Time.timeScale == 0.0f)
+        {
+            enableEngineSound = false;
+        }
+
+        wheelFDIsGrounded = _wheels.rightFrontWheel.wheelCollider.isGrounded;
 		wheelFEIsGrounded = _wheels.leftFrontWheel.wheelCollider.isGrounded;
 		wheelTDIsGrounded = _wheels.rightRearWheel.wheelCollider.isGrounded;
 		wheelTEIsGrounded = _wheels.leftRearWheel.wheelCollider.isGrounded;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class petrolStation : MonoBehaviour {
 
     public MSSceneControllerFree _MSC;
-    
 
     void Awake()
     {
@@ -17,26 +16,31 @@ public class petrolStation : MonoBehaviour {
     {
         _MSC.insidePetrolStation = true;
 
-        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf) // checking to see if the player is out of the vehicle
+        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf && _MSC.coinValue >= 5 && _MSC.fuelSlider.value == 100) // checking to see if the player is out of the vehicle, checking if player has enough money and determining whether or not they have a full tank of petrol
         {
-            if (_MSC.coinValue >= 5 && _MSC.fuelSlider.value == 100) // checking if player has enough money and determining whether or not they have a full tank of petrol
-            {
-                Debug.Log("Buying Petrol for the can");
-                _MSC.coinValue -= 5;
-                _MSC.fuelValue += 1;
-            }
-            else
-            {
-                Debug.Log("Buying Petrol for the car");
-                _MSC.coinValue -= 5;
-                _MSC.fuelSlider.value = 100;
-            }
+            buyingCans();
         }
-
+        if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf && _MSC.coinValue >= 5 && _MSC.fuelSlider.value < 100)
+        {
+            buyingFuel();
+        }
     }
 
+    void buyingFuel()
+    {
+        Debug.Log("Buying Petrol for the car");
+        _MSC.coinValue -= 5;
+        _MSC.fuelSlider.value = 100;
+    }
 
-    private void OnTriggerExit(Collider Player)
+    void buyingCans()
+    {
+        Debug.Log("Buying Petrol for the can");
+        _MSC.coinValue -= 5;
+        _MSC.fuelValue += 1;
+    }
+
+    void OnTriggerExit(Collider Player)
     {
         _MSC.insidePetrolStation = false;
     }

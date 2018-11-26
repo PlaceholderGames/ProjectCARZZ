@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSystem : MonoBehaviour {
+public class CoinSystem : MonoBehaviour
+{
 
     public MSSceneControllerFree _MSC;
+
+    public int valueOfSack;
 
     void Awake()
     {
@@ -14,12 +17,15 @@ public class CoinSystem : MonoBehaviour {
     public void OnTriggerEnter()
     {
         Destroy(gameObject);
-        Debug.Log("Player");
-        _MSC.coinValue++;
+        Debug.Log("picked up coin sack of value " + valueOfSack);
+        _MSC.coinValue = _MSC.coinValue + valueOfSack;
     }
 
     void Update()
     {
-        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+        if (Time.timeScale == 1.0f)
+        {
+            gameObject.transform.Rotate(0, 1f, 0, Space.World);
+        }
     }
 }

@@ -109,7 +109,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 	int proximityObjectIndex;
 	int proximityDoorIndex;
 	bool blockedInteraction = false;
-	bool pause = false;
 	bool error;
 	bool enterAndExitBool;
 	string sceneName;
@@ -152,13 +151,14 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text repairText;
     public int repairValue;
 
-    public GameObject popUpMsg;
-
-    public GameObject pauseMenu; // 
-
     public GameObject CARUI;
     private CheckAI cAI;
 
+    public GameObject popUpMsg;
+
+    // Dewy's addons
+    public bool pause = false;
+    public GameObject pauseMenuPanel;
     public bool insidePetrolStation;
 
     void Start()
@@ -187,7 +187,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         XpText.text = ""+ cAI.getCurrentXp();
         LevelText.text = ""+ cAI.getCurrentLevel();
         healthSlider.value = 100;
-        fuelSlider.value = 50;
+        fuelSlider.value = 100;
         fuelValue = 0;
         repairValue = 0;
         coinValue = 0;
@@ -225,8 +225,11 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         kmhText.text = (int)vehicleCode.KMh + " /kmh";
         gearTxt.text = vehicleCode.currentGear + "";
-        fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = "Fuel Cans: "+fuelValue;  // changed to add text 
+        if (Time.timeScale == 1.0f)
+        {
+            fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
+        }
+        fuelText.text = "Fuel Cans: "+fuelValue;
 
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
@@ -272,20 +275,18 @@ public class MSSceneControllerFree : MonoBehaviour {
     void pauseMenuPause()
     {
         pause = true;
-        pauseMenu.SetActive(true);
-        Cursor.visible = true;
+        pauseMenuPanel.SetActive(true);
 
     }
     public void pauseMenuResume()
     {
         pause = false;
-        pauseMenu.SetActive(false);
-        Cursor.visible = false;
+        pauseMenuPanel.SetActive(false);
     }
     public void pauseMenuQuit()
     {
         pause = false;
-        pauseMenu.gameObject.SetActive(false);
+        pauseMenuPanel.gameObject.SetActive(false);
     }
 
     void Manager()
@@ -510,18 +511,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 			vehicleCode = vehicles [currentVehicle].GetComponent<MSVehicleControllerFree> ();
 			EnableOrDisableButtons (vehicleCode.isInsideTheCar);
 
-            //if (Input.GetKeyDown(KeyCode.Escape))
-            //{
-            //    if (gamePaused)
-            //    {
-            //        pauseMenuResume();
-            //    }
-            //    else
-            //    {
-            //        pauseMenuPause();
-            //    }
-            //}
-
             if (Input.GetKeyDown (controls.reloadScene) && controls.enable_reloadScene_Input) {
 				SceneManager.LoadScene (sceneName);
 			}
@@ -532,12 +521,14 @@ public class MSSceneControllerFree : MonoBehaviour {
             if (pause)
             {
                 pauseMenuPause();
-                Time.timeScale = 0.1f;
+                Time.timeScale = 0.0f;
+                Cursor.visible = true;
             }
             else
             {
                 pauseMenuResume();
                 Time.timeScale = 1.0f;
+                Cursor.visible = false;
             }
 
             if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {

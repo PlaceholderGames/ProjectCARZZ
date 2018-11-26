@@ -28,7 +28,7 @@ public class SettingsManager : MonoBehaviour {
 
     public AudioMixer masterMixer;
 
-    public float db;
+    float db;
 
     void OnEnable()
     {
@@ -73,6 +73,7 @@ public class SettingsManager : MonoBehaviour {
         musicVolumeSlider.value = gameQualitySettings.musicVolume;
         sfxVolumeSlider.value = gameQualitySettings.sfxVolume;
         fovSlider.value = gameQualitySettings.fovValue;
+        Camera.main.fieldOfView = fovSlider.value;
 
 
         Screen.fullScreen = gameQualitySettings.fullscreen;
@@ -135,7 +136,7 @@ public class SettingsManager : MonoBehaviour {
     public void onFovSliderChange()
     {
         gameQualitySettings.fovValue = fovSlider.value;
-        Camera.main.fieldOfView = fovSlider.value;
+        Camera.main.fieldOfView = gameQualitySettings.fovValue;
 
     }
 

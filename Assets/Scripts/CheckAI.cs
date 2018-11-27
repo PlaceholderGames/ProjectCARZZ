@@ -46,15 +46,6 @@ public class CheckAI : MonoBehaviour {
                 healthSlider.value -= ds.RecievedDamage;
                 Ai[i].gaveDamage = false;
             }
-            if (player.gameObject.activeSelf)
-            {
-                aIBehaviours[i].target = player.transform;
-            }
-            else
-            {
-
-                aIBehaviours[i].target = vehicle.transform;
-            }
         }
         
 	}
@@ -79,3 +70,4 @@ public class CheckAI : MonoBehaviour {
         return ds.RecievedDamage;
     }
 }
+

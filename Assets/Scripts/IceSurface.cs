@@ -22,13 +22,13 @@ public class IceSurface : MonoBehaviour {
     public void OnTriggerEnter()
     {
         _MSV._vehicleSettings.improveControl.tireSlipsFactor = 0;
-        _MSV._skidMarks.standardColor = new Color(35, 100, 200);
+        //_MSV._skidMarks.standardColor = new Color(35, 100, 200);
     }
 
     public void OnTriggerExit()
     {
         _MSV._vehicleSettings.improveControl.tireSlipsFactor = standardSlipValue;
-        _MSV._skidMarks.standardColor = new Color(0, 0, 0);
+        //_MSV._skidMarks.standardColor = new Color(0, 0, 0);
     }
 
     void Update()

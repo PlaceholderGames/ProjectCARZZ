@@ -19,10 +19,11 @@ public class SpawnObject : MonoBehaviour {
     private Color col = new Color(1, 0, 0, 0.5f);
     private AIBehaviour[] aIBehaiour;
     private AICollision[] aICollision;
-    private MSVehicleControllerFree vehicle;
+    private MSSceneControllerFree sceneController;
+    private GameObject activeVehicle;
     private MSFPSControllerFree player;
     private Transform tempTransform;//used for switiching between player and vehicle
-    private Transform vehicleTransform;//vehicle in current scene
+    public Transform vehicleTransform;//vehicle in current scene
     private Transform playerTransform;//player in current scene
     
 
@@ -51,15 +52,21 @@ public class SpawnObject : MonoBehaviour {
         isSpawning = false;
     }
 
-    // Use this for initialization
     void Start () {
-        aIBehaiour = FindObjectsOfType<AIBehaviour>();
+        sceneController = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
+
         aICollision = FindObjectsOfType<AICollision>();
-        vehicle = FindObjectOfType<MSVehicleControllerFree>();
         player = FindObjectOfType<MSFPSControllerFree>();
-        vehicleTransform = vehicle.transform;
+
+        aIBehaiour = FindObjectsOfType<AIBehaviour>();
+
     }
 
+    void Update()
+    {
+        activeVehicle = GameObject.FindGameObjectWithTag("activeVehicle");
+        vehicleTransform = activeVehicle.transform;
+    }
     // Update is called once per frame
     void FixedUpdate() {
         aIBehaiour = FindObjectsOfType<AIBehaviour>();
@@ -72,7 +79,7 @@ public class SpawnObject : MonoBehaviour {
             isSpawning = true;
         }
         
-        if (vehicle.isInsideTheCar == false)
+        if (sceneController.vehicleCode.isInsideTheCar == false)
             playerTransform = player.transform;
         else
         {

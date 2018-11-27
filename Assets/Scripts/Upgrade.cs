@@ -41,7 +41,7 @@ public class Upgrade : MonoBehaviour {
     private GameObject upgradeButtons, lockIndicator, popUpPanel, unlockButton, buttonBackGround;
     private int currentVehicle;
 
-    private Text driftText, torque, speedText, fuelText, healthText, levelText, popUpText;
+    private Text driftText, torque, speedText, fuelText, healthText, levelText, popUpText,unlockText;
     private TextMeshProUGUI tmp_lvltxt, tmp_cointxt;
 
     private void Initialize()
@@ -53,9 +53,9 @@ public class Upgrade : MonoBehaviour {
         player = new Player(coin, level);
 
         vehicle = new Vehicle[transform.childCount];
-        vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle1"), true, false, PlayerPrefs.GetInt("v1_torque"), PlayerPrefs.GetInt("v1_speed"), PlayerPrefs.GetInt("v1_fuel"), PlayerPrefs.GetInt("v1_health"), 0, 0);
-        vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle2"), false, false, PlayerPrefs.GetInt("v2_torque"), PlayerPrefs.GetInt("v2_speed"), PlayerPrefs.GetInt("v2_fuel"), PlayerPrefs.GetInt("v2_health"),100, 5);
-        vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle3"), false, false, PlayerPrefs.GetInt("v3_torque"), PlayerPrefs.GetInt("v3_speed"), PlayerPrefs.GetInt("v3_fuel"), PlayerPrefs.GetInt("v3_health"),200,15);
+        vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle1"), true, false, 12, 45, 0, 50, 0, 0);
+        vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle2"), false, false,25, 120, 100, 100,250, 5);
+        vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle3"), false, false, 40, 180, 200, 200,500,15);
 
 
 
@@ -78,7 +78,9 @@ public class Upgrade : MonoBehaviour {
         popUpText = GameObject.Find("PopUpPanel").GetComponentInChildren<Text>();
         popUpPanel.SetActive(false);
         tmp_lvltxt = GameObject.Find("tmp_lvltxt").GetComponent<TextMeshProUGUI>();
+        unlockText = GameObject.Find("unlockText").GetComponent<Text>();
         buttonBackGround = GameObject.Find("buttonBackGround");
+        upgradeButtons.SetActive(false);
     } 
     private void rotateVehicle(){
         for(int i=0; i<vehicle.Length;i++)
@@ -93,6 +95,7 @@ public class Upgrade : MonoBehaviour {
         healthText.text = "Max health:" + vehicle[currentVehicle].health;
         tmp_cointxt.text = "" + player.coin;
         tmp_lvltxt.text = "LvL: " + player.level;
+        unlockText.text = "Unlock for " + vehicle[currentVehicle].unlockCostCoin;
     } 
 
     public void nextVehicle() {
@@ -101,6 +104,7 @@ public class Upgrade : MonoBehaviour {
         if (currentVehicle == vehicle.Length)
             currentVehicle = 0;
         vehicle[currentVehicle].vehicleObj.SetActive(true);
+
     }
     public void previousVehicle() {
         vehicle[currentVehicle].vehicleObj.SetActive(false);
@@ -158,7 +162,7 @@ public class Upgrade : MonoBehaviour {
         lockIndicator.SetActive(false);
         unlockButton.SetActive(false);
         buttonBackGround.transform.DOScaleX(4.85f, 1);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         upgradeButtons.SetActive(true);
     }
     IEnumerator upgradeButtonsDisappear()
@@ -166,8 +170,8 @@ public class Upgrade : MonoBehaviour {
         lockIndicator.SetActive(true);
         unlockButton.SetActive(true);
         upgradeButtons.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        buttonBackGround.transform.DOScaleX(1, 1);
+        yield return new WaitForSeconds(0);
+        buttonBackGround.transform.DOScaleX(1.5f, 1);
     }
 
     private void upgradeSomething(bool isUpgrade, ref int upgradeable, ref int cost, int value, int maxvalue)
@@ -178,7 +182,6 @@ public class Upgrade : MonoBehaviour {
             player.coin -= cost;
             cost = Mathf.FloorToInt((cost + 10) * 0.6f);
             SavePP();
-            Debug.Log(upgradeable);
         }
         else if (isUpgrade == false)
             upgradeable -= value;
@@ -203,7 +206,14 @@ public class Upgrade : MonoBehaviour {
     }
     public void upgradeFuel(bool isUpgrade){
         int cost = 20;
-        upgradeSomething(isUpgrade, ref vehicle[currentVehicle].fuel, ref cost, 10,200);
+        if (vehicle[currentVehicle].vehicleObj.tag != "Vehicle1")
+            upgradeSomething(isUpgrade, ref vehicle[currentVehicle].fuel, ref cost, 10, 200);
+        else
+        {
+            cost = 0;
+            upgradeSomething(isUpgrade, ref vehicle[currentVehicle].fuel, ref cost, 0, 0);
+        }
+
     }
     public void upgradeHealth(bool isUpgrade){
         int cost = 20;
@@ -277,10 +287,11 @@ public class Upgrade : MonoBehaviour {
             }
         }
     }
-
+    
     private void Start(){
+
         Initialize();
-        LoadPP();
+        //LoadPP();
     }
     private void Update(){
         rotateVehicle();

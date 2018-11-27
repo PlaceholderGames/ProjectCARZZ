@@ -5,7 +5,7 @@ public class AICollision : MonoBehaviour
 {
     private Animator anim;
     private SpawnObject spawnObject;
-    private MSVehicleControllerFree vehicle;
+    private MSVehicleControllerFree[] vehicles;
 
 
     public float despawnTime = 0.01f;
@@ -18,7 +18,7 @@ public class AICollision : MonoBehaviour
     {
         
         anim = GetComponentInChildren<Animator>();
-        vehicle = FindObjectOfType<MSVehicleControllerFree>();
+        vehicles = FindObjectsOfType<MSVehicleControllerFree>();
     }
 
     private void OnCollisionEnter(Collision collisionInfo)
@@ -30,16 +30,20 @@ public class AICollision : MonoBehaviour
         }
 
 
-       if (collisionInfo.collider.tag == "Vehicle")
+       if (collisionInfo.collider.tag == "Vehicle" || collisionInfo.collider.tag == "Vehicle1" || collisionInfo.collider.tag == "Vehicle2" || collisionInfo.collider.tag == "Vehicle3" || collisionInfo.collider.tag == "activeVehicle")
         {
-            if (vehicle.KMh > 30.0f)
+            for(int i = 0; i<vehicles.Length;i++)
             {
-                isDead = true;
-                Destroy(gameObject, despawnTime);
-                spawnObject = FindObjectOfType<SpawnObject>();//Finds the AI object
-                spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
+                if (vehicles[i].KMh > 30.0f)
+                {
+                    isDead = true;
+                    Destroy(gameObject, despawnTime);
+                    spawnObject = FindObjectOfType<SpawnObject>();//Finds the AI object
+                    spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
+                }
+                gaveDamage = true;
             }
-            gaveDamage = true;
+
         }
     }
 

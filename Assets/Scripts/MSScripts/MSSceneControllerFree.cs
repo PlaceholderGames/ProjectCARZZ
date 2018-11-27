@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using DG.Tweening;
 
 [Serializable]
 public class ControlsFree {
@@ -115,7 +116,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 	bool enterAndExitBool;
 	string sceneName;
 
-	MSVehicleControllerFree vehicleCode;
+	public MSVehicleControllerFree vehicleCode;
 	MSVehicleControllerFree controllerTemp;
 	float currentDistanceTemp;
 	float proximityDistanceTemp;
@@ -129,11 +130,6 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 
     //ADDONS BY RICHARD
-    public Camera fpsCam;
-    public Camera tpsCam;
-    public Camera playerCam;
-    public Canvas UIcanvas;
-
     private LevelingSystem LvlSystem;
     private Slider levelSlider;
     private Text LevelText;
@@ -154,14 +150,11 @@ public class MSSceneControllerFree : MonoBehaviour {
     public int repairValue;
 
     public GameObject popUpMsg;
-
-
-    public GameObject CARUI;
+    private GameObject speedUI;
     private String vehicleChoice;
 
     void Start()
     {
-        UIcanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
         gearTxt = GameObject.Find("gearTxt").GetComponent<Text>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
@@ -169,11 +162,10 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText = GameObject.Find("fuelText").GetComponent<Text>();
         repairText = GameObject.Find("repairText").GetComponent<Text>();
         coinText = GameObject.Find("coinText").GetComponent<Text>();
-        levelSlider = GameObject.Find("experienceSlider").GetComponent<Slider>();
-
+        levelSlider = GameObject.Find("levelSlider").GetComponent<Slider>();
         XpText = GameObject.Find("XpText").GetComponent<Text>();
-        LevelText = GameObject.Find("LevelText").GetComponent<Text>();
-        
+        LevelText = GameObject.Find("levelText").GetComponent<Text>();
+        speedUI = GameObject.Find("speedUI");
 
         healthSlider.value = 100;
         fuelSlider.value = 50;
@@ -185,7 +177,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     }
 
-    void SavePP()
+   /* void SavePP()
     {
         for(int i = 0; i< vehicles.Length; i++)
         {
@@ -214,7 +206,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
             }
         }
-    }
+    }*/
 
     void LoadPP()
     {
@@ -225,7 +217,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             {
                 vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v1_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v1_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
+                //fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
                 healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
             }
 
@@ -233,7 +225,8 @@ public class MSSceneControllerFree : MonoBehaviour {
             {
                 vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v2_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
+                //fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
+                fuelSlider.maxValue = 100;
                 healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
             }
 
@@ -241,19 +234,22 @@ public class MSSceneControllerFree : MonoBehaviour {
             {
                 vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v3_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
+                //fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
+                fuelSlider.maxValue = 200;
                 healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
             }
         }
    
     }
 
-    void InitVehicle()
-    {
-        for(int i =0; i < vehicles.Length; i++)
-        {
+    private void InitVehicle(){
+        for(int i =0; i < vehicles.Length; i++){
             if (vehicles[i].gameObject.tag == vehicleChoice)
+            {
                 vehicles[i].SetActive(true);
+                vehicles[i].tag = "activeVehicle";
+            }
+
             else
                 vehicles[i].SetActive(false);
         }
@@ -277,15 +273,22 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void FuelSystem()
     {
-        kmhText.text = (int)vehicleCode.KMh + " /kmh";
-        gearTxt.text = vehicleCode.currentGear + "";
-        fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
-        fuelText.text = ""+fuelValue;
+        kmhText.text = (int)vehicleCode.KMh + " kmh";
+        if (vehicles[0].gameObject.activeSelf==false)
+        {
+            fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
+            gearTxt.text = vehicleCode.currentGear + "";
+            fuelText.text = "" + fuelValue;
+            if (fuelSlider.value <= 0.1)
+                vehicleCode.theEngineIsRunning = false;
 
-        if (fuelSlider.value <= 0.1)
-            vehicleCode.theEngineIsRunning = false;
-        if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
-            Invoke("Refill", 0.5f);
+            if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+                Invoke("Refill", 0.5f);
+        }
+
+        else
+            fuelSlider.gameObject.SetActive(false);
+
         if (Input.GetKeyDown(KeyCode.H) && repairValue > 0)
             Invoke("Repair", 0.5f);
     }
@@ -304,24 +307,10 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void ChangeCanvasCam()
     {
-        if (fpsCam.gameObject.activeSelf == true)
-        {
-            UIcanvas.worldCamera = fpsCam;
-            CARUI.gameObject.SetActive(true);
-        }
-   
-        else if (tpsCam.gameObject.activeSelf == true)
-        {
-            UIcanvas.worldCamera = tpsCam;
-            CARUI.gameObject.SetActive(true);
-        }
-
-        else if (playerCam.gameObject.activeSelf == true)
-        {
-            UIcanvas.worldCamera = playerCam;
-            CARUI.gameObject.SetActive(false);
-        }
-
+        if (Camera.main.name == "CameraPlayer")
+            speedUI.gameObject.SetActive(false);
+        else
+            speedUI.gameObject.SetActive(true);
     }
 
     void Manager()
@@ -330,29 +319,57 @@ public class MSSceneControllerFree : MonoBehaviour {
         CoinSystem();
         RepairSystem();
         ChangeCanvasCam();
-        PopUpMsgEnter();
-        SavePP();
+        PopUpMessage();
+        //SavePP();
 
     }
 
-    void PopUpMsgEnter()
+    /*
+    IEnumerator PopUpMessageHelper(string message)
     {
+        popUpMsg.SetActive(false);
+        popUpMsg.transform.DOScale(0, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        popUpMsg.SetActive(true);
 
+        Text enterText = popUpMsg.transform.Find("Text").GetComponent<Text>();
+        enterText.text = message;
+
+        popUpMsg.transform.DOScale(1, 1);
+        yield return new WaitForSeconds(2.5f);
+        popUpMsg.transform.DOScale(0, 1);
+        yield return new WaitForSeconds(1);
+        popUpMsg.SetActive(false);
+
+    }
+
+    void PopUpWhenVehicleNear(){
+        currentDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[0].transform.position);
+        for (int x = 0; x < vehicleCode.doorPosition.Length; x++){
+            proximityDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[x].transform.position);
+            if (proximityDistanceTemp < currentDistanceTemp)
+                currentDistanceTemp = proximityDistanceTemp;
+        }
+
+        if (currentDistanceTemp < minDistance && !vehicleCode.isInsideTheCar)
+            PopUpMessageHelper("Press '" + controls.enterEndExit + "' to enter the vehicle");
+    }
+    */
+    void PopUpMessage()
+    {
         Text enterText = popUpMsg.transform.Find("Text").GetComponent<Text>();
         currentDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[0].transform.position);
         for (int x = 0; x < vehicleCode.doorPosition.Length; x++)
         {
             proximityDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[x].transform.position);
             if (proximityDistanceTemp < currentDistanceTemp)
-            {
                 currentDistanceTemp = proximityDistanceTemp;
-            }
         }
 
         if (currentDistanceTemp < minDistance && !vehicleCode.isInsideTheCar)
         {
             popUpMsg.SetActive(true);
-            enterText.text = "Press E to enter the vehicle";
+            enterText.text = "Press '" + controls.enterEndExit + "' to enter the vehicle";
         }
 
         else if(fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
@@ -365,13 +382,12 @@ public class MSSceneControllerFree : MonoBehaviour {
         {
             popUpMsg.SetActive(true);
             enterText.text = "Low Fuel! You better find some!";
-        }
-           
+        } 
 
         else
             popUpMsg.SetActive(false);
     }
-
+    
     //END ADDONS
 
 

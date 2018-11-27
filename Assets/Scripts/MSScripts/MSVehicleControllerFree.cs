@@ -264,9 +264,9 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	public VehicleSoundsClassFree _sounds;
 
 	[Tooltip("In this class, you can adjust all preferences in relation to vehicle skid marks, such as color, width, among other options.")]
-	public VehicleSkidMarksClassFree _skidMarks;
+	private VehicleSkidMarksClassFree _skidMarks;
 	[Tooltip("In this variable, the 'SkidMarks' shader must be associated. Otherwise, the vehicle will not generate skid marks.")]
-	public Shader skidMarksShader;
+	private Shader skidMarksShader;
 
 	#region inputs
 	float verticalInput = 0;
@@ -480,7 +480,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 
 
 	void Awake(){
-		enableSkidMarksOnStart = true;
+		enableSkidMarksOnStart = false;
 		DebugStartErrors ();
 		SetCameras ();
 	}
@@ -628,7 +628,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 				beatsSoundAUD = GenerateAudioSource ("Sound of beats", 10, _sounds.volumeCollisionSounds, _sounds.collisionSounds [UnityEngine.Random.Range (0, _sounds.collisionSounds.Length)], false, false, false);
 			}
 		}
-		skiddingSoundAUD.clip = _sounds.skiddingSound.standardSound;
+		//skiddingSoundAUD.clip = _sounds.skiddingSound.standardSound;
 
 		lastRightForwardPositionY = _wheels.rightFrontWheel.wheelMesh.transform.localPosition.y;
 		lastLeftForwardPositionY = _wheels.leftFrontWheel.wheelMesh.transform.localPosition.y;
@@ -2098,7 +2098,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 		wheelMesh.RecalculateBounds();
 		return true;
 	}
-
+    
 	Mesh GerarRendRef(Material skdMaterial, string wheelName) {
 		GameObject rendRef = new GameObject("SkidMesh "+ wheelName + " " + transform.name);
 		rendRef.AddComponent<MeshFilter>();

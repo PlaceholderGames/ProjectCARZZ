@@ -14,10 +14,9 @@ public class AIBehaviour : MonoBehaviour
     private float speed;
     float xpos, zpos;
     private MSVehicleControllerFree vehicle;
+    private MSSceneControllerFree sceneController;
 
     private Animator anim;
- 
-    
     public AICollision aiCollision;
 
     private void Start()
@@ -25,23 +24,20 @@ public class AIBehaviour : MonoBehaviour
         
         anim = GetComponentInChildren<Animator>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
+        sceneController = FindObjectOfType<MSSceneControllerFree>();
     }
 
    
 
     void FixedUpdate()
     {
-            
-       
-
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
-        
             //if the player is inside the detectable distance
             if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
             {
                 anim.SetBool("isIdle", false); ///Player in car
-                if (vehicle.isInsideTheCar)
+                if (sceneController.vehicleCode.isInsideTheCar)
                 {
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isRunning", true); //Zombie runs

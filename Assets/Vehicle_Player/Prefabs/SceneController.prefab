@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4683742390104588}
   - component: {fileID: 114762186321443092}
+  - component: {fileID: 114429446414327020}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -417,6 +418,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114429446414327020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330612148638106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2286cb7e800d94cbaf2a2eee60c9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ds: {fileID: 0}
+  ls: {fileID: 0}
 --- !u!114 &114466040746838432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -654,7 +668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1330612148638106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5441a31e4f084e24abbeef96eaf41752, type: 3}
+  m_Script: {fileID: 11500000, guid: a0e42d0e45425bb4ba92d00684c79d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _verticalInput: Vertical
@@ -668,7 +682,7 @@ MonoBehaviour:
     enable_startTheVehicle_Input: 1
     startTheVehicle: 102
     enable_enterEndExit_Input: 1
-    enterEndExit: 101
+    enterEndExit: 116
     enable_handBrakeInput_Input: 1
     handBrakeInput: 32
     enable_switchingCameras_Input: 1
@@ -677,25 +691,24 @@ MonoBehaviour:
     pause: 112
   vehicles:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   startingVehicle: 0
   player: {fileID: 0}
   startInPlayer: 1
   selectControls: 0
-  minDistance: 1
+  minDistance: 3
   UIVisualizer: 1
   verticalInput: 0
   horizontalInput: 0
   mouseXInput: 0
   mouseYInput: 0
   mouseScrollWheelInput: 0
-  fpsCam: {fileID: 0}
-  tpsCam: {fileID: 0}
-  playerCam: {fileID: 0}
-  fuelValue: 0
-  coinValue: 0
-  repairValue: 0
+  vehicleCode: {fileID: 0}
+  fuelValue: 5
+  coinValue: 5
+  repairValue: 5
   popUpMsg: {fileID: 0}
-  CARUI: {fileID: 0}
 --- !u!114 &114799149572044526
 MonoBehaviour:
   m_ObjectHideFlags: 1

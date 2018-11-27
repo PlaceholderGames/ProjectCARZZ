@@ -17,44 +17,45 @@ public class CheckAI : MonoBehaviour {
         ds = FindObjectOfType<DamageSystem>();
         ls = FindObjectOfType<LevelingSystem>();
         Ai = FindObjectsOfType<AICollision>();
-        vehicle = FindObjectOfType<MSVehicleControllerFree>();
+        //vehicle = FindObjectsOfType<MSVehicleControllerFree>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
+
         
 	}
-	
-	// Update is called once per frame
-	public void UpdateCheckAI() {
+
+    private void Update()
+    {
+        vehicle = GameObject.Find("activeVehicle").GetComponent<MSVehicleControllerFree>();
+    }
+
+    // Update is called once per frame
+    public void UpdateCheckAI() {
         Ai = FindObjectsOfType<AICollision>();
         for (int i = 0; i < Ai.Length; i++)
         {
+
+                if (Ai[i].isDead)
+                {
+
+                    if (vehicle.KMh > 30.0f)
+                    {
+                        Debug.Log("GaveXP");
+                        ls.currentXP += 1;
+                        ls.UpdateLevelingSystem();
+                        Ai[i].isDead = false;
+                    }
+                }
+                if (Ai[i].gaveDamage)
+                {
+                    ds.RecievedDamage = Random.Range(1, 10);
+                    Debug.Log("damgae");
+                    healthSlider.value -= ds.RecievedDamage;
+                    Ai[i].gaveDamage = false;
+                }
+            
             Debug.Log("UpdateCheckAI Function");
             Debug.Log(Ai[i].isDead);
-            if (Ai[i].isDead)
-            {
-               
-                if (vehicle.KMh > 30.0f)
-                {
-                    Debug.Log("GaveXP");
-                    ls.currentXP += 1;
-                    ls.UpdateLevelingSystem();
-                    Ai[i].isDead = false;
-                }
-            }
-            if (Ai[i].gaveDamage)
-            {
-                ds.RecievedDamage = Random.Range(1, 10);
-                healthSlider.value -= ds.RecievedDamage;
-                Ai[i].gaveDamage = false;
-            }
-            //if (player.gameObject.activeSelf)
-            //{
-            //    aIBehaviours[i].target = player.transform;
-            //}
-            //else
-            //{
-
-            //    aIBehaviours[i].target = vehicle.transform;
-            //}
+            
         }
         
 	}

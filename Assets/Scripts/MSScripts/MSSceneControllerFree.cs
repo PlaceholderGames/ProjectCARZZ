@@ -129,8 +129,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 	Vector2 vectorDirJoystick;
 
 
+
     //ADDONS BY RICHARD
-    private LevelingSystem LvlSystem;
     private Slider levelSlider;
     private Text LevelText;
     private Text XpText;
@@ -145,12 +145,15 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text coinText;
     public int coinValue;
 
+    private CheckAI cAI;
+
     private Slider healthSlider;
     private Text repairText;
     public int repairValue;
 
     public GameObject popUpMsg;
     private GameObject speedUI;
+
     private String vehicleChoice;
 
     void Start()
@@ -166,47 +169,63 @@ public class MSSceneControllerFree : MonoBehaviour {
         XpText = GameObject.Find("XpText").GetComponent<Text>();
         LevelText = GameObject.Find("levelText").GetComponent<Text>();
         speedUI = GameObject.Find("speedUI");
+        cAI = FindObjectOfType<CheckAI>();
 
-        healthSlider.value = 100;
-        fuelSlider.value = 50;
+        levelSlider.value = cAI.getCurrentXp();
+        levelSlider.maxValue = cAI.getTotalXp();
+        XpText.text = "" + cAI.getCurrentXp();
+        LevelText.text = "" + cAI.getCurrentLevel();
+
         fuelValue = 0;
         repairValue = 0;
         coinValue = 0;
         vehicleChoice = PlayerPrefs.GetString("vehicleChoice");
-        InitVehicle();
+        //InitVehicle();
+        LoadPP();
+        healthSlider.value = healthSlider.maxValue;
+        fuelSlider.value = fuelSlider.maxValue;
 
     }
 
-   /* void SavePP()
+    /* void SavePP()
+     {
+         for(int i = 0; i< vehicles.Length; i++)
+         {
+             if (vehicles[i].gameObject.tag == "Vehicle1")
+             {
+                 PlayerPrefs.SetFloat("v1_torque", vehicleCode._vehicleTorque.engineTorque);
+                 PlayerPrefs.SetInt("v1_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
+                 PlayerPrefs.SetInt("v1_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
+                 PlayerPrefs.SetInt("v1_health", Mathf.RoundToInt(healthSlider.maxValue));
+             }
+             else if (vehicles[i].gameObject.tag == "Vehicle2")
+             {
+                 PlayerPrefs.SetFloat("v2_torque", vehicleCode._vehicleTorque.engineTorque);
+                 PlayerPrefs.SetInt("v2_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
+                 PlayerPrefs.SetInt("v2_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
+                 PlayerPrefs.SetInt("v2_health", Mathf.RoundToInt(healthSlider.maxValue));
+
+             }
+
+             else if (vehicles[i].gameObject.tag == "Vehicle3")
+             {
+                 PlayerPrefs.SetFloat("v3_torque", vehicleCode._vehicleTorque.engineTorque);
+                 PlayerPrefs.SetInt("v3_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
+                 PlayerPrefs.SetInt("v3_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
+                 PlayerPrefs.SetInt("v3_health", Mathf.RoundToInt(healthSlider.maxValue));
+
+             }
+         }
+     }*/
+
+    void LevelSystem()
     {
-        for(int i = 0; i< vehicles.Length; i++)
-        {
-            if (vehicles[i].gameObject.tag == "Vehicle1")
-            {
-                PlayerPrefs.SetFloat("v1_torque", vehicleCode._vehicleTorque.engineTorque);
-                PlayerPrefs.SetInt("v1_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                PlayerPrefs.SetInt("v1_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                PlayerPrefs.SetInt("v1_health", Mathf.RoundToInt(healthSlider.maxValue));
-            }
-            else if (vehicles[i].gameObject.tag == "Vehicle2")
-            {
-                PlayerPrefs.SetFloat("v2_torque", vehicleCode._vehicleTorque.engineTorque);
-                PlayerPrefs.SetInt("v2_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                PlayerPrefs.SetInt("v2_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                PlayerPrefs.SetInt("v2_health", Mathf.RoundToInt(healthSlider.maxValue));
-
-            }
-
-            else if (vehicles[i].gameObject.tag == "Vehicle3")
-            {
-                PlayerPrefs.SetFloat("v3_torque", vehicleCode._vehicleTorque.engineTorque);
-                PlayerPrefs.SetInt("v3_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                PlayerPrefs.SetInt("v3_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                PlayerPrefs.SetInt("v3_health", Mathf.RoundToInt(healthSlider.maxValue));
-
-            }
-        }
-    }*/
+        cAI.UpdateCheckAI();
+        levelSlider.value = cAI.getCurrentXp();
+        XpText.text = "XP Earned: " + cAI.getCurrentXp();
+        LevelText.text = "Level: " + cAI.getCurrentLevel();
+        levelSlider.maxValue = cAI.getTotalXp();
+    }
 
     void LoadPP()
     {
@@ -218,7 +237,8 @@ public class MSSceneControllerFree : MonoBehaviour {
                 vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v1_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v1_speed");
                 //fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
-                healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
+                // healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
+                healthSlider.maxValue = 50;
             }
 
             else if(vehicles[i].gameObject.tag == "Vehicle2")
@@ -227,7 +247,8 @@ public class MSSceneControllerFree : MonoBehaviour {
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
                 //fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
                 fuelSlider.maxValue = 100;
-                healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
+                //healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
+                healthSlider.maxValue = 100;
             }
 
             else if (vehicles[i].gameObject.tag == "Vehicle3")
@@ -236,7 +257,8 @@ public class MSSceneControllerFree : MonoBehaviour {
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
                 //fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
                 fuelSlider.maxValue = 200;
-                healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
+                //healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
+                healthSlider.maxValue = 200;
             }
         }
    
@@ -253,7 +275,6 @@ public class MSSceneControllerFree : MonoBehaviour {
             else
                 vehicles[i].SetActive(false);
         }
-        LoadPP();
     }
 
     void RepairSystem()
@@ -274,7 +295,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     void FuelSystem()
     {
         kmhText.text = (int)vehicleCode.KMh + " kmh";
-        if (vehicles[0].gameObject.activeSelf==false)
+        if (vehicles[0].gameObject.activeSelf==false )
         {
             fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
             gearTxt.text = vehicleCode.currentGear + "";
@@ -320,6 +341,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         RepairSystem();
         ChangeCanvasCam();
         PopUpMessage();
+        LevelSystem();
         //SavePP();
 
     }

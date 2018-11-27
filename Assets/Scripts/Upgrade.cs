@@ -29,8 +29,6 @@ public class Upgrade : MonoBehaviour {
             this.health = health;
             this.unlockCostLvl = unlockCostLvl;
             this.unlockCostCoin = unlockCostCoin;
-
-
         }
 
     }
@@ -80,7 +78,6 @@ public class Upgrade : MonoBehaviour {
         tmp_lvltxt = GameObject.Find("tmp_lvltxt").GetComponent<TextMeshProUGUI>();
         unlockText = GameObject.Find("unlockText").GetComponent<Text>();
         buttonBackGround = GameObject.Find("buttonBackGround");
-        upgradeButtons.SetActive(false);
     } 
     private void rotateVehicle(){
         for(int i=0; i<vehicle.Length;i++)
@@ -162,14 +159,14 @@ public class Upgrade : MonoBehaviour {
         lockIndicator.SetActive(false);
         unlockButton.SetActive(false);
         buttonBackGround.transform.DOScaleX(4.85f, 1);
+        upgradeButtons.transform.DOScaleX(1, 1);
         yield return new WaitForSeconds(0);
-        upgradeButtons.SetActive(true);
     }
     IEnumerator upgradeButtonsDisappear()
     {
         lockIndicator.SetActive(true);
         unlockButton.SetActive(true);
-        upgradeButtons.SetActive(false);
+        upgradeButtons.transform.DOScale(0, 1);
         yield return new WaitForSeconds(0);
         buttonBackGround.transform.DOScaleX(1.5f, 1);
     }

@@ -81,6 +81,7 @@ public class SpawnObject : MonoBehaviour {
         
         if (sceneController.vehicleCode.isInsideTheCar == false)
             playerTransform = player.transform;
+ 
         else
         {
             tempTransform = playerTransform;

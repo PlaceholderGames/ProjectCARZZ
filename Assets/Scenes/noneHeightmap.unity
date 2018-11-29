@@ -497,12 +497,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 277537962}
   currentObjects: 0
+  CurrentNumberAi: 0
   maxNumberObjects: 12
-  SpawnIntervalAi: 1
+  MaxNumberAi: 5
+  despawnTime: 0
+  SpawnIntervalAi: 5
+  SpawnIntervalcollectables: 0
+  DetectDistanceAi: 50
   objectToPlace:
-  - {fileID: 1686948104640772, guid: 911177e386def71488bfdf1bd4e09748, type: 2}
-  - {fileID: 1406759249661848, guid: 5c611a6b9cbcf6449830e5bc546e4edd, type: 2}
-  - {fileID: 1377054913122262, guid: 21115bda387750e4dac836291b922165, type: 2}
+  - {fileID: 1064664710869110, guid: 86a3c181c7ca6f245a1ce2703fbd99c5, type: 2}
 --- !u!1001 &345969032
 Prefab:
   m_ObjectHideFlags: 0
@@ -887,53 +890,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1792611193650020, guid: c35fa3572f89afa4eb3b0c1a362b416e,
     type: 2}
   m_PrefabInternal: {fileID: 2035844748}
---- !u!1 &1162190959
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1162190961}
-  - component: {fileID: 1162190960}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1162190960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162190959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa310fbe0e8dd894e9f59e3210bd495b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrain: {fileID: 277537962}
-  currentObjects: 0
-  maxNumberObjects: 1
-  SpawnIntervalAi: 2
-  objectToPlace:
-  - {fileID: 1081653143893834, guid: 136d59c84335ffc42bdf5cb5bed44b3c, type: 2}
-  - {fileID: 1081653143893834, guid: 136d59c84335ffc42bdf5cb5bed44b3c, type: 2}
---- !u!4 &1162190961
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1162190959}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 192.48, y: 11.964058, z: 179.7534}
-  m_LocalScale: {x: 4.4296, y: 4.4296, z: 4.4296}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!223 &1216951240 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 223303969334113266, guid: 305f5388efd04304eb703d2d3c460cec,
@@ -1623,7 +1579,7 @@ Prefab:
     - target: {fileID: 224831293787864582, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 16.799988
+      value: 16.800049
       objectReference: {fileID: 0}
     - target: {fileID: 224831293787864582, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}
@@ -1663,7 +1619,7 @@ Prefab:
     - target: {fileID: 224585531269352062, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 16.799988
+      value: 16.800049
       objectReference: {fileID: 0}
     - target: {fileID: 224585531269352062, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}
@@ -1738,7 +1694,7 @@ Prefab:
     - target: {fileID: 224182787988068324, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.3300171
+      value: -0.32995605
       objectReference: {fileID: 0}
     - target: {fileID: 224182787988068324, guid: 305f5388efd04304eb703d2d3c460cec,
         type: 2}

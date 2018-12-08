@@ -158,7 +158,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -260,21 +260,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1317315654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa310fbe0e8dd894e9f59e3210bd495b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fd630d78761d4f44be5a0bec52c7d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainData: {fileID: 0}
   terrain: {fileID: 0}
-  currentObjects: 0
-  CurrentNumberAi: 0
-  maxNumberObjects: 5
-  MaxNumberAi: 5
-  despawnTime: 0
-  SpawnIntervalAi: 1
-  SpawnIntervalcollectables: 5
-  DetectDistanceAi: 50
-  objectToPlace:
-  - {fileID: 0}
-  - {fileID: 0}
+  numCol: 0
+  numAi: 0
 --- !u!1 &1922440292
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,10 +337,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1922440292}
-  m_LocalRotation: {x: -0, y: 0.9898109, z: -0, w: 0.14238818}
-  m_LocalPosition: {x: 130, y: 1, z: 178}
+  m_LocalRotation: {x: 0.025353925, y: 0.973993, z: -0.1762477, w: 0.14011273}
+  m_LocalPosition: {x: 105.47, y: 47.4, z: 261.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 163.628, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.514002, y: 163.628, z: 0}

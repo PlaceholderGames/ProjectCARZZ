@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 #region wheelClass
 [Serializable]
@@ -371,6 +372,8 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	AudioSource beatsOnWheelSoundAUD;
 	AudioSource skiddingSoundAUD;
 
+    public AudioMixerGroup mainMixer;
+
 	WheelCollider[] wheelColliderList;
 	Vector2 tireSL;
 	Vector2 tireFO;
@@ -480,7 +483,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 
 
 	void Awake(){
-		enableSkidMarksOnStart = true;
+        enableSkidMarksOnStart = true;
 		DebugStartErrors ();
 		SetCameras ();
 	}
@@ -535,7 +538,8 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	}
 
 	void SetValues(){
-		forceEngineBrake = 0.75f * _vehicleSettings.vehicleMass;
+
+        forceEngineBrake = 0.75f * _vehicleSettings.vehicleMass;
 		vehicleScale = transform.lossyScale.y;
 
 		vertices = new List<Vector3>(1200);
@@ -1358,11 +1362,13 @@ public class MSVehicleControllerFree : MonoBehaviour {
 
 	#region SoundsManager
 	public AudioSource GenerateAudioSource(string name, float minDistance, float volume, AudioClip audioClip, bool loop, bool playNow, bool playAwake){
+
 		GameObject audioSource = new GameObject(name);
 		audioSource.transform.position = transform.position;
 		audioSource.transform.parent = transform;
 		AudioSource temp = audioSource.AddComponent<AudioSource>() as AudioSource;
-		temp.minDistance = minDistance;
+        temp.outputAudioMixerGroup = mainMixer;
+        temp.minDistance = minDistance;
 		temp.volume = volume;
 		temp.clip = audioClip;
 		temp.loop = loop;

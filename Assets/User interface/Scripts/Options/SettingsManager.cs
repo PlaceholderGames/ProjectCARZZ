@@ -30,6 +30,12 @@ public class SettingsManager : MonoBehaviour {
 
     float db;
 
+    void Update()
+    {
+        Camera.main.fieldOfView = fovSlider.value;
+    }
+
+
     void OnEnable()
     {
         gameQualitySettings = new GameSettings();
@@ -73,7 +79,6 @@ public class SettingsManager : MonoBehaviour {
         musicVolumeSlider.value = gameQualitySettings.musicVolume;
         sfxVolumeSlider.value = gameQualitySettings.sfxVolume;
         fovSlider.value = gameQualitySettings.fovValue;
-        Camera.main.fieldOfView = fovSlider.value;
 
 
         Screen.fullScreen = gameQualitySettings.fullscreen;
@@ -136,8 +141,6 @@ public class SettingsManager : MonoBehaviour {
     public void onFovSliderChange()
     {
         gameQualitySettings.fovValue = fovSlider.value;
-        Camera.main.fieldOfView = gameQualitySettings.fovValue;
-
     }
 
     public void onAudioButtonClick() //when the particular settings apply button is clicked, save the audio settings

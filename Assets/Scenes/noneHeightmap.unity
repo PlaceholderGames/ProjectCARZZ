@@ -149,55 +149,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &32292039
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 32292041}
-  - component: {fileID: 32292040}
-  m_Layer: 0
-  m_Name: SpawnAreaThree
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &32292040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 32292039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bd817e69cf014181e37b6b0424c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 1890079358109774, guid: 0ac12baaa90ae6f4fa046cea83105dcb, type: 2}
-  center: {x: 367, y: 32.24, z: 156.9}
-  size: {x: 111.8, y: 16.4, z: 122.7}
-  despawnTime: 0
-  MaxNumberAi: 50
-  SpawnIntervalAi: 5
-  CurrentNumberAi: 0
-  DetectDistanceAi: 50
-  vehicleTransform: {fileID: 0}
---- !u!4 &32292041
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 32292039}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 259.19, y: 257.4, z: -65.30008}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &34887628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2993,55 +2944,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4214540048841082, guid: 86a3c181c7ca6f245a1ce2703fbd99c5,
     type: 2}
   m_PrefabInternal: {fileID: 1820277724}
---- !u!1 &593170453
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 593170455}
-  - component: {fileID: 593170454}
-  m_Layer: 0
-  m_Name: SpawnAreaTwo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &593170454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593170453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bd817e69cf014181e37b6b0424c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 1890079358109774, guid: 0ac12baaa90ae6f4fa046cea83105dcb, type: 2}
-  center: {x: 391.12, y: 32.24, z: 318.7}
-  size: {x: 111.8, y: 16.4, z: 122.7}
-  despawnTime: 0
-  MaxNumberAi: 50
-  SpawnIntervalAi: 5
-  CurrentNumberAi: 0
-  DetectDistanceAi: 50
-  vehicleTransform: {fileID: 0}
---- !u!4 &593170455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593170453}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 259.19, y: 257.4, z: -65.30008}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &620330410
 GameObject:
   m_ObjectHideFlags: 0
@@ -4000,55 +3902,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831356202}
   m_CullTransparentMesh: 0
---- !u!1 &832253292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 832253294}
-  - component: {fileID: 832253293}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &832253293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 832253292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7e80a675b4c0eb4894c59f366b43e3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab:
-  - {fileID: 1686948104640772, guid: 911177e386def71488bfdf1bd4e09748, type: 2}
-  - {fileID: 1406759249661848, guid: 5c611a6b9cbcf6449830e5bc546e4edd, type: 2}
-  - {fileID: 1377054913122262, guid: 21115bda387750e4dac836291b922165, type: 2}
-  center: {x: 126.03, y: 32.24, z: 318.7}
-  size: {x: 111.8, y: 16.4, z: 122.7}
-  collectablesMax: 50
-  collectablesSpawnTimer: 1
-  collectableNumber: 0
---- !u!4 &832253294
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 832253292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -315.00272, y: -439.98718, z: 349.23547}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &841478681
 GameObject:
   m_ObjectHideFlags: 0
@@ -5451,7 +5304,7 @@ Transform:
   - {fileID: 576388273}
   - {fileID: 345969038}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1089189380
 GameObject:
@@ -6116,55 +5969,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!1 &1190557953
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1190557954}
-  - component: {fileID: 1190557955}
-  m_Layer: 0
-  m_Name: SpawnAreaOne
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1190557954
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1190557953}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 259.19, y: 257.4, z: -65.30008}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1190557955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1190557953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bd817e69cf014181e37b6b0424c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 1081653143893834, guid: 136d59c84335ffc42bdf5cb5bed44b3c, type: 2}
-  center: {x: 126.03, y: 32.24, z: 318.7}
-  size: {x: 111.8, y: 16.4, z: 122.7}
-  despawnTime: 0.01
-  MaxNumberAi: 5
-  SpawnIntervalAi: 0.5
-  CurrentNumberAi: 0
-  DetectDistanceAi: 50
-  vehicleTransform: {fileID: 0}
 --- !u!1 &1237878578
 GameObject:
   m_ObjectHideFlags: 0
@@ -11645,7 +11449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1931289846
 MonoBehaviour:

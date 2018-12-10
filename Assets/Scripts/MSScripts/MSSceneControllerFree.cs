@@ -38,7 +38,7 @@ public class ControlsFree {
 	[Space(10)][Tooltip("If this variable is true, the control for this variable will be activated.")]
 	public bool enable_pause_Input = true;
 	[Tooltip("The key that must be pressed to pause the game.")]
-	public KeyCode pause = KeyCode.P;
+	public KeyCode pause = KeyCode.Escape;
 }
 
 public class MSSceneControllerFree : MonoBehaviour {
@@ -156,6 +156,11 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     private String vehicleChoice;
 
+    // Dewy's addons
+    public bool Pause = false;
+    public GameObject pauseMenuPanel;
+    public bool insidePetrolStation;
+
     void Start()
     {
         kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
@@ -176,47 +181,36 @@ public class MSSceneControllerFree : MonoBehaviour {
         XpText.text = "" + cAI.getCurrentXp();
         LevelText.text = "" + cAI.getCurrentLevel();
 
-        fuelValue = 0;
-        repairValue = 0;
-        coinValue = 0;
+        
         vehicleChoice = PlayerPrefs.GetString("vehicleChoice");
+        
         InitVehicle();
         LoadPP();
-        healthSlider.value = healthSlider.maxValue;
-        fuelSlider.value = fuelSlider.maxValue;
+        
+
 
     }
 
-    /* void SavePP()
-     {
-         for(int i = 0; i< vehicles.Length; i++)
-         {
-             if (vehicles[i].gameObject.tag == "Vehicle1")
-             {
-                 PlayerPrefs.SetFloat("v1_torque", vehicleCode._vehicleTorque.engineTorque);
-                 PlayerPrefs.SetInt("v1_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                 PlayerPrefs.SetInt("v1_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                 PlayerPrefs.SetInt("v1_health", Mathf.RoundToInt(healthSlider.maxValue));
-             }
-             else if (vehicles[i].gameObject.tag == "Vehicle2")
-             {
-                 PlayerPrefs.SetFloat("v2_torque", vehicleCode._vehicleTorque.engineTorque);
-                 PlayerPrefs.SetInt("v2_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                 PlayerPrefs.SetInt("v2_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                 PlayerPrefs.SetInt("v2_health", Mathf.RoundToInt(healthSlider.maxValue));
-
-             }
-
-             else if (vehicles[i].gameObject.tag == "Vehicle3")
-             {
-                 PlayerPrefs.SetFloat("v3_torque", vehicleCode._vehicleTorque.engineTorque);
-                 PlayerPrefs.SetInt("v3_speed", vehicleCode._vehicleTorque.maxVelocityKMh);
-                 PlayerPrefs.SetInt("v3_fuel", Mathf.RoundToInt(fuelSlider.maxValue));
-                 PlayerPrefs.SetInt("v3_health", Mathf.RoundToInt(healthSlider.maxValue));
-
-             }
-         }
-     }*/
+    void SavePP()
+    {
+        PlayerPrefs.SetInt("coinValue", coinValue);
+        PlayerPrefs.SetInt("currentLevel", (int)cAI.getCurrentLevel());
+        PlayerPrefs.SetInt("fuelValue", fuelValue);
+        PlayerPrefs.SetInt("repairValue", repairValue);
+        PlayerPrefs.SetInt("currentXP", (int)cAI.getCurrentXp());
+        PlayerPrefs.SetInt("totalXP", (int)cAI.getTotalXp());
+        if (vehicles[0].activeSelf)
+        {
+            PlayerPrefs.SetInt("v2_currentRepair", (int)healthSlider.value);
+            PlayerPrefs.SetInt("v2_currentFuel", (int)fuelSlider.value);
+        }
+        else if (vehicles[1].activeSelf)
+        {
+            PlayerPrefs.SetInt("v3_currentRepair", (int)healthSlider.value);
+            PlayerPrefs.SetInt("v3_currentFuel", (int)fuelSlider.value);
+        }
+        
+    }
 
     void LevelSystem()
     {
@@ -234,34 +228,57 @@ public class MSSceneControllerFree : MonoBehaviour {
         {
             if(vehicles[i].gameObject.tag == "Vehicle1")
             {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v1_torque");
+                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v1_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v1_speed");
-                //fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
-                // healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
-                healthSlider.maxValue = 50;
+                fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
+                healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
             }
 
             else if(vehicles[i].gameObject.tag == "Vehicle2")
             {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v2_torque");
+                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v2_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
-                //fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
-                fuelSlider.maxValue = 100;
-                //healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
-                healthSlider.maxValue = 100;
+                fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
+                healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
             }
 
             else if (vehicles[i].gameObject.tag == "Vehicle3")
             {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetFloat("v3_torque");
+                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v3_torque");
                 vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
-                //fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
-                fuelSlider.maxValue = 200;
-                //healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
-                healthSlider.maxValue = 200;
+                fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
+                healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
             }
         }
-   
+        if (PlayerPrefs.GetInt("isNewGame") == 1)
+        {
+            fuelValue = 0;
+            repairValue = 0;
+            coinValue = 0;
+            levelSlider.value = cAI.getCurrentXp();
+            levelSlider.maxValue = cAI.getTotalXp();
+            healthSlider.value = healthSlider.maxValue;
+            fuelSlider.value = fuelSlider.maxValue;
+        }
+        else if (PlayerPrefs.GetInt("isNewGame") == 0)
+        {
+            fuelValue = PlayerPrefs.GetInt("fuelValue");
+            repairValue = PlayerPrefs.GetInt("repairValue");
+            coinValue = PlayerPrefs.GetInt("coinValue");
+            levelSlider.value = PlayerPrefs.GetInt("currentXP");
+            levelSlider.maxValue = PlayerPrefs.GetInt("totalXP");
+            if (vehicles[0].activeSelf)
+            {
+                healthSlider.value = PlayerPrefs.GetInt("v2_currentRepair");
+                fuelSlider.value = PlayerPrefs.GetInt("v2_currentFuel");
+            }
+            else if (vehicles[1].activeSelf)
+            {
+                healthSlider.value = PlayerPrefs.GetInt("v3_currentRepair");
+                fuelSlider.value = PlayerPrefs.GetInt("v3_currentFuel");
+            }
+        }
+
     }
 
     private void InitVehicle(){
@@ -284,7 +301,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         if (fuelSlider.value <= 0.1)
             vehicleCode.theEngineIsRunning = false;
         if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
-            Invoke("Refill", 0.5f);
+            Invoke("Repair", 0.5f);
     }
 
     void CoinSystem()
@@ -295,8 +312,9 @@ public class MSSceneControllerFree : MonoBehaviour {
     void FuelSystem()
     {
         kmhText.text = (int)vehicleCode.KMh + " kmh";
-        if (vehicles[0].gameObject.activeSelf==false )
+        if (vehicleCode.isInsideTheCar)
         {
+            fuelSlider.gameObject.SetActive(true);
             fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
             gearTxt.text = vehicleCode.currentGear + "";
             fuelText.text = "" + fuelValue;
@@ -306,12 +324,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
                 Invoke("Refill", 0.5f);
         }
-
-        else
-            fuelSlider.gameObject.SetActive(false);
-
-        if (Input.GetKeyDown(KeyCode.H) && repairValue > 0)
-            Invoke("Repair", 0.5f);
+        else fuelSlider.gameObject.SetActive(false);
     }
 
     void Repair()
@@ -328,10 +341,26 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void ChangeCanvasCam()
     {
-        if (Camera.main.name == "CameraPlayer")
+        if (Camera.main.name == "Camera")
             speedUI.gameObject.SetActive(false);
         else
             speedUI.gameObject.SetActive(true);
+    }
+    void pauseMenuPause()
+    {
+        Pause = true;
+        pauseMenuPanel.SetActive(true);
+
+    }
+    public void pauseMenuResume()
+    {
+        Pause = false;
+        pauseMenuPanel.SetActive(false);
+    }
+    public void pauseMenuQuit()
+    {
+        Pause = false;
+        pauseMenuPanel.gameObject.SetActive(false);
     }
 
     void Manager()
@@ -342,7 +371,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         ChangeCanvasCam();
         PopUpMessage();
         LevelSystem();
-        //SavePP();
+        SavePP();
 
     }
 
@@ -578,16 +607,24 @@ public class MSSceneControllerFree : MonoBehaviour {
 				SceneManager.LoadScene (sceneName);
 			}
 
-			if (Input.GetKeyDown (controls.pause) && controls.enable_pause_Input) {
-				pause = !pause;
-			}
-			if (pause) {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 0.0f, Time.fixedDeltaTime * 5.0f);
-			} else {
-				Time.timeScale = Mathf.Lerp (Time.timeScale, 1.0f, Time.fixedDeltaTime * 5.0f);
-			}
+            if (Input.GetKeyDown(controls.pause) && controls.enable_pause_Input)
+            {
+                pause = !pause;
+            }
+            if (pause)
+            {
+                pauseMenuPause();
+                Time.timeScale = 0.0f;
+                Cursor.visible = true;
+            }
+            else
+            {
+                pauseMenuResume();
+                Time.timeScale = 1.0f;
+                Cursor.visible = false;
+            }
 
-			if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
+            if ((Input.GetKeyDown (controls.enterEndExit)||enterAndExitBool) && !blockedInteraction && player && controls.enable_enterEndExit_Input) {
 				if (vehicles.Length <= 1) {
 					if (vehicleCode.isInsideTheCar) {
 						vehicleCode.ExitTheVehicle ();

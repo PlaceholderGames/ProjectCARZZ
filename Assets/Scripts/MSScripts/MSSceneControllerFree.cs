@@ -180,7 +180,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         repairValue = 0;
         coinValue = 0;
         vehicleChoice = PlayerPrefs.GetString("vehicleChoice");
-        //InitVehicle();
+        InitVehicle();
         LoadPP();
         healthSlider.value = healthSlider.maxValue;
         fuelSlider.value = fuelSlider.maxValue;
@@ -414,7 +414,8 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 
     void Awake () {
-		error = false;
+
+        error = false;
 		CheckEqualKeyCodes ();
 		MSSceneControllerFree[] sceneControllers = FindObjectsOfType(typeof(MSSceneControllerFree)) as MSSceneControllerFree[];
 		if (sceneControllers.Length > 1) {

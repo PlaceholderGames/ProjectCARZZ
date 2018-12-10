@@ -156,17 +156,18 @@ public class Upgrade : MonoBehaviour {
     }
     IEnumerator upgradeButtonsAppear()
     {
+        upgradeButtons.SetActive(true);
         lockIndicator.SetActive(false);
         unlockButton.SetActive(false);
         buttonBackGround.transform.DOScaleX(4.85f, 1);
-        upgradeButtons.transform.DOScaleX(1, 1);
+
         yield return new WaitForSeconds(0);
     }
     IEnumerator upgradeButtonsDisappear()
     {
+        upgradeButtons.SetActive(false);
         lockIndicator.SetActive(true);
         unlockButton.SetActive(true);
-        upgradeButtons.transform.DOScale(0, 1);
         yield return new WaitForSeconds(0);
         buttonBackGround.transform.DOScaleX(1.5f, 1);
     }

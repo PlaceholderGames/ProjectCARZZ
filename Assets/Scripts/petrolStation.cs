@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class petrolStation : MonoBehaviour {
 
+<<<<<<< HEAD
     public MSSceneControllerFree _MSC;
 
     void Awake()
@@ -30,4 +31,15 @@ public class petrolStation : MonoBehaviour {
  
 
 
+=======
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+>>>>>>> 9698ae62a8218527137fff031d6ddfc5d3b57d70
 }

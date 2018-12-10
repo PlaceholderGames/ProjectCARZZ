@@ -635,15 +635,19 @@ public class MSSceneControllerFree : MonoBehaviour {
 				}
 			}
 
-            Manager();
+           
 		}
 	}
 
+    void FixedUpdate()
+    {
+        Manager();
+    }
 
 
-   
 
-	public void PreviousVehicle(){
+
+    public void PreviousVehicle(){
 		if (playerIsNull) {
 			if (vehicles.Length > 1) {
 				currentVehicle--;

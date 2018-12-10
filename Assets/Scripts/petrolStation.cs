@@ -12,7 +12,7 @@ public class petrolStation : MonoBehaviour {
         _MSC.insidePetrolStation = false; // being lazy and made a public variable so we can use the pop up messages.
     }
 
-    void OnTriggerStay(Collider Player)
+    void OnTriggerStay(Collider other)
     {
         _MSC.insidePetrolStation = true;
 
@@ -40,7 +40,7 @@ public class petrolStation : MonoBehaviour {
         _MSC.fuelValue += 1;
     }
 
-    void OnTriggerExit(Collider Player)
+    void OnTriggerExit(Collider other)
     {
         _MSC.insidePetrolStation = false;
     }

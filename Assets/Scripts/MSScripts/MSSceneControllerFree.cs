@@ -321,12 +321,15 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void RepairSystem()
     {
-        repairText.text = "Repair: "+repairValue;
+        repairText.text = "Repair: " + repairValue;
 
         if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
         if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
+        {
+            repairValue -= 1;
             Invoke("Repair", 0.5f);
+        }
     }
 
     void CoinSystem()
@@ -347,20 +350,21 @@ public class MSSceneControllerFree : MonoBehaviour {
                 vehicleCode.theEngineIsRunning = false;
 
             if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
+            {
+                fuelValue -= 1;
                 Invoke("Refill", 0.5f);
+            }
         }
-        else fuelSlider.gameObject.SetActive(false);
+        //else fuelSlider.gameObject.SetActive(false);
     }
 
     void Repair()
     {
-        repairValue -= 1;
         healthSlider.value += 50;
     }
 
     void Refill()
     {
-        fuelValue -= 1;
         fuelSlider.value += 50;
     }
 
@@ -397,7 +401,6 @@ public class MSSceneControllerFree : MonoBehaviour {
         PopUpMessage();
         LevelSystem();
         SavePP();
-
     }
 
     /*
@@ -473,12 +476,12 @@ public class MSSceneControllerFree : MonoBehaviour {
             popUpMsg.SetActive(true);
             enterText.text = "To purchase fuel, please leave your vehicle";
         }
-        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value == 100)
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value == fuelSlider.maxValue)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Press Enter to buy fuel cans for £5.";
         }
-        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value != 100)
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value != fuelSlider.maxValue)
         {
             popUpMsg.SetActive(true);
             enterText.text = "Press Enter to buy fuel for £5.";

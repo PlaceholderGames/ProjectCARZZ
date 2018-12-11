@@ -11,28 +11,29 @@ public class pauseMenu : MonoBehaviour
     public GameObject videoSubMenu;
     public GameObject audioSubMenu;
     public GameObject optionsMenu;
+    public GameObject saveSubMenu;
 
 
     void OnEnable()
     {
-        if (gameSubMenu == true || videoSubMenu == true || audioSubMenu == true || optionsMenu == true)
+        if (gameSubMenu == true || videoSubMenu == true || audioSubMenu == true || optionsMenu == true || saveSubMenu == true)
         {
-            killThosePanels();
+            KillThosePanels();
         }
     }
 
-    void killThosePanels()
+    void KillThosePanels()
     {
         mainCanvas.SetActive(true);
         gameSubMenu.SetActive(false);
         videoSubMenu.SetActive(false);
         audioSubMenu.SetActive(false);
         optionsMenu.SetActive(false);
+        saveSubMenu.SetActive(false);
+
     }
 
 }
-
-
 
 
 //using System.Collections;

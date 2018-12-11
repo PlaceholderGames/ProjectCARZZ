@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 #region wheelClass
 [Serializable]
@@ -371,7 +372,10 @@ public class MSVehicleControllerFree : MonoBehaviour {
 	AudioSource beatsOnWheelSoundAUD;
 	AudioSource skiddingSoundAUD;
 
-	WheelCollider[] wheelColliderList;
+    public AudioMixerGroup carMixer;
+
+
+    WheelCollider[] wheelColliderList;
 	Vector2 tireSL;
 	Vector2 tireFO;
 
@@ -1357,7 +1361,8 @@ public class MSVehicleControllerFree : MonoBehaviour {
 		audioSource.transform.position = transform.position;
 		audioSource.transform.parent = transform;
 		AudioSource temp = audioSource.AddComponent<AudioSource>() as AudioSource;
-		temp.minDistance = minDistance;
+        temp.outputAudioMixerGroup = carMixer;
+        temp.minDistance = minDistance;
 		temp.volume = volume;
 		temp.clip = audioClip;
 		temp.loop = loop;

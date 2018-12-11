@@ -26,6 +26,7 @@ AudioMixerController:
     - f5f4ee2e2a9340b4ba8ca741aaf79441
     - 6fc4e2eb131e6124f816cdaa8f1d6814
     - 97890174e48f7af49842ee46967e22ee
+    - d4fa36eec527d33448d1c27a570ac76e
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -104,7 +105,8 @@ AudioMixerGroupController:
   m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 97890174e48f7af49842ee46967e22ee
-  m_Children: []
+  m_Children:
+  - {fileID: 243656509231899636}
   m_Volume: 809e2b34e1b006c459acae140301cd47
   m_Pitch: e8ac468e2784a0b40922ee4b4c783b11
   m_Effects:
@@ -126,6 +128,23 @@ AudioMixerGroupController:
   m_Pitch: 8ab3e994799f0364b9f67488d85d730b
   m_Effects:
   - {fileID: 244132624263791702}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243656509231899636
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Car Sounds
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d4fa36eec527d33448d1c27a570ac76e
+  m_Children: []
+  m_Volume: 8841ca7d9b2eb654c85102b0beefb354
+  m_Pitch: a2547200895be8d439da98e61a36f479
+  m_Effects:
+  - {fileID: 244552975111306358}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -152,6 +171,19 @@ AudioMixerEffectController:
   m_EffectID: 204d682d0611d474a9e567beda1df16d
   m_EffectName: Attenuation
   m_MixLevel: 28e36b89c624ad0409fd83fe6df5589e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244552975111306358
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 238a24c0a868ed84eb82a8ea21df0858
+  m_EffectName: Attenuation
+  m_MixLevel: 2fbf284da149d904db48516b54d372bd
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0

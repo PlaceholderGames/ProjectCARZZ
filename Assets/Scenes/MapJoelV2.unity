@@ -4792,6 +4792,7 @@ MonoBehaviour:
     volumeCollisionSounds: 0.5
     wheelImpactSound: {fileID: 0}
   theEngineIsRunning: 1
+  mainMixer: {fileID: 0}
   KMh: 0
   currentGear: 0
   disableVehicle: 0
@@ -10154,6 +10155,8 @@ MonoBehaviour:
     volumeCollisionSounds: 0.5
     wheelImpactSound: {fileID: 8300000, guid: a99ada3784fb7154da6bd9979d56d23a, type: 3}
   theEngineIsRunning: 0
+  mainMixer: {fileID: 243656509231899636, guid: cc285c36991888f4b87c452646f9433c,
+    type: 2}
   KMh: 0
   currentGear: 0
   disableVehicle: 0

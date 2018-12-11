@@ -1,53 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class petrolStation : MonoBehaviour {
 
-
     public MSSceneControllerFree _MSC;
-    bool isInside;
 
     void Awake()
     {
         _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
+        _MSC.insidePetrolStation = false; // being lazy and made a public variable so we can use the pop up messages.
     }
 
-    void OnTriggerEnter(Collider Player)
+    void OnTriggerStay(Collider other)
     {
-        isInside = true;
-        _MSC.insidePetrolStation = isInside;
+        _MSC.insidePetrolStation = true;
     }
-    void OnTriggerExit(Collider other)
+
+    private void Update()
     {
-        isInside = false;
-        _MSC.insidePetrolStation = isInside;
-    }
-
-
-
-
-
-    // Use this for initialization
-    void Start () {
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        if (_MSC.insidePetrolStation)
+        if (_MSC.insidePetrolStation == true)
         {
-            Debug.Log("Inside Petrol Station");
-
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf && _MSC.coinValue >= 5 && _MSC.fuelSlider.value == 100) // checking to see if the player is out of the vehicle, checking if player has enough money and determining whether or not they have a full tank of petrol
             {
-                if (_MSC.coinValue >= 5)
-                {
-                    Debug.Log("Buying Petrol");
-                    _MSC.coinValue = _MSC.coinValue - 5;
-                    _MSC.fuelValue++;
-                }
+                buyingCans();
             }
+            if (Input.GetKeyDown(KeyCode.Return) && _MSC.player.activeSelf && _MSC.coinValue >= 5 && _MSC.fuelSlider.value < 100)
+            {
+                buyingFuel();
+            }
+
         }
     }
+
+    void buyingFuel()
+    {
+        Debug.Log("Buying Petrol for the car");
+        _MSC.coinValue -= 5;
+        _MSC.fuelSlider.value = 100;
+    }
+
+    void buyingCans()
+    {
+        Debug.Log("Buying Petrol for the can");
+        _MSC.coinValue -= 5;
+        _MSC.fuelValue += 1;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        _MSC.insidePetrolStation = false;
+    }
+
+
 }

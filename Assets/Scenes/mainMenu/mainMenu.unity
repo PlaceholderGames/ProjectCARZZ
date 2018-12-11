@@ -660,6 +660,7 @@ GameObject:
   - component: {fileID: 1222494296}
   - component: {fileID: 1222494300}
   - component: {fileID: 1222494299}
+  - component: {fileID: 1222494301}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -732,6 +733,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aa5024213a059e4bb1d52d9c1debda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1222494301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1222494295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c518da21f1285a40ac057132845e30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1554023580
@@ -1054,6 +1066,36 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114125456638768928, guid: 2dda5ad342d84504aa757e6fc96bd7e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d561f20b62acea24cb736e8abf40bd0a,
+        type: 3}
+    - target: {fileID: 114940423153651748, guid: 2dda5ad342d84504aa757e6fc96bd7e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d561f20b62acea24cb736e8abf40bd0a,
+        type: 3}
+    - target: {fileID: 114235893331212626, guid: 2dda5ad342d84504aa757e6fc96bd7e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d561f20b62acea24cb736e8abf40bd0a,
+        type: 3}
+    - target: {fileID: 114368609350223682, guid: 2dda5ad342d84504aa757e6fc96bd7e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d561f20b62acea24cb736e8abf40bd0a,
+        type: 3}
+    - target: {fileID: 114814641920899838, guid: 2dda5ad342d84504aa757e6fc96bd7e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d561f20b62acea24cb736e8abf40bd0a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dda5ad342d84504aa757e6fc96bd7e2, type: 2}
   m_IsPrefabAsset: 0

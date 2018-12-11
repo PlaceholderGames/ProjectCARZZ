@@ -138,7 +138,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text kmhText;
     private Text gearTxt;
 
-    private Slider fuelSlider;
+    public Slider fuelSlider;
     private Text fuelText;
     public int fuelValue;
 
@@ -338,7 +338,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         kmhText.text = (int)vehicleCode.KMh + " kmh";
         fuelText.text = "Fuel: " + fuelValue;
-        if (vehicleCode.isInsideTheCar)
+        if (vehicleCode.isInsideTheCar && Time.timeScale == 1.0f)
         {
             fuelSlider.gameObject.SetActive(true);
             fuelSlider.value -= (vehicleCode.KMh / 2500.0f);

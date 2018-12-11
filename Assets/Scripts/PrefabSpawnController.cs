@@ -58,7 +58,7 @@ public class PrefabSpawnController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartUp(10, 100, 0, 0, 1, 1, false);
+        StartUp(500, 100, 0, 0, 1, 1, false);
     }
 	
 	// Update is called once per frame

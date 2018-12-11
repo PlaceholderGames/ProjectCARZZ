@@ -74,10 +74,6 @@ public class Upgrade : MonoBehaviour {
         {
             coin = PlayerPrefs.GetInt("coinValue");
             level = PlayerPrefs.GetInt("currentLevel");
-            fuel = PlayerPrefs.GetInt("fuelValue");
-            repair = PlayerPrefs.GetInt("repairValue");
-            currentxp = PlayerPrefs.GetInt("currentXP");
-            totalxp = PlayerPrefs.GetInt("totalXP");
             player = new Player(coin, level);
 
             vehicle = new Vehicle[transform.childCount];
@@ -115,7 +111,7 @@ public class Upgrade : MonoBehaviour {
     } 
     private void rotateVehicle(){
         for(int i=0; i<vehicle.Length;i++)
-            vehicle[i].vehicleObj.transform.Rotate(0, 0.5f, 0, Space.World);
+            vehicle[i].vehicleObj.transform.Rotate(0, 0.5f/4, 0, Space.World);
     } 
     private void textUpdate()
     {
@@ -175,6 +171,8 @@ public class Upgrade : MonoBehaviour {
     {
         SavePP();
         PlayerPrefs.SetString("vehicleChoice", vehicle[currentVehicle].vehicleObj.tag);
+        if (PlayerPrefs.GetInt("isNewGame") == 1) PlayerPrefs.SetInt("isNewGame", 1);
+        else if (PlayerPrefs.GetInt("isNewGame") == 0) PlayerPrefs.SetInt("isNewGame", 0);
         SceneManager.LoadScene("MapJoelV2");
 
     }
@@ -325,6 +323,7 @@ public class Upgrade : MonoBehaviour {
     }
     
     private void Start(){
+        Application.targetFrameRate = 60;
         Cursor.visible = true;
         Initialize();
         LoadPP();

@@ -155,6 +155,12 @@ public class MSSceneControllerFree : MonoBehaviour {
     private GameObject speedUI;
 
     private String vehicleChoice;
+    private OpenVehicleMenu ovm;
+    private AICollision[] ai;
+    bool wasupfor5sec;
+    bool wasupfor5secagain;
+    float level;
+    
 
     // Dewy's addons
     public bool Pause = false;
@@ -175,30 +181,63 @@ public class MSSceneControllerFree : MonoBehaviour {
         LevelText = GameObject.Find("levelText").GetComponent<Text>();
         speedUI = GameObject.Find("speedUI");
         cAI = FindObjectOfType<CheckAI>();
+        ovm = FindObjectOfType<OpenVehicleMenu>();
 
-        levelSlider.value = cAI.getCurrentXp();
-        levelSlider.maxValue = cAI.getTotalXp();
-        XpText.text = "" + cAI.getCurrentXp();
-        LevelText.text = "" + cAI.getCurrentLevel();
-
-        
         vehicleChoice = PlayerPrefs.GetString("vehicleChoice");
-        
         InitVehicle();
         LoadPP();
-        
 
+        if (PlayerPrefs.GetInt("isNewGame") == 1)
+        {
+            fuelValue = 0;
+            repairValue = 0;
+            coinValue = 0;
+            healthSlider.value = healthSlider.maxValue;
+            fuelSlider.value = fuelSlider.maxValue;
+            PlayerPrefs.SetInt("coinValue", 0);
+            PlayerPrefs.SetInt("fuelValue", 0);
+            PlayerPrefs.SetInt("repairValue", 0);
+            if (vehicles[0].activeSelf)
+            {
+                PlayerPrefs.SetInt("v2_currentRepair", (int)healthSlider.maxValue);
+                PlayerPrefs.SetInt("v2_currentFuel", (int)fuelSlider.maxValue);
+            }
+            else if (vehicles[1].activeSelf)
+            {
+                PlayerPrefs.SetInt("v3_currentRepair", (int)healthSlider.maxValue);
+                PlayerPrefs.SetInt("v3_currentFuel", (int)fuelSlider.maxValue);
+            }
+        }
+        else if (PlayerPrefs.GetInt("isNewGame") == 0)
+        {
+            fuelValue = PlayerPrefs.GetInt("fuelValue");
+            repairValue = PlayerPrefs.GetInt("repairValue");
+            coinValue = PlayerPrefs.GetInt("coinValue");
+
+            if (vehicles[0].activeSelf)
+            {
+                healthSlider.value = PlayerPrefs.GetInt("v2_currentRepair");
+                fuelSlider.value = PlayerPrefs.GetInt("v2_currentFuel");
+            }
+            else if (vehicles[1].activeSelf)
+            {
+                healthSlider.value = PlayerPrefs.GetInt("v3_currentRepair");
+                fuelSlider.value = PlayerPrefs.GetInt("v3_currentFuel");
+            }
+        }
+
+        
 
     }
 
     void SavePP()
     {
         PlayerPrefs.SetInt("coinValue", coinValue);
-        PlayerPrefs.SetInt("currentLevel", (int)cAI.getCurrentLevel());
+        PlayerPrefs.SetInt("currentLevel", (int)level);
         PlayerPrefs.SetInt("fuelValue", fuelValue);
         PlayerPrefs.SetInt("repairValue", repairValue);
-        PlayerPrefs.SetInt("currentXP", (int)cAI.getCurrentXp());
-        PlayerPrefs.SetInt("totalXP", (int)cAI.getTotalXp());
+        PlayerPrefs.SetInt("currentXP", (int)levelSlider.value);
+        PlayerPrefs.SetInt("totalXP", (int)levelSlider.maxValue);
         if (vehicles[0].activeSelf)
         {
             PlayerPrefs.SetInt("v2_currentRepair", (int)healthSlider.value);
@@ -215,10 +254,23 @@ public class MSSceneControllerFree : MonoBehaviour {
     void LevelSystem()
     {
         cAI.UpdateCheckAI();
+        level = cAI.getCurrentLevel();
         levelSlider.value = cAI.getCurrentXp();
         XpText.text = "XP Earned: " + cAI.getCurrentXp();
         LevelText.text = "Level: " + cAI.getCurrentLevel();
         levelSlider.maxValue = cAI.getTotalXp();
+    }
+
+    void EndGame()
+    {
+        PlayerPrefs.SetInt("isNewGame", 1);
+        SceneManager.LoadScene(0);
+    }
+
+    void EndForDying()
+    {
+        PlayerPrefs.SetInt("isNewGame", 0);
+        SceneManager.LoadScene(0);
     }
 
     void LoadPP()
@@ -250,34 +302,7 @@ public class MSSceneControllerFree : MonoBehaviour {
                 healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
             }
         }
-        if (PlayerPrefs.GetInt("isNewGame") == 1)
-        {
-            fuelValue = 0;
-            repairValue = 0;
-            coinValue = 0;
-            levelSlider.value = cAI.getCurrentXp();
-            levelSlider.maxValue = cAI.getTotalXp();
-            healthSlider.value = healthSlider.maxValue;
-            fuelSlider.value = fuelSlider.maxValue;
-        }
-        else if (PlayerPrefs.GetInt("isNewGame") == 0)
-        {
-            fuelValue = PlayerPrefs.GetInt("fuelValue");
-            repairValue = PlayerPrefs.GetInt("repairValue");
-            coinValue = PlayerPrefs.GetInt("coinValue");
-            levelSlider.value = PlayerPrefs.GetInt("currentXP");
-            levelSlider.maxValue = PlayerPrefs.GetInt("totalXP");
-            if (vehicles[0].activeSelf)
-            {
-                healthSlider.value = PlayerPrefs.GetInt("v2_currentRepair");
-                fuelSlider.value = PlayerPrefs.GetInt("v2_currentFuel");
-            }
-            else if (vehicles[1].activeSelf)
-            {
-                healthSlider.value = PlayerPrefs.GetInt("v3_currentRepair");
-                fuelSlider.value = PlayerPrefs.GetInt("v3_currentFuel");
-            }
-        }
+        
 
     }
 
@@ -298,7 +323,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         repairText.text = "Repair: "+repairValue;
 
-        if (fuelSlider.value <= 0.1)
+        if (healthSlider.value <= 10)
             vehicleCode.theEngineIsRunning = false;
         if (vehicleCode.theEngineIsRunning == false && Input.GetKeyDown(KeyCode.Z) && repairValue > 0)
             Invoke("Repair", 0.5f);
@@ -312,12 +337,12 @@ public class MSSceneControllerFree : MonoBehaviour {
     void FuelSystem()
     {
         kmhText.text = (int)vehicleCode.KMh + " kmh";
+        fuelText.text = "Fuel: " + fuelValue;
         if (vehicleCode.isInsideTheCar)
         {
             fuelSlider.gameObject.SetActive(true);
             fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
             gearTxt.text = vehicleCode.currentGear + "";
-            fuelText.text = "" + fuelValue;
             if (fuelSlider.value <= 0.1)
                 vehicleCode.theEngineIsRunning = false;
 
@@ -408,8 +433,10 @@ public class MSSceneControllerFree : MonoBehaviour {
     */
     void PopUpMessage()
     {
-        Text enterText = popUpMsg.transform.Find("Text").GetComponent<Text>();
+        Text enterText = popUpMsg.GetComponentInChildren<Text>();
+        float currentDistanceGarage = Vector3.Distance(player.transform.position, ovm.transform.position);
         currentDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[0].transform.position);
+        
         for (int x = 0; x < vehicleCode.doorPosition.Length; x++)
         {
             proximityDistanceTemp = Vector3.Distance(player.transform.position, vehicleCode.doorPosition[x].transform.position);
@@ -423,22 +450,66 @@ public class MSSceneControllerFree : MonoBehaviour {
             enterText.text = "Press '" + controls.enterEndExit + "' to enter the vehicle";
         }
 
-        else if(fuelSlider.value < 25 && vehicleCode.isInsideTheCar && fuelValue > 0)
+        else if (fuelSlider.value < 10 && vehicleCode.isInsideTheCar && fuelValue > 0)
         {
             popUpMsg.SetActive(true);
-            enterText.text = "Fuel low! Press X to refill";
+            enterText.text = "Fuel ULTRA low! Press X to refill";
         }
 
-        else if(fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
+        else if (fuelSlider.value < 35 && vehicleCode.isInsideTheCar && fuelValue == 0)
         {
             popUpMsg.SetActive(true);
-            enterText.text = "Low Fuel! You better find some!";
-        } 
+            enterText.text = "Low Fuel! You better find some or visit the local petrol station!";
+        }
 
+        else if (currentDistanceGarage < 15)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Go to garage to open vehicle shop!";
+        }
+
+        else if (insidePetrolStation == true && player.activeSelf == false)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "To purchase fuel, please leave your vehicle";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value == 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel cans for £5.";
+        }
+        else if (insidePetrolStation == true && player.activeSelf == true && fuelSlider.value != 100)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Press Enter to buy fuel for £5.";
+        }
+        else if (vehicleCode.isInsideTheCar && healthSlider.value < 10)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "Your vehicle is damaged, please press Z to repair it!";
+        }
+        else if(cAI.displayFin)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "YOU WON!";
+            Invoke("EndGame", 10.0f);
+        }
+        else if (cAI.displayDead)
+        {
+            popUpMsg.SetActive(true);
+            enterText.text = "YOU LOST!";
+            Invoke("EndForDying", 3.0f);
+        }
         else
+        {
             popUpMsg.SetActive(false);
+        }
+
+       
+
     }
-    
+
+
     //END ADDONS
 
 

@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class newSceneOnClick : MonoBehaviour
 {
-
+    private void Start()
+    {
+        Cursor.visible = true;
+    }
     public void LoadByIndex(int sceneIndex)
     {
         PlayerPrefs.SetInt("isNewGame", 1);

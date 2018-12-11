@@ -11,11 +11,14 @@ public class CoinSystem : MonoBehaviour {
         _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
     }
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Debug.Log("Player");
-        _MSC.coinValue++;
+        if (other.GetComponent<Collider>().tag == "Player")
+        {
+            Destroy(gameObject);
+            Debug.Log("Player");
+            _MSC.coinValue++;
+        }
     }
 
     void Update()

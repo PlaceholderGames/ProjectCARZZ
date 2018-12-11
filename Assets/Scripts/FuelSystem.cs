@@ -12,11 +12,14 @@ public class FuelSystem : MonoBehaviour {
     }
 
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Debug.Log("HIT");
-        _MSC.fuelValue++;
+        if (other.GetComponent<Collider>().tag == "Player")
+        {
+            Destroy(gameObject);
+            Debug.Log("HIT");
+            _MSC.fuelValue++;
+        }
     }
 
     void Update()

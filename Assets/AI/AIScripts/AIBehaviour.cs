@@ -37,7 +37,7 @@ public class AIBehaviour : MonoBehaviour
             if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
             {
                 anim.SetBool("isIdle", false); ///Player in car
-                if (sceneController.vehicleCode.isInsideTheCar)
+                if (!sceneController.vehicleCode.isInsideTheCar)
                 {
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isRunning", true); //Zombie runs

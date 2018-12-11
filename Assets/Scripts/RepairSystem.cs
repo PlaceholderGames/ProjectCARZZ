@@ -11,11 +11,14 @@ public class RepairSystem : MonoBehaviour {
         _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
     }
 
-    public void OnTriggerEnter()
+    public void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Debug.Log("HIT");
-        _MSC.repairValue++;
+        if (other.GetComponent<Collider>().tag == "Player")
+        {
+            Destroy(gameObject);
+            Debug.Log("HIT REPAIR!");
+            _MSC.repairValue++;
+        }
 
     }
     void Update()

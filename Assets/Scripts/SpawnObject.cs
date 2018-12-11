@@ -26,7 +26,7 @@ public class SpawnObject : MonoBehaviour {
     private Transform playerTransform;//player in current scene
     
 
-    private float []aiEnemy;//list of all ai in scene
+    private List<GameObject> aiEnemy;//list of all ai in scene
     private bool isSpawning;
     //private bool isMoving;
     private float moveSpeed = 0.015f;//speed at which ai move
@@ -34,10 +34,25 @@ public class SpawnObject : MonoBehaviour {
 
     public void SpawnZombie()
     {
+            
             Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
             Instantiate(Prefab, pos, Quaternion.identity);
             isSpawning = false;
             CurrentNumberAi++;
+           
+    }
+    public void DeSpawnZombie()
+    {
+        for(int i = 0; i < aICollision.Length; i++)
+        {
+            if ((aICollision[i].transform.position.x > (center-size).x && aICollision[i].transform.position.x < (center + size).x) && (aICollision[i].transform.position.z > (center - size).z && aICollision[i].transform.position.z < (center + size).z))
+            {
+                isSpawning = false;
+                Destroy(aICollision[i].gameObject);
+                CurrentNumberAi--;
+            }
+        }
+        
     }
 
     void OnDrawGizmosSelected()
@@ -64,20 +79,21 @@ public class SpawnObject : MonoBehaviour {
     void FixedUpdate() {
         aIBehaiour = FindObjectsOfType<AIBehaviour>();
         aICollision = FindObjectsOfType<AICollision>();
+        vehicle = FindObjectOfType<MSVehicleControllerFree>();
+        float distanceV = Vector3.Distance(vehicle.transform.position, center);
         
-        
-        if (!isSpawning && CurrentNumberAi < MaxNumberAi)
+        if(!(distanceV < 300)) DeSpawnZombie();
+        if (!isSpawning && CurrentNumberAi < MaxNumberAi && (distanceV < 300))
         {
             Invoke("SpawnZombie", SpawnIntervalAi);
             isSpawning = true;
         }
         
+        
         if (vehicle.isInsideTheCar == false)
             playerTransform = player.transform;
-        else
-        {
-            tempTransform = playerTransform;
-            playerTransform = vehicleTransform;
+        else{
+            playerTransform = vehicle.transform;
         }
 
         for (int i = 0; i < aIBehaiour.Length; i++)

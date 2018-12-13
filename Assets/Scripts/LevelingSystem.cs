@@ -5,16 +5,28 @@ using UnityEngine;
 public class LevelingSystem : MonoBehaviour
 {
 
-    public int currentLevel = 1;
+    public int currentLevel;
     private int maxLevel = 20;
-    public int givenXP;
     public int currentXP;
-    public int totalXP = 10;
+    public int totalXP;
+    private AudioSource a;
 
     // Use this for initialization
     void Start()
     {
-        totalExperience(currentLevel);
+        if (PlayerPrefs.GetInt("isNewGame") == 0)
+        {
+            currentLevel = PlayerPrefs.GetInt("currentLevel");
+            currentXP = PlayerPrefs.GetInt("currentXP");
+            totalXP = PlayerPrefs.GetInt("totalXP");
+        }
+        else if(PlayerPrefs.GetInt("isNewGame") == 1)
+        {
+            currentLevel = 1;
+            currentXP = 0;
+            totalXP = 10;
+        }
+        a = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,8 +36,9 @@ public class LevelingSystem : MonoBehaviour
         {
             if (currentXP > totalXP)
             {
-                currentXP = totalXP - currentXP;
                 currentLevel++;
+                currentXP = currentXP - totalXP;
+                a.Play();
             }
             else
             {
@@ -34,6 +47,12 @@ public class LevelingSystem : MonoBehaviour
             }
             totalExperience(currentLevel);
         }
+    }
+
+    public bool finished()
+    {
+        if (currentLevel == maxLevel) return true;
+        else return false;
     }
 
     private bool totalExperience(int lvl)

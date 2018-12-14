@@ -4,9 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Music
-  - UI
-  - Prop
+  - Vehicle
+  - CameraTPS
+  - CameraFPS
+  - Vehicle1
+  - Vehicle2
+  - Vehicle3
+  - Fuel
+  - CameraPlayer
+  - activeVehicle
   layers:
   - Default
   - TransparentFX
@@ -16,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 

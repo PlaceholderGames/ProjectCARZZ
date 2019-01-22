@@ -262,6 +262,7 @@ public class Upgrade : MonoBehaviour {
 
     private void SavePP()
     {
+        PlayerPrefs.SetInt("coinValue", player.coin);
         for (int i = 0; i < vehicle.Length; i++)
         {
             if (vehicle[i].vehicleObj.tag == "Vehicle1")

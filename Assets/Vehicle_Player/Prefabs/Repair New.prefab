@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23474807991754216}
   - component: {fileID: 114860499319023144}
   - component: {fileID: 65589560773222868}
+  - component: {fileID: 205945408661427286}
   m_Layer: 0
   m_Name: Repair New
   m_TagString: Untagged
@@ -110,3 +111,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MSC: {fileID: 0}
+--- !u!205 &205945408661427286
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027713680940890}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.26058152
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1

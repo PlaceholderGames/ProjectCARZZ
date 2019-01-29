@@ -625,6 +625,8 @@ GameObject:
   - component: {fileID: 4529610246073798}
   - component: {fileID: 54762821698848638}
   - component: {fileID: 136494840649624538}
+  - component: {fileID: 114578335253814522}
+  - component: {fileID: 114948052358004742}
   m_Layer: 0
   m_Name: QuickAI
   m_TagString: Untagged
@@ -1965,6 +1967,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114578335253814522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574159219399956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd352a363a5ba0f49b9332e40e8f36bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114948052358004742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574159219399956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69163b2331024d4198e03a8e4f8b273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136494840649624538
 CapsuleCollider:
   m_ObjectHideFlags: 1

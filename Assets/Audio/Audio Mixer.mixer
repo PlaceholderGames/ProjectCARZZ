@@ -27,6 +27,9 @@ AudioMixerController:
     - 6fc4e2eb131e6124f816cdaa8f1d6814
     - 97890174e48f7af49842ee46967e22ee
     - d4fa36eec527d33448d1c27a570ac76e
+    - e006ad6686c84e94a848bad3d7057b4b
+    - 538efb18cf9b69140aa88cc74a0fbeb5
+    - 409f273fee54b384c966b2b3b421bb85
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -107,6 +110,9 @@ AudioMixerGroupController:
   m_GroupID: 97890174e48f7af49842ee46967e22ee
   m_Children:
   - {fileID: 243656509231899636}
+  - {fileID: 243971969628407456}
+  - {fileID: 243623446142472972}
+  - {fileID: 243717126131951816}
   m_Volume: 809e2b34e1b006c459acae140301cd47
   m_Pitch: e8ac468e2784a0b40922ee4b4c783b11
   m_Effects:
@@ -132,6 +138,23 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &243623446142472972
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Metal Fence Hit
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: e006ad6686c84e94a848bad3d7057b4b
+  m_Children: []
+  m_Volume: 1b7cea8a02d54094c8291b15a319daf9
+  m_Pitch: 828fe21ffce85f04bb7e2447b2cd464d
+  m_Effects:
+  - {fileID: 244686702933201636}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &243656509231899636
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -145,6 +168,40 @@ AudioMixerGroupController:
   m_Pitch: a2547200895be8d439da98e61a36f479
   m_Effects:
   - {fileID: 244552975111306358}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243717126131951816
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Metal Gate Hit
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 538efb18cf9b69140aa88cc74a0fbeb5
+  m_Children: []
+  m_Volume: f15eb719d321ec1499deefb69ea6cf9c
+  m_Pitch: d9c29ced96971434097d9bf2c1d34803
+  m_Effects:
+  - {fileID: 244845618487565368}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243971969628407456
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Wood Fence Hit
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 409f273fee54b384c966b2b3b421bb85
+  m_Children: []
+  m_Volume: 455de4be1e3771f49bedd886b559abc6
+  m_Pitch: a81a96dc708a9b74c8f646eca7fb0975
+  m_Effects:
+  - {fileID: 244253038585763472}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -175,6 +232,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &244253038585763472
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 24ead26091250554187780233c874bd7
+  m_EffectName: Attenuation
+  m_MixLevel: f9dac2a6bdca2274bb4d53e09bce6f95
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &244552975111306358
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -184,6 +254,32 @@ AudioMixerEffectController:
   m_EffectID: 238a24c0a868ed84eb82a8ea21df0858
   m_EffectName: Attenuation
   m_MixLevel: 2fbf284da149d904db48516b54d372bd
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244686702933201636
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7b3625572475066419c60464311a537e
+  m_EffectName: Attenuation
+  m_MixLevel: e3779b982a6971c468174fab950f7106
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244845618487565368
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: f7a462bb032a0f64db0652051b85f61a
+  m_EffectName: Attenuation
+  m_MixLevel: 71bc159c1bf216e4db69d047740d91d3
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0

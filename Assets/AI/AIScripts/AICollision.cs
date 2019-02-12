@@ -13,6 +13,7 @@ public class AICollision : MonoBehaviour
     public bool isDead = false;
     public bool hitPlayer = false;
     public bool ishit = false;
+    public float killaispeed = 30.0f;
   
     private void Start()
     {
@@ -34,7 +35,7 @@ public class AICollision : MonoBehaviour
         {
             for(int i = 0; i<vehicles.Length;i++)
             {
-                if (vehicles[i].KMh > 30.0f)
+                if (vehicles[i].KMh > killaispeed)
                 {
                     isDead = true;
                     Destroy(gameObject, despawnTime);

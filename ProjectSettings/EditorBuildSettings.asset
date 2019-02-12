@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Models/Safe Zone/Safe Zone Test/test map.unity
+    path: Assets/Scenes/mainMenu/mainMenu.unity
+    guid: 7351dc5adcc697f42ab6dde233fa38a1
+  - enabled: 1
+    path: Assets/Scenes/Garage.unity
+    guid: 46989bde0d83e74429ef02afb5fe832d
+  - enabled: 1
+    path: Assets/Models/Safe Zone/Map & Terrain/test map.unity
     guid: 4ca70ad39b27d3c43a3eed4742ccbddf
   m_configObjects: {}

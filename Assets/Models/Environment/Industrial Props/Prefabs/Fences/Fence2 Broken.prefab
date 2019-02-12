@@ -591,5 +591,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 124cddd28d97908408925fd851a337b3, type: 3}
   - {fileID: 8300000, guid: ba888e612bfee6d42a93cf14c00bb13f, type: 3}
   - {fileID: 8300000, guid: 79d909a1b3a979f46a40931df23bb0ee, type: 3}
-  timeVal: 0.75
+  timeVal: 0.25
   randomTime: 1
+  randomVolume: 1
+  lowestVol: 0.35
+  highestVol: 0.75

@@ -5,13 +5,14 @@ using UnityEngine;
 public class bigCoinSack : MonoBehaviour
 {
 
-    public MSSceneControllerFree _MSC;
+    private MSSceneControllerFree _MSC;
+    [SerializeField] private float rotationSpeed = 100.0f;
 
     public int valueOfSack;
 
     void Awake()
     {
-        _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
+        _MSC = FindObjectOfType<MSSceneControllerFree>();
     }
 
     public void OnTriggerEnter()
@@ -23,6 +24,6 @@ public class bigCoinSack : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+        gameObject.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
     }
 }

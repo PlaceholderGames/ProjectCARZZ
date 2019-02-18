@@ -39,6 +39,7 @@ public class Upgrade : MonoBehaviour {
     private int level, coin, fuel, repair, currentxp, totalxp;
     private GameObject upgradeButtons, lockIndicator, popUpPanel, unlockButton, buttonBackGround;
     private int currentVehicle;
+    [SerializeField] private float rotationSpeed = 15.0f;
 
     private Text driftText, torque, speedText, fuelText, healthText, levelText, popUpText,unlockText;
     private TextMeshProUGUI tmp_lvltxt, tmp_cointxt;
@@ -111,7 +112,7 @@ public class Upgrade : MonoBehaviour {
     } 
     private void rotateVehicle(){
         for(int i=0; i<vehicle.Length;i++)
-            vehicle[i].vehicleObj.transform.Rotate(0, 0.5f/4, 0, Space.World);
+            vehicle[i].vehicleObj.transform.Rotate(0, rotationSpeed*Time.deltaTime, 0, Space.World);
     } 
     private void textUpdate()
     {
@@ -209,6 +210,7 @@ public class Upgrade : MonoBehaviour {
 
     private void upgradeSomething(bool isUpgrade, ref int upgradeable, ref int cost, int value, int maxvalue)
     {
+        int minvalue = 0;
         if (isUpgrade == true && player.coin >= cost && upgradeable + value <= maxvalue)
         {
             upgradeable += value;
@@ -216,9 +218,14 @@ public class Upgrade : MonoBehaviour {
             cost = Mathf.FloorToInt((cost + 10) * 0.6f);
             SavePP();
         }
-        else if (isUpgrade == false)
+        else if (isUpgrade == false && (upgradeable - value) > minvalue)
+        {
             upgradeable -= value;
-        else if (upgradeable + value > maxvalue)
+            player.coin += cost;
+            SavePP();
+        }
+
+        else if ((upgradeable + value) > maxvalue)
         {
             //gameObject.GetComponent<Button>().interactable = false;
             StartCoroutine(popUpMsgPop("max level reached!"));

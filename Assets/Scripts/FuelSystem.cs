@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class FuelSystem : MonoBehaviour {
-    public MSSceneControllerFree _MSC;
+    private MSSceneControllerFree _MSC;
+    [SerializeField] private float rotationSpeed = 100.0f;
 
     void Awake()
     {
-        _MSC = GameObject.Find("SceneController").GetComponent<MSSceneControllerFree>();
+        _MSC = FindObjectOfType<MSSceneControllerFree>();
     }
 
 
@@ -17,14 +18,13 @@ public class FuelSystem : MonoBehaviour {
         if (other.GetComponent<Collider>().tag == "Player")
         {
             Destroy(gameObject);
-            Debug.Log("HIT");
             _MSC.fuelValue++;
         }
     }
 
     void Update()
     {
-        gameObject.transform.Rotate(0, 2.5f, 0, Space.World);
+        gameObject.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
     }
 
 }

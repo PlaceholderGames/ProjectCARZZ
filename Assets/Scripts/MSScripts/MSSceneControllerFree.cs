@@ -328,6 +328,8 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText.text = "Fuel: " + fuelValue;
         if (vehicleCode.isInsideTheCar && Time.timeScale == 1.0f)
         {
+
+
             fuelSlider.gameObject.SetActive(true);
             fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
             gearTxt.text = vehicleCode.currentGear + "";
@@ -340,7 +342,6 @@ public class MSSceneControllerFree : MonoBehaviour {
                 Invoke("Refill", 0.5f);
             }
         }
-        //else fuelSlider.gameObject.SetActive(false);
     }
 
     void Repair()

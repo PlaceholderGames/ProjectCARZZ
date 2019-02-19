@@ -52,30 +52,37 @@ public class CheckAI : MonoBehaviour {
         }
         for (int i = 0; i < Ai.Length; i++)
         {
-                if(Ai[i].hitPlayer)
-                {
-                    displayDead = true;
-                    break;
-                }
-                if (Ai[i].isDead)
-                {
+            if (Ai[i].hitPlayer)
+            {
+                displayDead = true;
+                break;
+            }
+            if (Ai[i].isDead)
+            {
 
-                    if (vehicle.KMh > 30.0f)
-                    {
-                        Debug.Log("GaveXP");
-                        s.CurrentNumberAi--;
-                        ls.currentXP += (10+(int)Mathf.Sqrt(vehicle.KMh));
-                        ls.UpdateLevelingSystem();
-                        Ai[i].isDead = false;
-                    }
+                if (vehicle.KMh > 30.0f)
+                {
+                    Debug.Log("GaveXP");
+                    s.CurrentNumberAi--;
+                    ls.currentXP += (10 + (int)Mathf.Sqrt(vehicle.KMh));
+                    ls.UpdateLevelingSystem();
+                    Ai[i].isDead = false;
                 }
-                if (Ai[i].gaveDamage)
+            }
+            if (Ai[i].gaveDamage)
+            {
+                if (vehicle.KMh > 30.0f)
                 {
                     ds.RecievedDamage = Random.Range(1, 10);
                     healthSlider.value -= ds.RecievedDamage;
-                    fs.value += 2f;
                     Ai[i].gaveDamage = false;
                 }
+                else if (vehicle.KMh < 30.0f)
+                {
+                    ds.RecievedDamage = Random.Range(1, 10);
+                    healthSlider.value -= ds.RecievedDamage*Time.deltaTime;
+                }
+            }
             
             Debug.Log("UpdateCheckAI Function");
             Debug.Log(Ai[i].isDead);

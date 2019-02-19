@@ -54,9 +54,9 @@ public class Upgrade : MonoBehaviour {
             level = 1;
             player = new Player(coin, level);
 
-            PlayerPrefs.SetInt("isUnlocked", 0);
-            PlayerPrefs.SetInt("isUnlocked2", 1);
-            PlayerPrefs.SetInt("isUnlocked3", 0);
+            PlayerPrefs.SetInt("v1_isUnlocked", 0);
+            PlayerPrefs.SetInt("v2_isUnlocked", 1);
+            PlayerPrefs.SetInt("v3_isUnlocked", 0);
             PlayerPrefs.SetInt("v2_torque", 25);
             PlayerPrefs.SetInt("v2_speed", 120);
             PlayerPrefs.SetInt("v2_fuel", 100);
@@ -78,9 +78,9 @@ public class Upgrade : MonoBehaviour {
             player = new Player(coin, level);
 
             vehicle = new Vehicle[transform.childCount];
-            vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 1), PlayerPrefs.GetInt("isUnlocked"), false, 12, 45, 0, 50, 1000000000, 20);
-            vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 2), PlayerPrefs.GetInt("isUnlocked2"), false, PlayerPrefs.GetInt("v2_torque"), PlayerPrefs.GetInt("v2_speed"), PlayerPrefs.GetInt("v2_fuel"), PlayerPrefs.GetInt("v2_health"), 250, 1);
-            vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 3), PlayerPrefs.GetInt("isUnlocked3"), false, PlayerPrefs.GetInt("v3_torque"), PlayerPrefs.GetInt("v3_speed"), PlayerPrefs.GetInt("v3_fuel"), PlayerPrefs.GetInt("v3_health"), 500, 10);
+            vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 1), PlayerPrefs.GetInt("v1_isUnlocked"), false, 12, 45, 0, 50, 1000000000, 20);
+            vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 2), PlayerPrefs.GetInt("v2_isUnlocked"), false, PlayerPrefs.GetInt("v2_torque"), PlayerPrefs.GetInt("v2_speed"), PlayerPrefs.GetInt("v2_fuel"), PlayerPrefs.GetInt("v2_health"), 250, 1);
+            vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 3), PlayerPrefs.GetInt("v3_isUnlocked"), false, PlayerPrefs.GetInt("v3_torque"), PlayerPrefs.GetInt("v3_speed"), PlayerPrefs.GetInt("v3_fuel"), PlayerPrefs.GetInt("v3_health"), 500, 10);
 
 
         }
@@ -215,13 +215,11 @@ public class Upgrade : MonoBehaviour {
             upgradeable += value;
             player.coin -= cost;
             cost = Mathf.FloorToInt((cost + 10) * 0.6f);
-            SavePP();
         }
         else if (isUpgrade == false && (upgradeable - value) > minvalue)
         {
             upgradeable -= value;
             player.coin += cost;
-            SavePP();
         }
 
         else if ((upgradeable + value) > maxvalue)

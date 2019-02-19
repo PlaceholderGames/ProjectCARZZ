@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class OpenVehicleMenu : MonoBehaviour {
     // Use this for initialization
+
+    public MSSceneControllerFree mSScene;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            mSScene.SavePP();
             PlayerPrefs.SetInt("isNewGame", 0);
             SceneManager.LoadScene("Garage");
         }

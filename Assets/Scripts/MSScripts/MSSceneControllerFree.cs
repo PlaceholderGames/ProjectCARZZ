@@ -191,22 +191,15 @@ public class MSSceneControllerFree : MonoBehaviour {
         {
             fuelValue = 0;
             repairValue = 0;
-            coinValue = 0;
-            healthSlider.value = healthSlider.maxValue;
-            fuelSlider.value = fuelSlider.maxValue;
-            PlayerPrefs.SetInt("coinValue", 0);
+            coinValue = PlayerPrefs.GetInt("coinValue"); ;
             PlayerPrefs.SetInt("fuelValue", 0);
             PlayerPrefs.SetInt("repairValue", 0);
-            if (vehicles[0].activeSelf)
-            {
-                PlayerPrefs.SetInt("v2_currentRepair", (int)healthSlider.maxValue);
-                PlayerPrefs.SetInt("v2_currentFuel", (int)fuelSlider.maxValue);
-            }
-            else if (vehicles[1].activeSelf)
-            {
-                PlayerPrefs.SetInt("v3_currentRepair", (int)healthSlider.maxValue);
-                PlayerPrefs.SetInt("v3_currentFuel", (int)fuelSlider.maxValue);
-            }
+            PlayerPrefs.SetInt("v2_health", (int)healthSlider.maxValue);
+            PlayerPrefs.SetInt("v2_currenthealth", (int)healthSlider.maxValue);
+            PlayerPrefs.SetInt("v3_currenthealth", PlayerPrefs.GetInt("v3_health"));
+            PlayerPrefs.SetInt("v2_fuel", (int)fuelSlider.maxValue);
+            PlayerPrefs.SetInt("v3_currentfuel", PlayerPrefs.GetInt("v3_fuel"));
+            PlayerPrefs.SetInt("v2_currentfuel", (int)fuelSlider.maxValue);
         }
         else if (PlayerPrefs.GetInt("isNewGame") == 0)
         {
@@ -216,13 +209,13 @@ public class MSSceneControllerFree : MonoBehaviour {
 
             if (vehicles[0].activeSelf)
             {
-                healthSlider.value = PlayerPrefs.GetInt("v2_currentRepair");
-                fuelSlider.value = PlayerPrefs.GetInt("v2_currentFuel");
+                healthSlider.value = PlayerPrefs.GetInt("v2_currenthealth");
+                fuelSlider.value = PlayerPrefs.GetInt("v2_currentfuel");
             }
             else if (vehicles[1].activeSelf)
             {
-                healthSlider.value = PlayerPrefs.GetInt("v3_currentRepair");
-                fuelSlider.value = PlayerPrefs.GetInt("v3_currentFuel");
+                healthSlider.value = PlayerPrefs.GetInt("v3_currenthealth");
+                fuelSlider.value = PlayerPrefs.GetInt("v3_currentfuel");
             }
         }
 
@@ -230,7 +223,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     }
 
-    void SavePP()
+    public void SavePP()
     {
         PlayerPrefs.SetInt("coinValue", coinValue);
         PlayerPrefs.SetInt("currentLevel", (int)level);
@@ -240,13 +233,17 @@ public class MSSceneControllerFree : MonoBehaviour {
         PlayerPrefs.SetInt("totalXP", (int)levelSlider.maxValue);
         if (vehicles[0].activeSelf)
         {
-            PlayerPrefs.SetInt("v2_currentRepair", (int)healthSlider.value);
-            PlayerPrefs.SetInt("v2_currentFuel", (int)fuelSlider.value);
+            PlayerPrefs.SetInt("v2_health", (int)healthSlider.maxValue);
+            PlayerPrefs.SetInt("v2_currenthealth", (int)healthSlider.value);
+            PlayerPrefs.SetInt("v2_fuel", (int)fuelSlider.maxValue);
+            PlayerPrefs.SetInt("v2_currentfuel", (int)fuelSlider.value);
         }
         else if (vehicles[1].activeSelf)
         {
-            PlayerPrefs.SetInt("v3_currentRepair", (int)healthSlider.value);
-            PlayerPrefs.SetInt("v3_currentFuel", (int)fuelSlider.value);
+            PlayerPrefs.SetInt("v3_health", (int)healthSlider.maxValue);
+            PlayerPrefs.SetInt("v3_currenthealth", (int)healthSlider.value);
+            PlayerPrefs.SetInt("v3_fuel", (int)fuelSlider.maxValue);
+            PlayerPrefs.SetInt("v3_currentfuel", (int)fuelSlider.value);
         }
 
     }
@@ -386,7 +383,6 @@ public class MSSceneControllerFree : MonoBehaviour {
         ChangeCanvasCam();
         PopUpMessage();
         LevelSystem();
-        SavePP();
     }
 
     /*

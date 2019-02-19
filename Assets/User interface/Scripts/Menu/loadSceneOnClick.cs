@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class loadSceneOnClick : MonoBehaviour {
 
+
+
 	public void LoadByIndex(int sceneIndex)
     {
         PlayerPrefs.SetInt("isNewGame", 0);

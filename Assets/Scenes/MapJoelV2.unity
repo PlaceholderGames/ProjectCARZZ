@@ -973,7 +973,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96807108}
-  - component: {fileID: 96807107}
   m_Layer: 0
   m_Name: VehicleChoice
   m_TagString: Untagged
@@ -981,17 +980,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &96807107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 96807106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a79d23730f92b747b22b3234e89bdfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &96807108
 Transform:
   m_ObjectHideFlags: 0
@@ -12484,7 +12472,7 @@ Prefab:
     - target: {fileID: 114762186321443092, guid: 0d19be9cd857a0f4e8c687418fdde94b,
         type: 2}
       propertyPath: coinValue
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 114762186321443092, guid: 0d19be9cd857a0f4e8c687418fdde94b,
         type: 2}

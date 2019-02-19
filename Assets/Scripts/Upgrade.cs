@@ -147,7 +147,6 @@ public class Upgrade : MonoBehaviour {
             lockIndicator.SetActive(false);
             unlockButton.SetActive(false);
             vehicle[currentVehicle].isUnlocked = 1;
-            PlayerPrefs.SetInt("isUnlocked"+currentVehicle+1, 1);
             player.coin -= vehicle[currentVehicle].unlockCostCoin;
             StartCoroutine(popUpMsgPop("Vehicle unlocked!"));
         }
@@ -171,7 +170,7 @@ public class Upgrade : MonoBehaviour {
     public void selectVehicle()
     {
         SavePP();
-        PlayerPrefs.SetString("vehicleChoice", vehicle[currentVehicle].vehicleObj.tag);
+        PlayerPrefs.SetInt("vehicleID", currentVehicle);
         if (PlayerPrefs.GetInt("isNewGame") == 1) PlayerPrefs.SetInt("isNewGame", 1);
         else if (PlayerPrefs.GetInt("isNewGame") == 0) PlayerPrefs.SetInt("isNewGame", 0);
         SceneManager.LoadScene("MapJoelV2");
@@ -278,7 +277,8 @@ public class Upgrade : MonoBehaviour {
                 PlayerPrefs.SetInt("v1_speed", vehicle[0].maxSpeed);
                 PlayerPrefs.SetInt("v1_fuel", vehicle[0].fuel);
                 PlayerPrefs.SetInt("v1_health", vehicle[0].health);
-                
+                PlayerPrefs.SetInt("v1_isUnlocked", vehicle[0].isUnlocked);
+
             }
             else if (vehicle[i].vehicleObj.tag == "Vehicle2")
             {
@@ -286,7 +286,7 @@ public class Upgrade : MonoBehaviour {
                 PlayerPrefs.SetInt("v2_speed", vehicle[1].maxSpeed);
                 PlayerPrefs.SetInt("v2_fuel", vehicle[1].fuel);
                 PlayerPrefs.SetInt("v2_health", vehicle[1].health);
-
+                PlayerPrefs.SetInt("v2_isUnlocked", vehicle[1].isUnlocked);
             }
 
             else if (vehicle[i].vehicleObj.tag == "Vehicle3")
@@ -295,7 +295,7 @@ public class Upgrade : MonoBehaviour {
                 PlayerPrefs.SetInt("v3_speed", vehicle[2].maxSpeed);
                 PlayerPrefs.SetInt("v3_fuel", vehicle[2].fuel);
                 PlayerPrefs.SetInt("v3_health", vehicle[2].health);
-
+                PlayerPrefs.SetInt("v3_isUnlocked", vehicle[2].isUnlocked);
             }
         }
     }
@@ -309,14 +309,15 @@ public class Upgrade : MonoBehaviour {
                 vehicle[0].maxSpeed = PlayerPrefs.GetInt("v1_speed");
                 vehicle[0].fuel = PlayerPrefs.GetInt("v1_fuel");
                 vehicle[0].health = PlayerPrefs.GetInt("v1_health");
+                vehicle[0].isUnlocked = PlayerPrefs.GetInt("v1_isUnlocked");
             }
             else if (vehicle[i].vehicleObj.tag == "Vehicle2")
             {
                 vehicle[1].torque = PlayerPrefs.GetInt("v2_torque");
-                vehicle[1].maxSpeed= PlayerPrefs.GetInt("v2_speed");
+                vehicle[1].maxSpeed = PlayerPrefs.GetInt("v2_speed");
                 vehicle[1].fuel = PlayerPrefs.GetInt("v2_fuel");
                 vehicle[1].health = PlayerPrefs.GetInt("v2_health");
-
+                vehicle[1].isUnlocked = PlayerPrefs.GetInt("v2_isUnlocked");
             }
 
             else if (vehicle[i].vehicleObj.tag == "Vehicle3")
@@ -325,7 +326,7 @@ public class Upgrade : MonoBehaviour {
                 vehicle[2].maxSpeed = PlayerPrefs.GetInt("v3_speed");
                 vehicle[2].fuel = PlayerPrefs.GetInt("v3_fuel");
                 vehicle[2].health = PlayerPrefs.GetInt("v3_health");
-
+                vehicle[2].isUnlocked = PlayerPrefs.GetInt("v3_isUnlocked");
             }
         }
     }

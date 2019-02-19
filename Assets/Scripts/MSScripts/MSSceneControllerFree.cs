@@ -43,90 +43,90 @@ public class ControlsFree {
 
 public class MSSceneControllerFree : MonoBehaviour {
 
-	#region defineInputs
-	[Tooltip("Vertical input recognized by the system")]
-	public string _verticalInput = "Vertical";
+    #region defineInputs
+    [Tooltip("Vertical input recognized by the system")]
+    public string _verticalInput = "Vertical";
 
-	[Tooltip("Horizontal input recognized by the system")]
-	public string _horizontalInput = "Horizontal";
+    [Tooltip("Horizontal input recognized by the system")]
+    public string _horizontalInput = "Horizontal";
 
-	[Tooltip("Horizontal input for camera movements")]
-	public string _mouseXInput = "Mouse X";
+    [Tooltip("Horizontal input for camera movements")]
+    public string _mouseXInput = "Mouse X";
 
-	[Tooltip("Vertical input for camera movements")]
-	public string _mouseYInput = "Mouse Y";
+    [Tooltip("Vertical input for camera movements")]
+    public string _mouseYInput = "Mouse Y";
 
-	[Tooltip("Scroll input, to zoom in and out of the cameras.")]
-	public string _mouseScrollWheelInput = "Mouse ScrollWheel";
-	#endregion
+    [Tooltip("Scroll input, to zoom in and out of the cameras.")]
+    public string _mouseScrollWheelInput = "Mouse ScrollWheel";
+    #endregion
 
-	public enum ControlTypeFree{windows, mobileButton};
+    public enum ControlTypeFree { windows, mobileButton };
 
-	[Space(10)][Tooltip("Here you can configure the vehicle controls, choose the desired inputs and also, deactivate the unwanted ones.")]
-	public ControlsFree controls;
-	[Tooltip("All vehicles in the scene containing the 'MS Vehicle Controller' component must be associated with this list.")]
-	public GameObject[] vehicles;
-	[Space(10)][Tooltip("This variable is responsible for defining the vehicle in which the player will start. It represents an index of the 'vehicles' list, where the number placed here represents the index of the list. The selected index will be the starting vehicle.")]
-	public int startingVehicle = 0;
-	[Tooltip("The player must be associated with this variable. This variable should only be used if your scene also has a player other than a vehicle. This \"player\" will temporarily be disabled when you get in a vehicle, and will be activated again when you leave a vehicle.")]
-	public GameObject player;
-	[Tooltip("If this variable is true and if you have a player associated with the 'player' variable, the game will start at the player. Otherwise, the game will start in the starting vehicle, selected in the variable 'startingVehicle'.")]
-	public bool startInPlayer = false;
-	[Tooltip("Here you can select the type of control, where 'Mobile Button' will cause buttons to appear on the screen so that vehicles can be controlled, 'Mobile Joystick' will cause two Joysticks to appear on the screen so vehicles can be controlled, And 'windows' will allow vehicles to be controlled through the computer.")]
-	public ControlTypeFree selectControls = ControlTypeFree.windows;
-	[Tooltip("This is the minimum distance the player needs to be in relation to the door of a vehicle, to interact with it.")]
-	public float minDistance = 3;
-	[Space(10)][Tooltip("If this variable is true, useful data will appear on the screen, such as the car's current gear, speed, brakes, among other things.")]
-	public bool UIVisualizer = true;
+    [Space(10)] [Tooltip("Here you can configure the vehicle controls, choose the desired inputs and also, deactivate the unwanted ones.")]
+    public ControlsFree controls;
+    [Tooltip("All vehicles in the scene containing the 'MS Vehicle Controller' component must be associated with this list.")]
+    public GameObject[] vehicles;
+    [Space(10)] [Tooltip("This variable is responsible for defining the vehicle in which the player will start. It represents an index of the 'vehicles' list, where the number placed here represents the index of the list. The selected index will be the starting vehicle.")]
+    public int startingVehicle = 0;
+    [Tooltip("The player must be associated with this variable. This variable should only be used if your scene also has a player other than a vehicle. This \"player\" will temporarily be disabled when you get in a vehicle, and will be activated again when you leave a vehicle.")]
+    public GameObject player;
+    [Tooltip("If this variable is true and if you have a player associated with the 'player' variable, the game will start at the player. Otherwise, the game will start in the starting vehicle, selected in the variable 'startingVehicle'.")]
+    public bool startInPlayer = false;
+    [Tooltip("Here you can select the type of control, where 'Mobile Button' will cause buttons to appear on the screen so that vehicles can be controlled, 'Mobile Joystick' will cause two Joysticks to appear on the screen so vehicles can be controlled, And 'windows' will allow vehicles to be controlled through the computer.")]
+    public ControlTypeFree selectControls = ControlTypeFree.windows;
+    [Tooltip("This is the minimum distance the player needs to be in relation to the door of a vehicle, to interact with it.")]
+    public float minDistance = 3;
+    [Space(10)] [Tooltip("If this variable is true, useful data will appear on the screen, such as the car's current gear, speed, brakes, among other things.")]
+    public bool UIVisualizer = true;
 
-	JoystickFree joystickCamera;
-	Button cameraMobileButton;
-	Button enterAndExitButton;
-	MSButtonFree buttonLeft;
-	MSButtonFree buttonRight;
-	MSButtonFree buttonUp;
-	MSButtonFree buttonDown;
-	//
-	Button nextVehicle;
-	Button previousVehicle;
+    JoystickFree joystickCamera;
+    Button cameraMobileButton;
+    Button enterAndExitButton;
+    MSButtonFree buttonLeft;
+    MSButtonFree buttonRight;
+    MSButtonFree buttonUp;
+    MSButtonFree buttonDown;
+    //
+    Button nextVehicle;
+    Button previousVehicle;
 
     Text gearText;
     Text mphText;
 
-	#region customizeInputs
-	[HideInInspector]
-	public float verticalInput = 0;
-	[HideInInspector]
-	public float horizontalInput = 0;
-	[HideInInspector]
-	public float mouseXInput = 0;
-	[HideInInspector]
-	public float mouseYInput = 0;
-	[HideInInspector]
-	public float mouseScrollWheelInput = 0;
-	#endregion
+    #region customizeInputs
+    [HideInInspector]
+    public float verticalInput = 0;
+    [HideInInspector]
+    public float horizontalInput = 0;
+    [HideInInspector]
+    public float mouseXInput = 0;
+    [HideInInspector]
+    public float mouseYInput = 0;
+    [HideInInspector]
+    public float mouseScrollWheelInput = 0;
+    #endregion
 
-	int currentVehicle = 0;
-	int clampGear;
-	int proximityObjectIndex;
-	int proximityDoorIndex;
-	bool blockedInteraction = false;
-	bool pause = false;
-	bool error;
-	bool enterAndExitBool;
-	string sceneName;
+    int currentVehicle = 0;
+    int clampGear;
+    int proximityObjectIndex;
+    int proximityDoorIndex;
+    bool blockedInteraction = false;
+    bool pause = false;
+    bool error;
+    bool enterAndExitBool;
+    string sceneName;
 
-	public MSVehicleControllerFree vehicleCode;
-	MSVehicleControllerFree controllerTemp;
-	float currentDistanceTemp;
-	float proximityDistanceTemp;
+    public MSVehicleControllerFree vehicleCode;
+    MSVehicleControllerFree controllerTemp;
+    float currentDistanceTemp;
+    float proximityDistanceTemp;
 
-	float MSbuttonHorizontal;
-	float MSbuttonVertical;
+    float MSbuttonHorizontal;
+    float MSbuttonVertical;
 
-	bool playerIsNull;
+    bool playerIsNull;
 
-	Vector2 vectorDirJoystick;
+    Vector2 vectorDirJoystick;
 
 
 
@@ -154,13 +154,13 @@ public class MSSceneControllerFree : MonoBehaviour {
     public GameObject popUpMsg;
     private GameObject speedUI;
 
-    private String vehicleChoice;
+    private int vehicleID;
     private OpenVehicleMenu ovm;
     private AICollision[] ai;
     bool wasupfor5sec;
     bool wasupfor5secagain;
     float level;
-    
+
 
     // Dewy's addons
     public bool Pause = false;
@@ -183,7 +183,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         cAI = FindObjectOfType<CheckAI>();
         ovm = FindObjectOfType<OpenVehicleMenu>();
 
-        vehicleChoice = PlayerPrefs.GetString("vehicleChoice");
+        vehicleID = PlayerPrefs.GetInt("vehicleID")-1;
         InitVehicle();
         LoadPP();
 
@@ -226,7 +226,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             }
         }
 
-        
+
 
     }
 
@@ -248,7 +248,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             PlayerPrefs.SetInt("v3_currentRepair", (int)healthSlider.value);
             PlayerPrefs.SetInt("v3_currentFuel", (int)fuelSlider.value);
         }
-        
+
     }
 
     void LevelSystem()
@@ -275,44 +275,29 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void LoadPP()
     {
-
-       for(int i = 0; i<vehicles.Length;i++)
+        if (vehicleID == 0)
         {
-            if(vehicles[i].gameObject.tag == "Vehicle1")
-            {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v1_torque");
-                vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v1_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v1_fuel");
-                healthSlider.maxValue = PlayerPrefs.GetInt("v1_health");
-            }
-
-            else if(vehicles[i].gameObject.tag == "Vehicle2")
-            {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v2_torque");
-                vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
-                healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
-            }
-
-            else if (vehicles[i].gameObject.tag == "Vehicle3")
-            {
-                vehicleCode._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v3_torque");
-                vehicleCode._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
-                fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
-                healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
-            }
+            vehicles[0].GetComponent<MSVehicleControllerFree>()._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v2_torque");
+            vehicles[0].GetComponent<MSVehicleControllerFree>()._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v2_speed");
+            fuelSlider.maxValue = PlayerPrefs.GetInt("v2_fuel");
+            healthSlider.maxValue = PlayerPrefs.GetInt("v2_health");
         }
-        
 
+
+        else if (vehicleID == 1)
+        {
+            vehicles[1].GetComponent<MSVehicleControllerFree>()._vehicleTorque.engineTorque = PlayerPrefs.GetInt("v3_torque");
+            vehicles[1].GetComponent<MSVehicleControllerFree>()._vehicleTorque.maxVelocityKMh = PlayerPrefs.GetInt("v3_speed");
+            fuelSlider.maxValue = PlayerPrefs.GetInt("v3_fuel");
+            healthSlider.maxValue = PlayerPrefs.GetInt("v3_health");
+        }
     }
+
 
     private void InitVehicle(){
         for(int i =0; i < vehicles.Length; i++){
-            if (vehicles[i].gameObject.tag == vehicleChoice)
-            {
+            if (i == vehicleID)
                 vehicles[i].SetActive(true);
-                vehicles[i].tag = "activeVehicle";
-            }
 
             else
                 vehicles[i].SetActive(false);

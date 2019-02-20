@@ -5,20 +5,11 @@ using UnityEngine;
 public class NewSpawnObject : MonoBehaviour {
     public Terrain terrain;
     public int currentObjects;//current amount of objects in scene
-    public int CurrentNumberAi = 0;//number of ai at current time
     public int maxNumberObjects;//max number of objects in scene
-    public int MaxNumberAi = 5;//max amount of ai at a time
     public float despawnTime;//time before ai is killed
-    public float SpawnIntervalAi = 5;//time it takes for new ai to spawn
     public float SpawnIntervalcollectables = 5;//time it takes for new ai to spawn
 
-    public int DetectDistanceAi = 50;
-    public GameObject[] objectToPlace;
-    private GameObject[] moneySmall;
-    private GameObject[] moneyMedium;
-    private GameObject[] moneyLarge;
-    private GameObject[] repair;
-    private GameObject[] ai;
+    public GameObject[] Collectables;
 
     private int terrainWidth;
     private int terrainLength;
@@ -26,14 +17,11 @@ public class NewSpawnObject : MonoBehaviour {
     private int terrainPosY;
     private bool isSpawning;
     
-    private AIBehaviour[] aIBehaiour;
-    private AICollision[] aICollision;
-    private MSVehicleControllerFree vehicle;
-    private MSFPSControllerFree player;
     private Transform tempTransform;//used for switiching between player and vehicle
     private Transform vehicleTransform;//vehicle in current scene
     private Transform playerTransform;//player in current scene
-
+	int posx = 0;
+	int posz = 0;
     
     private float moveSpeed = 0.015f;//speed at which ai move
 
@@ -43,8 +31,6 @@ public class NewSpawnObject : MonoBehaviour {
         terrainLength = (int)terrain.terrainData.size.z;
         terrainPosX = (int)terrain.transform.position.x;
         terrainPosY = (int)terrain.transform.position.z;
-
-        moneySmall = GameObject.FindGameObjectsWithTag("moneySmall");
         //moneyMedium = GameObject.FindGameObjectsWithTag("moneyMedium");
         //moneyLarge = GameObject.FindGameObjectsWithTag("moneyLarge");
         //repair = GameObject.FindGameObjectsWithTag("repair");
@@ -56,89 +42,43 @@ public class NewSpawnObject : MonoBehaviour {
         //player = FindObjectOfType<MSFPSControllerFree>();
         //vehicleTransform = vehicle.transform;
 
-        isSpawning = false;
+		posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
+        posz = Random.Range(terrainPosY, terrainPosY + terrainLength);
     }
 
     void Start () {
         Instantiation();
     }
-    
-    private void ObjectPrefab(GameObject[] obj, int x , int y, int i)
-    {
-        for (int c = 0; c < obj.Length; c++)
-        {
-            if (obj[i].transform.position.x == x && obj[i].transform.position.z == y)
-            {
-                x = Random.Range(terrainPosX, terrainPosX + terrainWidth);
-                y = Random.Range(terrainPosY, terrainPosY + terrainLength);
-            }
-        }
-    }
-    private void SpawnAI()
-    {
 
-    }
-
-    public void SpawnObject()
+    private void SpawnObject()
     {
-        int posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
-        int posz = Random.Range(terrainPosY, terrainPosY + terrainLength);
-        float posy = Terrain.activeTerrain.SampleHeight(new Vector3(posx, 0, posz));
-
-        moneySmall = GameObject.FindGameObjectsWithTag("moneySmall");
+        posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
+		posz = Random.Range(terrainPosY, terrainPosY + terrainLength);
+        float posy = terrain.SampleHeight(new Vector3(posx, 0, posz));
         //moneyMedium = GameObject.FindGameObjectsWithTag("moneyMedium");
         //moneyLarge = GameObject.FindGameObjectsWithTag("moneyLarge");
         //repair = GameObject.FindGameObjectsWithTag("repair");
         //ai = GameObject.FindGameObjectsWithTag("ai");
-
-        
-
-        for (int i = 0; i < objectToPlace.Length; i++)
+	
+        for(int i = 1, j = 0; i <= maxNumberObjects; i++)
         {
-            for(int l = 0; l < maxNumberObjects; l++)
-            {
-                GameObject newObject = (GameObject)Instantiate(objectToPlace[i], new Vector3(posx, posy + 1, posz), Quaternion.identity);
-                ObjectPrefab(moneySmall, posx, posz, i);
-                currentObjects++;
-            }
-            
-            //ObjectPrefab(moneyMedium, posx, posz, i);
-            //ObjectPrefab(moneyLarge, posx, posz, i);
-            //ObjectPrefab(repair, posx, posz, i);
-            
-
-            //ObjectPrefab(ai, posx, posz, i);
-            //CurrentNumberAi++;
-            
-            //aIBehaiour = FindObjectsOfType<AIBehaviour>();
-            //aICollision = FindObjectsOfType<AICollision>();
-
-            //if (vehicle.isInsideTheCar == false)
-            //    playerTransform = player.transform;
-            //else
-            //{
-            //    tempTransform = playerTransform;
-            //    playerTransform = vehicleTransform;
-            //}
-
-            //for (int k = 0; k < aIBehaiour.Length; k++)
-            //{
-            //    aIBehaiour[k].target = playerTransform;
-            //    aIBehaiour[k].moveSpeed = moveSpeed;
-            //    aIBehaiour[k].detectDistance = DetectDistanceAi;
-            //}
-
-            //for (int k = 0; k < aICollision.Length; k++)
-            //    aICollision[k].despawnTime = despawnTime;
+			if(i % Collectables.Length == 0)
+				j++;
+            Instantiate(Collectables[j], new Vector3(posx, posy + 1, posz), Quaternion.identity);
+            currentObjects++;
+			if(j > Collectables.Length)
+				j = 0;
+			posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
+			posz = Random.Range(terrainPosY, terrainPosY + terrainLength);
+			posy = terrain.SampleHeight(new Vector3(posx, 0, posz));
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (!isSpawning && currentObjects < maxNumberObjects)
+        if (currentObjects < maxNumberObjects)
         {
-            Invoke("SpawnObject", SpawnIntervalcollectables);
-            isSpawning = true;
+            SpawnObject();
         }
     }
 

@@ -31,15 +31,20 @@ public class SpawnObject : MonoBehaviour {
     //private bool isMoving;
     private float moveSpeed = 0.015f;//speed at which ai move
     private float runMoveSpeed = 0.1f;//speed at which ai run
+	private float distanceV = 0;
 
+	
+	
     public void SpawnZombie()
     {
-            
-            Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
-            Instantiate(Prefab, pos, Quaternion.identity);
-            isSpawning = false;
-            CurrentNumberAi++;
-           
+		Debug.Log(SpawnIntervalAi);
+        if((int)Time.time % (int)SpawnIntervalAi == 0)
+		{
+			
+			Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
+			Instantiate(Prefab, pos, Quaternion.identity);
+			CurrentNumberAi++;
+		}
     }
     public void DeSpawnZombie()
     {
@@ -47,7 +52,6 @@ public class SpawnObject : MonoBehaviour {
         {
             if ((aICollision[i].transform.position.x > (center-size).x && aICollision[i].transform.position.x < (center + size).x) && (aICollision[i].transform.position.z > (center - size).z && aICollision[i].transform.position.z < (center + size).z))
             {
-                isSpawning = false;
                 Destroy(aICollision[i].gameObject);
                 CurrentNumberAi--;
             }
@@ -73,22 +77,24 @@ public class SpawnObject : MonoBehaviour {
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         player = FindObjectOfType<MSFPSControllerFree>();
         vehicleTransform = vehicle.transform;
+		
+		
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
-        aIBehaiour = FindObjectsOfType<AIBehaviour>();
+    void Update()
+	{
+		
+		aIBehaiour = FindObjectsOfType<AIBehaviour>();
         aICollision = FindObjectsOfType<AICollision>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
-        float distanceV = Vector3.Distance(vehicle.transform.position, center);
-        
-        if(!(distanceV < 300)) DeSpawnZombie();
+        vehicleTransform = vehicle.transform;
+		distanceV = Vector3.Distance(vehicle.transform.position, center);
+		if(!(distanceV < 300)) DeSpawnZombie();
         if (!isSpawning && CurrentNumberAi < MaxNumberAi && (distanceV < 300))
         {
-            Invoke("SpawnZombie", SpawnIntervalAi);
-            isSpawning = true;
+            SpawnZombie();
         }
-        
         
         if (vehicle.isInsideTheCar == false)
             playerTransform = player.transform;
@@ -105,6 +111,7 @@ public class SpawnObject : MonoBehaviour {
         
         for (int i = 0; i < aICollision.Length; i++)
             aICollision[i].despawnTime = despawnTime;
-    }
+		
+	}
 
 }

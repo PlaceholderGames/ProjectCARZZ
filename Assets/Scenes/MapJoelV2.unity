@@ -9704,7 +9704,7 @@ MonoBehaviour:
         invertRotationJoystick: 1
   _vehicleTorque:
     maxVelocityKMh: 250
-    engineTorque: 7
+    engineTorque: 2
     numberOfGears: 10
     speedOfGear: 1.5
     manualAdjustmentOfTorques:
@@ -19194,6 +19194,127 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 416174, guid: a5b8b332bed7b7b409ea83cd470e2604,
     type: 2}
   m_PrefabInternal: {fileID: 2000758620}
+--- !u!1001 &2011109442
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817534540190300, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114817534540190300, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114954917049471412, guid: 06ca7bba810190d4391c6ea2fd8b0472,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: be2bc37359cf9d64b9fb8d5320c32b23,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 06ca7bba810190d4391c6ea2fd8b0472, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!4 &2015266193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 481256, guid: 9b8fc966f95ea9c4194dc091fc40b478,

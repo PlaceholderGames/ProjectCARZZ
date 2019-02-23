@@ -106,6 +106,8 @@ public class MSSceneControllerFree : MonoBehaviour {
     public float mouseScrollWheelInput = 0;
     #endregion
 
+    [SerializeField] private int fuelDecreaseValue = 100000;
+
     int currentVehicle = 0;
     int clampGear;
     int proximityObjectIndex;
@@ -325,13 +327,15 @@ public class MSSceneControllerFree : MonoBehaviour {
         fuelText.text = "Fuel: " + fuelValue;
         if (vehicleCode.isInsideTheCar && Time.timeScale == 1.0f)
         {
-
-
             fuelSlider.gameObject.SetActive(true);
-            fuelSlider.value -= (vehicleCode.KMh / 2500.0f);
+            
             gearTxt.text = vehicleCode.currentGear + "";
             if (fuelSlider.value <= 0.1)
                 vehicleCode.theEngineIsRunning = false;
+            if (vehicleCode.KMh < 30)
+                fuelSlider.value -= (vehicleCode.KMh / fuelDecreaseValue);
+            else if (vehicleCode.KMh > 30)
+                fuelSlider.value -= Mathf.Pow(vehicleCode.KMh, 2) / fuelDecreaseValue;
 
             if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
             {

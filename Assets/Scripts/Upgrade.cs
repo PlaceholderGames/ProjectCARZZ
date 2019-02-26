@@ -67,8 +67,8 @@ public class Upgrade : MonoBehaviour {
             PlayerPrefs.SetInt("v3_health", 200);
             vehicle = new Vehicle[transform.childCount];
             vehicle[0] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 1), 0, false, 12, 45, 0, 50, 1000000000, 20);
-            vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 2), 1, false, 25, 120, 100, 100, 250, 1);
-            vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 3), 0, false, 40, 180, 200, 200, 500, 10);
+            vehicle[1] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 2), 1, false, 7, 80, 100, 100, 250, 1);
+            vehicle[2] = new Vehicle(GameObject.FindGameObjectWithTag("Vehicle" + 3), 0, false, 12, 120, 150, 150, 500, 10);
             
         }
         else if(PlayerPrefs.GetInt("isNewGame") == 0)

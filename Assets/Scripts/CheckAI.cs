@@ -63,7 +63,6 @@ public class CheckAI : MonoBehaviour {
                 if (vehicle.KMh > 30.0f)
                 {
                     Debug.Log("GaveXP");
-                    s.CurrentNumberAi--;
                     ls.currentXP += (10 + (int)Mathf.Sqrt(vehicle.KMh));
                     ls.UpdateLevelingSystem();
                     Ai[i].isDead = false;

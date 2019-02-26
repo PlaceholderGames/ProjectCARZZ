@@ -59,26 +59,17 @@ public class NewSpawnObject : MonoBehaviour {
         //moneyLarge = GameObject.FindGameObjectsWithTag("moneyLarge");
         //repair = GameObject.FindGameObjectsWithTag("repair");
         //ai = GameObject.FindGameObjectsWithTag("ai");
-	
-        for(int i = 1, j = 0; i <= maxNumberObjects; i++)
-        {
-			if(i % Collectables.Length == 0)
-				j++;
-            Instantiate(Collectables[j], new Vector3(posx, posy + 1, posz), Quaternion.identity);
-            currentObjects++;
-			if(j > Collectables.Length)
-				j = 0;
-			posx = Random.Range(terrainPosX, terrainPosX + terrainWidth);
-			posz = Random.Range(terrainPosY, terrainPosY + terrainLength);
-			posy = terrain.SampleHeight(new Vector3(posx, 0, posz));
-        }
+		int j = Random.Range(0, Collectables.Length);
+        Instantiate(Collectables[j], new Vector3(posx, posy + 1, posz), Quaternion.Euler(-90.0f, 0, 0));
+        currentObjects++;
+        
     }
     // Update is called once per frame
     void Update()
     {
         if (currentObjects < maxNumberObjects)
         {
-            SpawnObject();
+            StartCoroutine("SpawnObject");
         }
     }
 

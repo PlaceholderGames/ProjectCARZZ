@@ -5,11 +5,13 @@ using UnityEngine;
 public class RepairSystem : MonoBehaviour {
 
     private MSSceneControllerFree _MSC;
+    private NewSpawnObject nso;
     [SerializeField] private float rotationSpeed = 100.0f;
 
     void Awake()
     {
         _MSC = FindObjectOfType<MSSceneControllerFree>();
+        nso = FindObjectOfType<NewSpawnObject>();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -18,6 +20,7 @@ public class RepairSystem : MonoBehaviour {
         {
             Destroy(gameObject);
             _MSC.repairValue++;
+            nso.currentObjects--;
         }
 
     }

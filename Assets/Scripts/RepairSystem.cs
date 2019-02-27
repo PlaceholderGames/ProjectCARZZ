@@ -16,7 +16,7 @@ public class RepairSystem : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Collider>().tag == "Player")
+        if (other.GetComponent<Collider>().tag == "Player" || other.GetComponent<Collider>().tag == "Vehicle2" || other.GetComponent<Collider>().tag == "Vehicle3")
         {
             Destroy(gameObject);
             _MSC.repairValue++;

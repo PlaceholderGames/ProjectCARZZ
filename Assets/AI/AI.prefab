@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 136864239010068546}
   m_Layer: 0
   m_Name: AI
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1433,7 +1433,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081653143893834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00053453445, y: 0.8997744, z: 0.02398163}
+  m_LocalPosition: {x: 457.3606, y: 51.393684, z: 820.5775}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4083878502623634}
@@ -2794,11 +2794,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd352a363a5ba0f49b9332e40e8f36bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killDistance: 200
   rb: {fileID: 54379299073894004}
-  target: {fileID: 4458371381296706, guid: c34f07d0b50581445ad86ecc856b5e15, type: 2}
-  moveSpeed: 0.03
-  runMoveSpeed: 0.1
-  detectDistance: 200
+  target: {fileID: 0}
+  moveSpeed: 0.015
+  runMoveSpeed: 0.03
+  detectDistance: 50
   aiCollision: {fileID: 0}
 --- !u!114 &114384630042230940
 MonoBehaviour:
@@ -2811,11 +2812,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69163b2331024d4198e03a8e4f8b273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnTime: 5
+  despawnTime: 0.1
   gaveDamage: 0
-  isDead: 0
   hitPlayer: 0
   ishit: 0
+  displayFin: 0
 --- !u!136 &136864239010068546
 CapsuleCollider:
   m_ObjectHideFlags: 1

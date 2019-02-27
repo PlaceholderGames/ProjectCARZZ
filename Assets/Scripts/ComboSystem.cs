@@ -28,18 +28,23 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        Zombies = FindObjectsOfType<AICollision>();
-        ComboIndicator.text = zombiesKilledDuringComboTime + "x";
-        CountDown();
+        //Zombies = FindObjectsOfType<AICollision>();
+        //ComboIndicator.text = zombiesKilledDuringComboTime + "x";
+        //CountDown();
     }
 
     void CountDown(){
         bool zombieIsDead=false;                                                        ///had to declare a local boolean since the 
-                                                                                        ///timer -= Time.deltaTime;
-        for (int i = 0; i < Zombies.Length; i++){                                       ///wouldn't work inside a for loop
-            if (Zombies[i].isDead)
-                zombieIsDead = true;
-        }
+        
+        /*
+         * Can't loop through Zombies, we need the logic in the zombie script instead
+         */
+         
+        ///timer -= Time.deltaTime;
+        //for (int i = 0; i < Zombies.Length; i++){                                       ///wouldn't work inside a for loop
+        //    if (Zombies[i].isDead)
+        //        zombieIsDead = true;
+        //}
 
         if (zombieIsDead){                                                              ///if a zombie dies
             timer = timerMax;                                                           ///reset the timer to 6

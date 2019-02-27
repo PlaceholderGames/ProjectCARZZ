@@ -13,6 +13,10 @@ TagManager:
   - Fuel
   - CameraPlayer
   - activeVehicle
+  - Music
+  - Prop
+  - UI
+  - Zombie
   layers:
   - Default
   - TransparentFX

@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class AIBehaviour : MonoBehaviour
 {
-    
+    public float killDistance;
     public Rigidbody rb;
     public Transform target;
     public float moveSpeed = 0.011f;
-    public float runMoveSpeed = 0.1f;
+    public float runMoveSpeed = 0.05f;
     public float detectDistance= 200f;  //the distance in which the AI can follow the player
     private float speed;
     float xpos, zpos;
     private MSVehicleControllerFree vehicle;
+    private MSFPSControllerFree player;
     private MSSceneControllerFree sceneController;
 
     private Animator anim;
@@ -25,19 +26,31 @@ public class AIBehaviour : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         sceneController = FindObjectOfType<MSSceneControllerFree>();
+        player = FindObjectOfType<MSFPSControllerFree>();
     }
 
    
 
-    void FixedUpdate()
+    void Update()
     {
+
+
+        if (vehicle.isInsideTheCar == false)
+        {
+            player = FindObjectOfType<MSFPSControllerFree>();
+            target = player.transform;
+        }
+        else
+        {
+            target = vehicle.transform;
+        }
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
             //if the player is inside the detectable distance
             if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
             {
                 anim.SetBool("isIdle", false); ///Player in car
-                if (!sceneController.vehicleCode.isInsideTheCar)
+                if (!vehicle.isInsideTheCar)
                 {
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isRunning", true); //Zombie runs
@@ -62,7 +75,9 @@ public class AIBehaviour : MonoBehaviour
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isRunning", false);
             }
-       
-
+        if(Vector3.Distance(vehicle.transform.position, transform.position) > killDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 }

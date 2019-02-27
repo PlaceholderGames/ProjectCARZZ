@@ -12,6 +12,7 @@ public class MSFPSControllerFree : MonoBehaviour {
 	JoystickFree joystickRotateFPS;
 	float rotationX = 0.0f;
 	float rotationY = 0.0f;
+    public bool ishit = false;
 
 	float moveInputMSForward;
 	float moveInputMSSide;
@@ -30,7 +31,15 @@ public class MSFPSControllerFree : MonoBehaviour {
 		sceneControllerMS = FindObjectOfType(typeof(MSSceneControllerFree)) as MSSceneControllerFree;
 	}
 
-	void OnEnable(){
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.tag == "Zombie")
+        {
+            ishit = true;
+        }
+    }
+
+    void OnEnable(){
 		EnableControls ();
 	}
 

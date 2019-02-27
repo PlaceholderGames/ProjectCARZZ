@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour {
 
+    public Terrain terrain;
     public GameObject Prefab;//Object to spawn
-    public Vector3 center;//visual for seeing spawn area
+    private Vector3 center;//visual for seeing spawn area
     public Vector3 size;//size of spawn area
+    public float radius;
 
     public float despawnTime;//time before ai is killed
     public int MaxNumberAi = 5;//max amount of ai at a time
@@ -18,7 +20,9 @@ public class SpawnObject : MonoBehaviour {
 
     private Color col = new Color(1, 0, 0, 0.5f);
     private AIBehaviour[] aIBehaiour;
+    private AIBehaviour aIBehaiour1;
     private AICollision[] aICollision;
+    private AICollision aICollision1;
     private MSVehicleControllerFree vehicle;
     private MSFPSControllerFree player;
     private Transform tempTransform;//used for switiching between player and vehicle
@@ -26,49 +30,79 @@ public class SpawnObject : MonoBehaviour {
     private Transform playerTransform;//player in current scene
     
 
-    private List<GameObject> aiEnemy;//list of all ai in scene
+    private List<GameObject> aiEnemy = new List<GameObject>();//list of all ai in scene
     private bool isSpawning;
     //private bool isMoving;
     private float moveSpeed = 0.015f;//speed at which ai move
-    private float runMoveSpeed = 0.1f;//speed at which ai run
+    private float runMoveSpeed = 0.05f;//speed at which ai run
 	private float distanceV = 0;
+    private TerrainItemSpawner terrIt;
 
-	
-	
-    public void SpawnZombie()
+
+    float x;
+    Vector3 pos;
+    float z;
+
+
+    void SpawnZombieMap()
     {
 		Debug.Log(SpawnIntervalAi);
-        if((int)Time.time % (int)SpawnIntervalAi == 0)
-		{
-			
-			Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
-			Instantiate(Prefab, pos, Quaternion.identity);
-			CurrentNumberAi++;
-		}
+
+        //Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
+        Instantiate(Prefab);
+        aiEnemy.Add(Prefab);
+        CurrentNumberAi++;
+        aIBehaiour1 = Prefab.GetComponent<AIBehaviour>();
+        aICollision1 = Prefab.GetComponent<AICollision>();
+        aICollision1.despawnTime = despawnTime;
+        aIBehaiour1.target = playerTransform;
+        aIBehaiour1.moveSpeed = moveSpeed;
+        aIBehaiour1.detectDistance = DetectDistanceAi;
+        aIBehaiour1.killDistance = radius + 100;
+        StartCoroutine(terrIt.Spawn(1, 1, Prefab));
+
+    }
+
+    public void SpawnZombie()
+    {
+        Debug.Log(SpawnIntervalAi);
+        x = Random.Range(transform.position.x - radius, transform.position.x + radius);
+        z = Random.Range(transform.position.z - radius, transform.position.z + radius);
+        pos = new Vector3(x, 0, z);
+        pos.y = terrain.SampleHeight(pos);
+
+        //Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
+        Instantiate(Prefab);
+        aiEnemy.Add(Prefab);
+        CurrentNumberAi++;
+        aIBehaiour1 = Prefab.GetComponent<AIBehaviour>();
+        aICollision1 = Prefab.GetComponent<AICollision>();
+        aICollision1.despawnTime = despawnTime;
+        aIBehaiour1.target = playerTransform;
+        aIBehaiour1.moveSpeed = moveSpeed;
+        aIBehaiour1.detectDistance = DetectDistanceAi;
+        aIBehaiour1.killDistance = radius + 100;
+        StartCoroutine(terrIt.Spawn(1, 0, Prefab, pos, radius));
+
     }
     public void DeSpawnZombie()
     {
-        for(int i = 0; i < aICollision.Length; i++)
+        aICollision = FindObjectsOfType<AICollision>();
+        for (int i = 0; i < aICollision.Length; i++)
         {
-            if ((aICollision[i].transform.position.x > (center-size).x && aICollision[i].transform.position.x < (center + size).x) && (aICollision[i].transform.position.z > (center - size).z && aICollision[i].transform.position.z < (center + size).z))
-            {
-                Destroy(aICollision[i].gameObject);
-                CurrentNumberAi--;
-            }
+            Destroy(aICollision[i].gameObject);
         }
-        
+        if (aICollision.Length == 0)
+            CurrentNumberAi = 0;
+
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = col;
-        Gizmos.DrawCube(center, size);
+        Gizmos.DrawSphere(transform.position, radius);
     }
 
-    void Awake()
-    {
-        isSpawning = false;
-    }
 
     // Use this for initialization
     void Start () {
@@ -76,41 +110,40 @@ public class SpawnObject : MonoBehaviour {
         aICollision = FindObjectsOfType<AICollision>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         player = FindObjectOfType<MSFPSControllerFree>();
+        terrIt = FindObjectOfType<TerrainItemSpawner>();
         vehicleTransform = vehicle.transform;
-		
-		
+        center = transform.position;
+
+        
     }
 
     // Update is called once per frame
     void Update()
 	{
-		
-		aIBehaiour = FindObjectsOfType<AIBehaviour>();
-        aICollision = FindObjectsOfType<AICollision>();
-        vehicle = FindObjectOfType<MSVehicleControllerFree>();
-        vehicleTransform = vehicle.transform;
-		distanceV = Vector3.Distance(vehicle.transform.position, center);
-		if(!(distanceV < 300)) DeSpawnZombie();
-        if (!isSpawning && CurrentNumberAi < MaxNumberAi && (distanceV < 300))
-        {
-            SpawnZombie();
-        }
+       
+      //if (radius == 0)
+            //{
+            //    SpawnZombieMap();
+            //}
+            vehicle = FindObjectOfType<MSVehicleControllerFree>();
+            vehicleTransform = vehicle.transform;
+            center.y = terrain.SampleHeight(center);
+            distanceV = Vector3.Distance(vehicle.transform.position, center);
+            Debug.Log(distanceV);
+            //if ((distanceV > radius+55)) DeSpawnZombie();
+            if ((distanceV < radius+100) && CurrentNumberAi < MaxNumberAi) // && (int)Time.time % (int)SpawnIntervalAi == 0
+            {
+                SpawnZombie();
+            }
+            
+            if(CurrentNumberAi < MaxNumberAi*2)
+            {
+                if ((distanceV < radius + 100) && (int)Time.time % (int)SpawnIntervalAi == 0)
+                {
+                    SpawnZombie();
+                }
+            }
         
-        if (vehicle.isInsideTheCar == false)
-            playerTransform = player.transform;
-        else{
-            playerTransform = vehicle.transform;
-        }
-
-        for (int i = 0; i < aIBehaiour.Length; i++)
-        {
-            aIBehaiour[i].target = playerTransform;
-            aIBehaiour[i].moveSpeed = moveSpeed;
-            aIBehaiour[i].detectDistance = DetectDistanceAi;
-        }
-        
-        for (int i = 0; i < aICollision.Length; i++)
-            aICollision[i].despawnTime = despawnTime;
 		
 	}
 

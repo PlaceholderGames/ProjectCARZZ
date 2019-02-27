@@ -147,7 +147,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     private Text coinText;
     public int coinValue;
 
-    private CheckAI cAI;
+    private LevelingSystem ls;
 
     private Slider healthSlider;
     private Text repairText;
@@ -182,7 +182,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         XpText = GameObject.Find("XpText").GetComponent<Text>();
         LevelText = GameObject.Find("levelText").GetComponent<Text>();
         speedUI = GameObject.Find("speedUI");
-        cAI = FindObjectOfType<CheckAI>();
+        ls = FindObjectOfType<LevelingSystem>();
         ovm = FindObjectOfType<OpenVehicleMenu>();
 
         vehicleID = PlayerPrefs.GetInt("vehicleID")-1;
@@ -252,12 +252,10 @@ public class MSSceneControllerFree : MonoBehaviour {
 
     void LevelSystem()
     {
-        cAI.UpdateCheckAI();
-        level = cAI.getCurrentLevel();
-        levelSlider.value = cAI.getCurrentXp();
-        XpText.text = "XP Earned: " + cAI.getCurrentXp();
-        LevelText.text = "Level: " + cAI.getCurrentLevel();
-        levelSlider.maxValue = cAI.getTotalXp();
+        levelSlider.value = ls.currentXP;
+        XpText.text = "XP Earned: " + ls.currentXP;
+        LevelText.text = "Level: " + ls.currentLevel;
+        levelSlider.maxValue = ls.totalXP;
     }
 
     void EndGame()
@@ -333,7 +331,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             if (fuelSlider.value <= 0.1)
                 vehicleCode.theEngineIsRunning = false;
             if (vehicleCode.KMh < 30)
-                fuelSlider.value -= (vehicleCode.KMh / fuelDecreaseValue);
+                fuelSlider.value -= (vehicleCode.KMh / fuelDecreaseValue) / Time.deltaTime;
             else if (vehicleCode.KMh > 30)
                 fuelSlider.value -= Mathf.Pow(vehicleCode.KMh, 2) / fuelDecreaseValue;
 
@@ -477,13 +475,13 @@ public class MSSceneControllerFree : MonoBehaviour {
             popUpMsg.SetActive(true);
             enterText.text = "Your vehicle is damaged, please press Z to repair it!";
         }
-        else if(cAI.displayFin)
+        else if(ls.finished())
         {
             popUpMsg.SetActive(true);
             enterText.text = "YOU WON!";
             Invoke("EndGame", 10.0f);
         }
-        else if (cAI.displayDead)
+        else if (player.GetComponent<MSFPSControllerFree>().ishit)
         {
             popUpMsg.SetActive(true);
             enterText.text = "YOU LOST!";

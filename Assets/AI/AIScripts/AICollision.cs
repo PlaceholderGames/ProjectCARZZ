@@ -9,6 +9,7 @@ public class AICollision : MonoBehaviour
     private LevelingSystem ls;
     private Slider healthSlider;
     private DamageSystem ds;
+    private ComboSystem cs;
 
 
     public float despawnTime = 0.01f;
@@ -19,7 +20,7 @@ public class AICollision : MonoBehaviour
 
     private void Start()
     {
-        
+        cs = FindObjectOfType<ComboSystem>();
         anim = GetComponentInChildren<Animator>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         ls = FindObjectOfType<LevelingSystem>();
@@ -41,6 +42,7 @@ public class AICollision : MonoBehaviour
             
             if (vehicle.KMh > 30.0f)
             {
+                cs.zombieIsDead = true;
                 ls.currentXP += (10 + (int)Mathf.Sqrt(vehicle.KMh));
                 ls.UpdateLevelingSystem();
                 ds.RecievedDamage = Random.Range(1, 10);
@@ -48,6 +50,7 @@ public class AICollision : MonoBehaviour
                 Destroy(gameObject, despawnTime);
                 spawnObject = FindObjectOfType<SpawnObject>();//Finds the AI object
                 spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
+
             }
             else if (vehicle.KMh < 30.0f)
             {

@@ -65,7 +65,6 @@ public class SpawnObject : MonoBehaviour {
 
     public void SpawnZombie()
     {
-        Debug.Log(SpawnIntervalAi);
         x = Random.Range(transform.position.x - radius, transform.position.x + radius);
         z = Random.Range(transform.position.z - radius, transform.position.z + radius);
         pos = new Vector3(x, 0, z);
@@ -129,7 +128,6 @@ public class SpawnObject : MonoBehaviour {
             vehicleTransform = vehicle.transform;
             center.y = terrain.SampleHeight(center);
             distanceV = Vector3.Distance(vehicle.transform.position, center);
-            Debug.Log(distanceV);
             //if ((distanceV > radius+55)) DeSpawnZombie();
             if ((distanceV < radius+100) && CurrentNumberAi < MaxNumberAi) // && (int)Time.time % (int)SpawnIntervalAi == 0
             {

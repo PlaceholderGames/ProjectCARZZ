@@ -331,9 +331,9 @@ public class MSSceneControllerFree : MonoBehaviour {
             if (fuelSlider.value <= 0.1)
                 vehicleCode.theEngineIsRunning = false;
             if (vehicleCode.KMh < 30)
-                fuelSlider.value -= (vehicleCode.KMh / fuelDecreaseValue) / Time.deltaTime;
+                fuelSlider.value -= (vehicleCode.KMh / fuelDecreaseValue) * Time.deltaTime;
             else if (vehicleCode.KMh > 30)
-                fuelSlider.value -= Mathf.Pow(vehicleCode.KMh, 2) / fuelDecreaseValue / Time.deltaTime;
+                fuelSlider.value -= (Mathf.Pow(vehicleCode.KMh / fuelDecreaseValue, 2)) * Time.deltaTime;
 
             if (Input.GetKeyDown(KeyCode.X) && fuelValue > 0)
             {

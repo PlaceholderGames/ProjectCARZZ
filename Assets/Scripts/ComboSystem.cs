@@ -8,13 +8,13 @@ using DG.Tweening;
 public class ComboSystem : MonoBehaviour
 {
 
-    private AICollision[] Zombies;
     [SerializeField] private float timerMax = 6.0f;
     private float timer = 0;
     private int zombiesKilledDuringComboTime = 0;
     [SerializeField] private TextMeshProUGUI ComboIndicator;
     [SerializeField] private Image SkullImage;
     [SerializeField] private MSSceneControllerFree SceneController;
+    public bool zombieIsDead = false;
 
     private void Awake()
     {
@@ -28,18 +28,17 @@ public class ComboSystem : MonoBehaviour
 
     void Update()
     {
-        //Zombies = FindObjectsOfType<AICollision>();
-        //ComboIndicator.text = zombiesKilledDuringComboTime + "x";
-        //CountDown();
+
+       ComboIndicator.text = zombiesKilledDuringComboTime + "x";
+        CountDown();
     }
 
     void CountDown(){
-        bool zombieIsDead=false;                                                        ///had to declare a local boolean since the 
-        
+        ///had to declare a local boolean since the 
         /*
          * Can't loop through Zombies, we need the logic in the zombie script instead
          */
-         
+
         ///timer -= Time.deltaTime;
         //for (int i = 0; i < Zombies.Length; i++){                                       ///wouldn't work inside a for loop
         //    if (Zombies[i].isDead)
@@ -49,16 +48,17 @@ public class ComboSystem : MonoBehaviour
         if (zombieIsDead){                                                              ///if a zombie dies
             timer = timerMax;                                                           ///reset the timer to 6
             zombiesKilledDuringComboTime++;                                             ///and increment the amount of zombies that have been killed
-            SkullImage.DOColor(Color.white, 0.5f);                                      ///set the image and the 
-            ComboIndicator.DOColor(Color.white, 0.5f);                                  ///indicator visible
+            SkullImage.DOColor(Color.white, 0f);                                      ///set the image and the 
+            ComboIndicator.DOColor(Color.white, 0f);                                  ///indicator visible
+            zombieIsDead = false;
         }
 
         else if (timer < 0.1f){                                                         ///when time's up
             SceneController.coinValue += BonusCalculator(zombiesKilledDuringComboTime); ///add coin based on the amount of zombies killed
             timer = 0;                                                                  ///reset the timer
             zombiesKilledDuringComboTime = 0;                                           ///reset the amount of zombies killed to 0
-            SkullImage.DOColor(Color.clear, 0f);                                      ///set the image to transparent
-            ComboIndicator.DOColor(Color.clear, 0f);                                  ///set the indicator to transparent
+            SkullImage.DOColor(Color.clear, 0.5f);                                      ///set the image to transparent
+            ComboIndicator.DOColor(Color.clear, 0.5f);                                  ///set the indicator to transparent
 
         }
         

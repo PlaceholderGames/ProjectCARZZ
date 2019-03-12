@@ -12800,7 +12800,7 @@ Prefab:
     - target: {fileID: 114762186321443092, guid: 0d19be9cd857a0f4e8c687418fdde94b,
         type: 2}
       propertyPath: fuelDecreaseValue
-      value: 1000000
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d19be9cd857a0f4e8c687418fdde94b, type: 2}

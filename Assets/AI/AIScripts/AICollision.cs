@@ -28,6 +28,19 @@ public class AICollision : MonoBehaviour
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "Vehicle" || collision.collider.tag == "Vehicle1" || collision.collider.tag == "Vehicle2" || collision.collider.tag == "Vehicle3" || collision.collider.tag == "activeVehicle")
+        {
+            if (vehicle.KMh < 30.0f)
+            {
+                ds.RecievedDamage = Random.Range(1, 10);
+                healthSlider.value -= ds.RecievedDamage * Time.deltaTime;
+                Debug.Log("called");
+            }
+        }
+
+    }
     private void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.collider.tag == "Player")
@@ -52,11 +65,12 @@ public class AICollision : MonoBehaviour
                 spawnObject.CurrentNumberAi--;//Removes it from list of all ai on scene
 
             }
-            else if (vehicle.KMh < 30.0f)
-            {
-                ds.RecievedDamage = Random.Range(1, 10);
-                healthSlider.value -= ds.RecievedDamage * Time.deltaTime;
-            }
+            //else if (vehicle.KMh < 30.0f)
+            //{
+            //    ds.RecievedDamage = Random.Range(1, 10);
+            //    healthSlider.value -= ds.RecievedDamage * Time.deltaTime;
+            //    Debug.Log("called");
+            //}
             if (ls.finished())
             {
                 displayFin = true;

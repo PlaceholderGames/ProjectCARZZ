@@ -125,7 +125,6 @@ public class Upgrade : MonoBehaviour {
         tmp_lvltxt.text = "LvL: " + player.level;
         unlockText.text = "Unlock for " + vehicle[currentVehicle].unlockCostCoin;
     } 
-
     public void nextVehicle() {
         vehicle[currentVehicle].vehicleObj.SetActive(false);
         currentVehicle++;
@@ -173,7 +172,7 @@ public class Upgrade : MonoBehaviour {
         PlayerPrefs.SetInt("vehicleID", currentVehicle);
         if (PlayerPrefs.GetInt("isNewGame") == 1) PlayerPrefs.SetInt("isNewGame", 1);
         else if (PlayerPrefs.GetInt("isNewGame") == 0) PlayerPrefs.SetInt("isNewGame", 0);
-        SceneManager.LoadScene("MapJoelV2");
+        SceneManager.LoadScene("safeZoneTest");
 
     }
 

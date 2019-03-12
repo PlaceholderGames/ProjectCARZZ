@@ -106,7 +106,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     public float mouseScrollWheelInput = 0;
     #endregion
 
-    [SerializeField] private int fuelDecreaseValue = 100000;
+    [SerializeField] private int fuelDecreaseValue = 1000;
 
     int currentVehicle = 0;
     int clampGear;

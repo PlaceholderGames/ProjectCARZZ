@@ -71,16 +71,8 @@ public class SpawnObject : MonoBehaviour {
         pos.y = terrain.SampleHeight(pos);
 
         //Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
-        Instantiate(Prefab);
-        aiEnemy.Add(Prefab);
+        //Instantiate(Prefab);
         CurrentNumberAi++;
-        aIBehaiour1 = Prefab.GetComponent<AIBehaviour>();
-        aICollision1 = Prefab.GetComponent<AICollision>();
-        aICollision1.despawnTime = despawnTime;
-        aIBehaiour1.target = playerTransform;
-        aIBehaiour1.moveSpeed = moveSpeed;
-        aIBehaiour1.detectDistance = DetectDistanceAi;
-        aIBehaiour1.killDistance = radius + 100;
         StartCoroutine(terrIt.Spawn(1, 0, Prefab, pos, radius));
 
     }

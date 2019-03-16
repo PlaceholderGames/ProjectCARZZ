@@ -14,7 +14,11 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ComboIndicator;
     [SerializeField] private Image SkullImage;
     [SerializeField] private MSSceneControllerFree SceneController;
+    private Camera playerCam;
+    public Camera[] vehicleCameras;
+    public MSVehicleControllerFree vehicle;
     public bool zombieIsDead = false;
+    private ShakingCamera shaking;
 
     private void Awake()
     {
@@ -24,6 +28,13 @@ public class ComboSystem : MonoBehaviour
             SkullImage = GameObject.Find("SkullImage").GetComponent<Image>();
         if (!SceneController)
             SceneController = FindObjectOfType<MSSceneControllerFree>();
+        
+    }
+
+    private void Start()
+    {
+        playerCam = GameObject.Find("Player").GetComponentInChildren<Camera>();
+        vehicle = SceneController.vehicleCode;
     }
 
     void Update()
@@ -46,7 +57,17 @@ public class ComboSystem : MonoBehaviour
         //}
 
         if (zombieIsDead){                                                              ///if a zombie dies
-            timer = timerMax;                                                           ///reset the timer to 6
+            timer = timerMax;                                                         ///reset the timer to 6
+            Debug.Log(SceneController.vehicleCode);
+            if (SceneController.vehicleCode.isInsideTheCar)
+            {
+                shaking.TriggerShake(SceneController.vehicleCode.GetComponent<Camera>().transform);
+            }
+            else
+            {
+                shaking.TriggerShake(playerCam.transform);
+            }
+            
             zombiesKilledDuringComboTime++;                                             ///and increment the amount of zombies that have been killed
             SkullImage.DOColor(Color.white, 0f);                                      ///set the image and the 
             ComboIndicator.DOColor(Color.white, 0f);                                  ///indicator visible

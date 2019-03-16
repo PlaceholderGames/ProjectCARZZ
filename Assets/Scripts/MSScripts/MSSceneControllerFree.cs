@@ -106,7 +106,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     public float mouseScrollWheelInput = 0;
     #endregion
 
-    [SerializeField] private int fuelDecreaseValue = 100000;
+    [SerializeField] private int fuelDecreaseValue = 10;
 
     int currentVehicle = 0;
     int clampGear;
@@ -512,7 +512,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 				sceneControllers [x].gameObject.SetActive (false);
 			}
 		}
-		if (startingVehicle >= vehicles.Length) {
+		if (vehicleID >= vehicles.Length) {
 			error = true;
 			Debug.LogError ("Vehicle selected to start does not exist in the 'vehicles' list");
 		}
@@ -574,13 +574,13 @@ public class MSSceneControllerFree : MonoBehaviour {
 				enterAndExitButton.onClick.AddListener (() => Mobile_EnterAndExitVehicle ());
 			}
 
-			vehicleCode = vehicles [currentVehicle].GetComponent<MSVehicleControllerFree> ();
+			vehicleCode = vehicles [vehicleID].GetComponent<MSVehicleControllerFree> ();
 			EnableOrDisableButtons (vehicleCode.isInsideTheCar);
 
 			Time.timeScale = 1;
 			enterAndExitBool = false;
 			sceneName = SceneManager.GetActiveScene ().name;
-			currentVehicle = startingVehicle;
+			currentVehicle = vehicleID;
 			//
 			for (int x = 0; x < vehicles.Length; x++) {
 				if (vehicles [x]) {
@@ -598,13 +598,13 @@ public class MSSceneControllerFree : MonoBehaviour {
 					player.SetActive (true);
 				} else {
 					startInPlayer = false;
-					if (vehicles.Length > startingVehicle && vehicles [currentVehicle]) {
-						vehicles [startingVehicle].GetComponent<MSVehicleControllerFree> ().isInsideTheCar = true;
+					if (vehicles.Length > vehicleID && vehicles [currentVehicle]) {
+						vehicles [vehicleID].GetComponent<MSVehicleControllerFree> ().isInsideTheCar = true;
 					}
 				}
 			} else {
-				if (vehicles.Length > startingVehicle && vehicles [currentVehicle]) {
-					vehicles [startingVehicle].GetComponent<MSVehicleControllerFree> ().isInsideTheCar = true;
+				if (vehicles.Length > vehicleID && vehicles [currentVehicle]) {
+					vehicles [vehicleID].GetComponent<MSVehicleControllerFree> ().isInsideTheCar = true;
 				}
 			}
 		}

@@ -15,8 +15,10 @@ public class petrolStation : MonoBehaviour
 
     void OnTriggerStay(Collider Player)
     {
-        _MSC.insidePetrolStation = true;
-        Debug.Log("is inside: " + _MSC.insidePetrolStation);
+        if (Player.tag == "Player")
+        {
+            _MSC.insidePetrolStation = true;
+        }
 
     }
 
@@ -59,8 +61,10 @@ public class petrolStation : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        _MSC.insidePetrolStation = false;
-        Debug.Log("is inside: " + _MSC.insidePetrolStation);
+        if (other.tag == "Player")
+        {
+            _MSC.insidePetrolStation = false;
+        }
     }
 
 

@@ -125,7 +125,6 @@ public class Upgrade : MonoBehaviour {
         tmp_lvltxt.text = "LvL: " + player.level;
         unlockText.text = "Unlock for " + vehicle[currentVehicle].unlockCostCoin;
     } 
-
     public void nextVehicle() {
         vehicle[currentVehicle].vehicleObj.SetActive(false);
         currentVehicle++;

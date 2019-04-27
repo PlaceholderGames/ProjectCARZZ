@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Garage.unity
     guid: 46989bde0d83e74429ef02afb5fe832d
+  - enabled: 0
+    path: Assets/Scenes/Safe Zone/safeZoneTest.unity
+    guid: 4ca70ad39b27d3c43a3eed4742ccbddf
   - enabled: 1
     path: Assets/Scenes/MapJoelV2.unity
     guid: 8297ca4ca073f55488a39bbb51ad302d

@@ -35,7 +35,6 @@ public class AICollision : MonoBehaviour
         aib = GetComponent<AIBehaviour>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -47,7 +46,6 @@ public class AICollision : MonoBehaviour
 
         if (other.tag == "Vehicle" || other.tag == "Vehicle1" || other.tag == "Vehicle2" || other.tag == "Vehicle3" || other.tag == "activeVehicle")
         {
-
             if (vehicle.KMh > 30.0f)
             {
                 anim.enabled = false;
@@ -59,11 +57,6 @@ public class AICollision : MonoBehaviour
                 ds.RecievedDamage = Random.Range(1, 10);
                 healthSlider.value -= ds.RecievedDamage;
                 aib.enabled = false;
-            }
-            else if (vehicle.KMh < 30.0f)
-            {
-                ds.RecievedDamage = Random.Range(1, 10);
-                healthSlider.value -= ds.RecievedDamage * Time.deltaTime;
             }
             if (ls.finished())
             {
@@ -105,6 +98,17 @@ public class AICollision : MonoBehaviour
         {
             //unragdoll();
             unrag = false;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Vehicle" || other.tag == "Vehicle1" || other.tag == "Vehicle2" || other.tag == "Vehicle3" || other.tag == "activeVehicle")
+        {
+            if (vehicle.KMh < 30.0f)
+            {
+                ds.RecievedDamage = Random.Range(1, 10);
+                healthSlider.value -= ds.RecievedDamage * Time.deltaTime;
+            }
         }
     }
 

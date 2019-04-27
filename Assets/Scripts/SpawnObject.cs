@@ -5,89 +5,29 @@ using UnityEngine;
 public class SpawnObject : MonoBehaviour {
 
     public Terrain terrain;
-    public GameObject Prefab;//Object to spawn
-    private Vector3 center;//visual for seeing spawn area
-    public Vector3 size;//size of spawn area
+    public GameObject SpawnPrefab;//Object to spawn
     public float radius;
-
-    public float despawnTime;//time before ai is killed
     public int MaxNumberAi = 5;//max amount of ai at a time
     public float SpawnIntervalAi = 5;//time it takes for new ai to spawn
     public int CurrentNumberAi = 0;//number of ai at current time
-    public int DetectDistanceAi = 50;
-
+    public List<GameObject> PooledObjects;
 
 
     private Color col = new Color(1, 0, 0, 0.5f);
-    private AIBehaviour[] aIBehaiour;
-    private AIBehaviour aIBehaiour1;
-    private AICollision[] aICollision;
-    private AICollision aICollision1;
     private MSVehicleControllerFree vehicle;
-    private MSFPSControllerFree player;
-    private Transform tempTransform;//used for switiching between player and vehicle
     private Transform vehicleTransform;//vehicle in current scene
-    private Transform playerTransform;//player in current scene
-    
 
-    private List<GameObject> aiEnemy = new List<GameObject>();//list of all ai in scene
-    private bool isSpawning;
-    //private bool isMoving;
-    private float moveSpeed = 0.015f;//speed at which ai move
-    private float runMoveSpeed = 0.05f;//speed at which ai run
 	private float distanceV = 0;
     private TerrainItemSpawner terrIt;
+    private Vector3 center;//visual for seeing spawn area
 
-
-    float x;
-    Vector3 pos;
-    float z;
-
-
-    void SpawnZombieMap()
-    {
-		Debug.Log(SpawnIntervalAi);
-
-        //Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
-        Instantiate(Prefab);
-        aiEnemy.Add(Prefab);
-        CurrentNumberAi++;
-        aIBehaiour1 = Prefab.GetComponent<AIBehaviour>();
-        aICollision1 = Prefab.GetComponent<AICollision>();
-        aICollision1.despawnTime = despawnTime;
-        aIBehaiour1.target = playerTransform;
-        aIBehaiour1.moveSpeed = moveSpeed;
-        aIBehaiour1.detectDistance = DetectDistanceAi;
-        aIBehaiour1.killDistance = radius + 100;
-        StartCoroutine(terrIt.Spawn(1, 1, Prefab));
-
-    }
 
     public void SpawnZombie()
     {
-        x = Random.Range(transform.position.x - radius, transform.position.x + radius);
-        z = Random.Range(transform.position.z - radius, transform.position.z + radius);
-        pos = new Vector3(x, 0, z);
-        pos.y = terrain.SampleHeight(pos);
-
-        //Vector3 pos = center + new Vector3(Random.Range(-size.x / 2, size.x / 2), -25, Random.Range(-size.z / 2, size.z / 2));
-        //Instantiate(Prefab);
         CurrentNumberAi++;
-        StartCoroutine(terrIt.Spawn(1, 0, Prefab, pos, radius));
+        StartCoroutine(Spawn(1, 0, SpawnPrefab));
 
     }
-    public void DeSpawnZombie()
-    {
-        aICollision = FindObjectsOfType<AICollision>();
-        for (int i = 0; i < aICollision.Length; i++)
-        {
-            Destroy(aICollision[i].gameObject);
-        }
-        if (aICollision.Length == 0)
-            CurrentNumberAi = 0;
-
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = col;
@@ -97,44 +37,79 @@ public class SpawnObject : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        aIBehaiour = FindObjectsOfType<AIBehaviour>();
-        aICollision = FindObjectsOfType<AICollision>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
-        player = FindObjectOfType<MSFPSControllerFree>();
         terrIt = FindObjectOfType<TerrainItemSpawner>();
         vehicleTransform = vehicle.transform;
         center = transform.position;
-
-        
+        center.y = terrain.SampleHeight(center);
+        for(int i = CurrentNumberAi; i <= MaxNumberAi; i++)
+        {
+            SpawnZombie();
+        }
     }
 
     // Update is called once per frame
     void Update()
 	{
-       
-      //if (radius == 0)
-            //{
-            //    SpawnZombieMap();
-            //}
-            vehicle = FindObjectOfType<MSVehicleControllerFree>();
-            vehicleTransform = vehicle.transform;
-            center.y = terrain.SampleHeight(center);
-            distanceV = Vector3.Distance(vehicle.transform.position, center);
-            //if ((distanceV > radius+55)) DeSpawnZombie();
-            if ((distanceV < radius+100) && CurrentNumberAi < MaxNumberAi) // && (int)Time.time % (int)SpawnIntervalAi == 0
-            {
-                SpawnZombie();
-            }
-            
-            if(CurrentNumberAi < MaxNumberAi*2)
-            {
-                if ((distanceV < radius + 100) && (int)Time.time % (int)SpawnIntervalAi == 0)
-                {
-                    SpawnZombie();
-                }
-            }
         
-		
+       // if ((distanceV < radius+100) && CurrentNumberAi < MaxNumberAi) // && (int)Time.time % (int)SpawnIntervalAi == 0
+        //{
+            
+        //}
+        foreach (GameObject obj in PooledObjects)
+        {
+            distanceV = Vector3.Distance(vehicle.transform.position, obj.transform.position);
+            if (distanceV < radius)
+            {
+                obj.SetActive(true);
+                //AICollision aic = obj.GetComponent<AICollision>();
+                //aic.unrag = true;
+            }
+        }
 	}
+
+    //Spawns an object randomly around terrain
+    public IEnumerator Spawn(int amount, float timer, GameObject obj)
+    {
+        float timeToWait = Time.timeSinceLevelLoad + timer;
+        while (Time.timeSinceLevelLoad < timeToWait)
+        {
+            yield return null;
+        }
+
+        float terrZ = terrain.terrainData.size.z; //gets terrain Z
+        float terrX = terrain.terrainData.size.x; //gets terrain X
+        for (int i = 0; i < amount; i++)
+        {
+            obj.SetActive(false);
+            GameObject go = Instantiate(obj); //sets gameobject to instantiation of game object
+            PooledObjects.Add(go);
+            Vector3 pos = new Vector3(Random.Range(0, terrX), 0, Random.Range(0, terrZ)); //sets pos vector randomly
+            pos.y = terrain.SampleHeight(pos) + 1.0f; //adjusts y accordingly
+            go.transform.position = pos; //sets position to new pos
+        }
+    }
+
+    //spawns object at positive inside circle of radius
+    public IEnumerator Spawn(int amount, float timer, GameObject obj, Vector3 position, float radius)
+    {
+        float timeToWait = Time.timeSinceLevelLoad + timer;
+        while (Time.timeSinceLevelLoad < timeToWait)
+        {
+            yield return null;
+        }
+
+        float terrZ = terrain.terrainData.size.z; //gets terrain Z
+        float terrX = terrain.terrainData.size.x; //gets terrain X
+        for (int i = 0; i < amount; i++)
+        {
+            obj.SetActive(false);
+            GameObject go = Instantiate(obj); //sets gameobject to instantiation of game object
+            PooledObjects.Add(go);
+            Vector3 circle = (Random.insideUnitSphere * radius) + position; //gets random position within sphere and displaces it to the desired location
+            circle.y = terrain.SampleHeight(circle) + 1.0f; //adjusts y accordingly
+            go.transform.position = circle; //sets position to new pos
+        }
+    }
 
 }

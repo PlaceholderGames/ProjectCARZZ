@@ -161,15 +161,14 @@ public class MSSceneControllerFree : MonoBehaviour {
     private AICollision[] ai;
     bool wasupfor5sec;
     bool wasupfor5secagain;
-    float level;
 
 
     // Dewy's addons
     public bool Pause = false;
     public GameObject pauseMenuPanel;
     public bool insidePetrolStation;
-
-    void Start()
+    
+    void init()
     {
         kmhText = GameObject.Find("kmhTxt").GetComponent<Text>();
         gearTxt = GameObject.Find("gearTxt").GetComponent<Text>();
@@ -185,7 +184,7 @@ public class MSSceneControllerFree : MonoBehaviour {
         ls = FindObjectOfType<LevelingSystem>();
         ovm = FindObjectOfType<OpenVehicleMenu>();
 
-        vehicleID = PlayerPrefs.GetInt("vehicleID")-1;
+        vehicleID = PlayerPrefs.GetInt("vehicleID") - 1;
         InitVehicle();
         LoadPP();
 
@@ -220,19 +219,16 @@ public class MSSceneControllerFree : MonoBehaviour {
                 fuelSlider.value = PlayerPrefs.GetInt("v3_currentfuel");
             }
         }
-
-
-
     }
 
     public void SavePP()
     {
         PlayerPrefs.SetInt("coinValue", coinValue);
-        PlayerPrefs.SetInt("currentLevel", (int)level);
         PlayerPrefs.SetInt("fuelValue", fuelValue);
         PlayerPrefs.SetInt("repairValue", repairValue);
         PlayerPrefs.SetInt("currentXP", (int)levelSlider.value);
         PlayerPrefs.SetInt("totalXP", (int)levelSlider.maxValue);
+        PlayerPrefs.SetInt("currentLevel", ls.currentLevel);
         if (vehicles[0].activeSelf)
         {
             PlayerPrefs.SetInt("v2_health", (int)healthSlider.maxValue);
@@ -501,7 +497,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 
     void Awake () {
-
+        init();
         error = false;
 		CheckEqualKeyCodes ();
 		MSSceneControllerFree[] sceneControllers = FindObjectsOfType(typeof(MSSceneControllerFree)) as MSSceneControllerFree[];

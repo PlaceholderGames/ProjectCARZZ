@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class AIBehaviour : MonoBehaviour
 {
-    public float killDistance = 300.0f;
+    public float killDistance = 100.0f;
     public Rigidbody rb;
     public Transform target;
     public float moveSpeed = 0.011f;
@@ -86,10 +86,5 @@ public class AIBehaviour : MonoBehaviour
                 anim.SetBool("isRunning", false);
                 nma.ResetPath();
             }
-         
-        if (Vector3.Distance(vehicle.transform.position, transform.position) > killDistance)
-        {
-            Destroy(gameObject);
-        }
     }
 }

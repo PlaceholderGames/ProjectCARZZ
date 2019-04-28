@@ -682,14 +682,14 @@ public class MSVehicleControllerFree : MonoBehaviour {
 				startPositionCameras [x].transform.parent = transform;
 				startPositionCameras [x].transform.position = _cameras.cameras [x]._camera.transform.position;
 				if (_cameras.setLayers) {
-					AjustLayers ();
+					//AjustLayers ();
 				}
 			}
 			if (_cameras.cameras [x].rotationType == CameraTypeClassFree.TipoRotac.Orbital) {
 				xOrbit [x] = _cameras.cameras [x]._camera.transform.eulerAngles.y;
 				yOrbit [x] = _cameras.cameras [x]._camera.transform.eulerAngles.x;
 				if (_cameras.setLayers) {
-					AjustLayers ();
+					//AjustLayers ();
 				}
 			}
 			if (_cameras.cameras [x].rotationType == CameraTypeClassFree.TipoRotac.OrbitalThatFollows) {

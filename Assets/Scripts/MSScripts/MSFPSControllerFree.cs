@@ -31,13 +31,14 @@ public class MSFPSControllerFree : MonoBehaviour {
 		sceneControllerMS = FindObjectOfType(typeof(MSSceneControllerFree)) as MSSceneControllerFree;
 	}
 
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.tag == "Zombie")
+        if (other.tag == "Zombie")
         {
             ishit = true;
         }
     }
+
 
     void OnEnable(){
 		EnableControls ();

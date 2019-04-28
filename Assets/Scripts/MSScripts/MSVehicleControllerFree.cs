@@ -1523,7 +1523,7 @@ public class MSVehicleControllerFree : MonoBehaviour {
 				}
 			} else {
 				if (enableEngineSound) {
-					engineSoundAUD.volume = 1;
+					engineSoundAUD.volume = 1f;
 					engineSoundAUD.pitch = Mathf.Lerp (engineSoundAUD.pitch, 0.7f, Time.deltaTime);
 				} else {
 					engineSoundAUD.volume = Mathf.Lerp (engineSoundAUD.volume, 0f, Time.deltaTime);

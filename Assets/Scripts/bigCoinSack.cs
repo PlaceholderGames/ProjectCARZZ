@@ -18,7 +18,6 @@ public class bigCoinSack : MonoBehaviour
     public void OnTriggerEnter()
     {
         Destroy(gameObject);
-        Debug.Log("Player");
         _MSC.coinValue = _MSC.coinValue + valueOfSack;
     }
 

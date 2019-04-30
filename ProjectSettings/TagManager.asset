@@ -17,6 +17,7 @@ TagManager:
   - Prop
   - UI
   - Zombie
+  - ZMC
   layers:
   - Default
   - TransparentFX
@@ -26,9 +27,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Car
+  - Zombies
   - 
   - 
   - 

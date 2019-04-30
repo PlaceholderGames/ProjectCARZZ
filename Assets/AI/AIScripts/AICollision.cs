@@ -14,6 +14,7 @@ public class AICollision : MonoBehaviour
     private ComboSystem cs;
     public Rigidbody[] bones;
     private Terrain terrain;
+    public MeshRenderer cube;
 
 
     public float despawnTime = 5.0f;
@@ -41,7 +42,6 @@ public class AICollision : MonoBehaviour
         {
             hitPlayer = true;
             anim.SetBool("isWon", true);
-            Debug.Log("HIT PLYER!");
         }
 
         if (other.tag == "Vehicle" || other.tag == "Vehicle1" || other.tag == "Vehicle2" || other.tag == "Vehicle3" || other.tag == "activeVehicle")
@@ -73,7 +73,11 @@ public class AICollision : MonoBehaviour
         if (dist > spawnObject.radius)
         {
             gameObject.SetActive(false);
+            
+
         }
+
+        
 
 
         //if (ishit)
@@ -141,6 +145,7 @@ public class AICollision : MonoBehaviour
     {
         gameObject.SetActive(false);
         ishit = false;
+        cube.enabled = false;
     }
 }
 

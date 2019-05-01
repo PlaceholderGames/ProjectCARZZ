@@ -58,7 +58,6 @@ public class ComboSystem : MonoBehaviour
 
         if (zombieIsDead){                                                              ///if a zombie dies
             timer = timerMax;                                                         ///reset the timer to 6
-            Debug.Log(SceneController.vehicleCode);
             if (SceneController.vehicleCode.isInsideTheCar)
             {
                 shaking.TriggerShake(SceneController.vehicleCode.GetComponent<Camera>().transform);

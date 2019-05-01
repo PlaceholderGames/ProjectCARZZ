@@ -17,6 +17,8 @@ TagManager:
   - Prop
   - UI
   - Zombie
+  - ZMC
+  - zombieCryTrigger
   layers:
   - Default
   - TransparentFX
@@ -26,9 +28,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Car
+  - Zombies
   - 
   - 
   - 

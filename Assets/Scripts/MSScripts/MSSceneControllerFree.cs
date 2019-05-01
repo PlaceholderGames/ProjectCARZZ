@@ -164,7 +164,7 @@ public class MSSceneControllerFree : MonoBehaviour {
 
 
     // Dewy's addons
-    public bool Pause = false;
+    //public bool Pause = false; 
     public GameObject pauseMenuPanel;
     public bool insidePetrolStation;
     
@@ -358,18 +358,19 @@ public class MSSceneControllerFree : MonoBehaviour {
     }
     void pauseMenuPause()
     {
-        Pause = true;
+        pause = true;
         pauseMenuPanel.SetActive(true);
 
     }
     public void pauseMenuResume()
     {
-        Pause = false;
+        pause = false;
         pauseMenuPanel.SetActive(false);
+
     }
     public void pauseMenuQuit()
     {
-        Pause = false;
+        pause = false;
         pauseMenuPanel.gameObject.SetActive(false);
     }
 
@@ -669,7 +670,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             {
                 pauseMenuPause();
                 Time.timeScale = 0.0f;
-                Cursor.visible = true;
+                //Cursor.visible = true;
             }
             else
             {

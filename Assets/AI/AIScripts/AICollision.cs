@@ -15,7 +15,8 @@ public class AICollision : MonoBehaviour
     public Rigidbody[] bones;
     private Terrain terrain;
     public MeshRenderer cube;
-
+    public AudioSource zombieCry;
+    
 
     public float despawnTime = 5.0f;
     public bool gaveDamage = false;
@@ -23,6 +24,7 @@ public class AICollision : MonoBehaviour
     public bool ishit = false;
     public bool unrag = false;
     public bool displayFin;
+    public bool detectPlayerTrigger = false;
 
     private void Start()
     {
@@ -35,6 +37,8 @@ public class AICollision : MonoBehaviour
         ds = FindObjectOfType<DamageSystem>();
         aib = GetComponent<AIBehaviour>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
+        zombieCry = gameObject.GetComponent<AudioSource>();
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -76,9 +80,12 @@ public class AICollision : MonoBehaviour
             
 
         }
-
         
-
+        /*
+         * 
+         * Respawning of zombies code
+         *  
+         */
 
         //if (ishit)
         //{

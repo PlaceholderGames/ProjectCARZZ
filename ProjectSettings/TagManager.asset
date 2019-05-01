@@ -18,6 +18,7 @@ TagManager:
   - UI
   - Zombie
   - ZMC
+  - zombieCryTrigger
   layers:
   - Default
   - TransparentFX

@@ -7513,6 +7513,12 @@ MonoBehaviour:
   applyGameButton: {fileID: 114168955248189628}
   masterMixer: {fileID: 24100000, guid: cc285c36991888f4b87c452646f9433c, type: 2}
   db: 0
+  cameras:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114789462011208092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10450,7 +10456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15, y: 0.032589953}
   m_AnchorMax: {x: 0.84900004, y: 0.8294875}
-  m_AnchoredPosition: {x: 1.3952637, y: 31.391846}
+  m_AnchoredPosition: {x: 1.3952637, y: 31.39209}
   m_SizeDelta: {x: -260.12524, y: -225.7201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224456387626503458

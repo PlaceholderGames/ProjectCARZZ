@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.IO;
+using System.Collections.Generic;
 
-public class SettingsManager : MonoBehaviour { 
+public class SettingsManager : MonoBehaviour {
 
     public Toggle fullscreenToggle; // initialise UI elements
 
@@ -29,6 +30,9 @@ public class SettingsManager : MonoBehaviour {
     public AudioMixer masterMixer;
 
     public float db;
+
+    [SerializeField]
+    private Camera[] cameras;
 
     void OnEnable()
     {
@@ -135,7 +139,11 @@ public class SettingsManager : MonoBehaviour {
     public void onFovSliderChange()
     {
         gameQualitySettings.fovValue = fovSlider.value;
-        Camera.main.fieldOfView = fovSlider.value;
+        foreach (Camera o in cameras)
+        {
+            o.fieldOfView = fovSlider.value;
+        }
+        //Camera.main.fieldOfView = fovSlider.value;
 
     }
 

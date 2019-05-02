@@ -670,7 +670,7 @@ public class MSSceneControllerFree : MonoBehaviour {
             {
                 pauseMenuPause();
                 Time.timeScale = 0.0f;
-                //Cursor.visible = true;
+                Cursor.visible = true;
             }
             else
             {

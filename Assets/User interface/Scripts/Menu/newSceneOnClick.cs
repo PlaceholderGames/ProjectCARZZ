@@ -14,5 +14,11 @@ public class newSceneOnClick : MonoBehaviour
         PlayerPrefs.SetInt("isNewGame", 1);
         SceneManager.LoadScene(sceneIndex);
     }
+    public void LoadByName(string name)
+    {
+        PlayerPrefs.SetInt("isNewGame", 1);
+        PlayerPrefs.SetString("SceneName", name);
+        SceneManager.LoadScene(1);
+    }
 
 }

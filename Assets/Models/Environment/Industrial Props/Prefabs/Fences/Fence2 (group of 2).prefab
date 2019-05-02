@@ -233,8 +233,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076306553015520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 522.55, y: 51.198437, z: 640.47}
-  m_LocalScale: {x: 0.45, y: 0.4, z: 1}
+  m_LocalPosition: {x: 19.098402, y: 21.36, z: -21.919983}
+  m_LocalScale: {x: 0.45, y: 0.39999998, z: 1}
   m_Children:
   - {fileID: 4892992380469674}
   - {fileID: 4914248938836958}
@@ -762,11 +762,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc90dcd88abb3994da1232b5b954300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 243971969628407456, guid: cc285c36991888f4b87c452646f9433c,
+  mainMixer: {fileID: 243224574602520432, guid: 2e6c4e9d7e0289941ae3fba7bd762253,
     type: 2}
   clips:
   - {fileID: 8300000, guid: c7c54a9a240a5cd43bd0e76ffa001a41, type: 3}
-  randomVolume: 1
+  randomVolume: 0
   lowestVol: 40
   highestOrDefaultVol: 80
 --- !u!114 &114583261084558360
@@ -794,10 +794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc90dcd88abb3994da1232b5b954300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 243971969628407456, guid: cc285c36991888f4b87c452646f9433c,
+  mainMixer: {fileID: 243224574602520432, guid: 2e6c4e9d7e0289941ae3fba7bd762253,
     type: 2}
   clips:
   - {fileID: 8300000, guid: c7c54a9a240a5cd43bd0e76ffa001a41, type: 3}
-  randomVolume: 1
+  randomVolume: 0
   lowestVol: 40
   highestOrDefaultVol: 80

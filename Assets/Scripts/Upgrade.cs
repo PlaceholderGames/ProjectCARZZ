@@ -172,7 +172,7 @@ public class Upgrade : MonoBehaviour {
         PlayerPrefs.SetInt("vehicleID", currentVehicle);
         if (PlayerPrefs.GetInt("isNewGame") == 1) PlayerPrefs.SetInt("isNewGame", 1);
         else if (PlayerPrefs.GetInt("isNewGame") == 0) PlayerPrefs.SetInt("isNewGame", 0);
-        SceneManager.LoadScene("MapJoelV2");
+        SceneManager.LoadScene(PlayerPrefs.GetString("SceneName"));
 
     }
 

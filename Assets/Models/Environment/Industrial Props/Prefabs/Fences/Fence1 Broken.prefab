@@ -884,7 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaf432354a817e44929fdfac8902b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 243971969628407456, guid: cc285c36991888f4b87c452646f9433c,
+  mainMixer: {fileID: 243224574602520432, guid: 2e6c4e9d7e0289941ae3fba7bd762253,
     type: 2}
   clips:
   - {fileID: 8300000, guid: 124cddd28d97908408925fd851a337b3, type: 3}

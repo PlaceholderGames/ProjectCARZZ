@@ -372,6 +372,7 @@ public class MSSceneControllerFree : MonoBehaviour {
     {
         pause = false;
         pauseMenuPanel.gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
     }
 
     void Manager()

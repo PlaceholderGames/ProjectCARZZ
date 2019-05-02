@@ -30,9 +30,9 @@ public class SoundOnHit : MonoBehaviour
         }
         else
         {
-            audioSource.volume = highestOrDefaultVol;
+            audioSource.volume = 0.0f;
         }
-        audioSource.Play();
+
     }
 
         private void OnCollisionEnter(Collision collision)

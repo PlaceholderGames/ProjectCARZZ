@@ -16,7 +16,7 @@ public class AICollision : MonoBehaviour
     private Terrain terrain;
     public MeshRenderer cube;
     public AudioSource zombieCry;
-    
+    private Collider sphereColider;
 
     public float despawnTime = 5.0f;
     public bool gaveDamage = false;
@@ -28,6 +28,7 @@ public class AICollision : MonoBehaviour
 
     private void Start()
     {
+        sphereColider = GetComponent<Collider>();
         terrain = FindObjectOfType<Terrain>();
         spawnObject = FindObjectOfType<SpawnObject>();
         cs = FindObjectOfType<ComboSystem>();
@@ -61,6 +62,7 @@ public class AICollision : MonoBehaviour
                 ds.RecievedDamage = Random.Range(1, 10);
                 healthSlider.value -= ds.RecievedDamage;
                 aib.enabled = false;
+                sphereColider.enabled = false;
             }
             if (ls.finished())
             {

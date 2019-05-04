@@ -53,7 +53,7 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 1
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
     m_Resolution: 2
@@ -8167,7 +8167,7 @@ Prefab:
       objectReference: {fileID: 365070104}
     - target: {fileID: 1973003628194746, guid: bc536168e8f102b439cfbd1230b6372e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc536168e8f102b439cfbd1230b6372e, type: 2}
@@ -19271,17 +19271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74bbf307d92b0d4e81ae60b9eb1e42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fpsText: {fileID: 0}
-  m_msText: {fileID: 0}
-  m_avgFpsText: {fileID: 0}
-  m_minFpsText: {fileID: 0}
-  m_maxFpsText: {fileID: 0}
-  m_graphyManager: {fileID: 0}
-  m_fpsMonitor: {fileID: 0}
-  m_updateRate: 4
-  m_frameCount: 0
-  m_deltaTime: 0
-  m_fps: 0
 --- !u!1001 &1921379503
 Prefab:
   m_ObjectHideFlags: 0

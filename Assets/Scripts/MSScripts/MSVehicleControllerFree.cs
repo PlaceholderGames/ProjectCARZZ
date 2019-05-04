@@ -1623,9 +1623,9 @@ public class MSVehicleControllerFree : MonoBehaviour {
 						case CameraTypeClassFree.TipoRotac.ETS_StyleCamera:
 							StartCoroutine (ShakeCameras (_cameras.cameraSettings.impactTremor * 0.1f, true));
 							break;
-						case CameraTypeClassFree.TipoRotac.FollowPlayer:
-							StartCoroutine (ShakeCameras (_cameras.cameraSettings.impactTremor, false));
-							break;
+						//case CameraTypeClassFree.TipoRotac.FollowPlayer:
+						//	StartCoroutine (ShakeCameras (_cameras.cameraSettings.impactTremor, false));
+						//	break;
 						case CameraTypeClassFree.TipoRotac.Orbital:
 							StartCoroutine (ShakeCameras (_cameras.cameraSettings.impactTremor, false));
 							break;

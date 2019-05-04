@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 20540908962258116}
   - component: {fileID: 124307122326930568}
   - component: {fileID: 92888525297906330}
+  - component: {fileID: 114836537866588746}
   m_Layer: 2
   m_Name: cameraTPS
   m_TagString: CameraTPS
@@ -1143,6 +1144,7 @@ GameObject:
   - component: {fileID: 20995453237776646}
   - component: {fileID: 124989797366126538}
   - component: {fileID: 92207680266823172}
+  - component: {fileID: 114932992963791992}
   m_Layer: 2
   m_Name: cameraFPS
   m_TagString: CameraFPS
@@ -1372,6 +1374,7 @@ GameObject:
   - component: {fileID: 20665949720838102}
   - component: {fileID: 124245267102887796}
   - component: {fileID: 92898106003987988}
+  - component: {fileID: 114356471566589488}
   m_Layer: 2
   m_Name: cameraFPS
   m_TagString: CameraFPS
@@ -1508,6 +1511,7 @@ GameObject:
   - component: {fileID: 20150184457936396}
   - component: {fileID: 124456059124973094}
   - component: {fileID: 92460105376481422}
+  - component: {fileID: 114882436478290424}
   m_Layer: 2
   m_Name: cameraTPS
   m_TagString: CameraTPS
@@ -3003,12 +3007,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 55
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
-  m_AllowMSAA: 1
+  m_HDR: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -3083,12 +3087,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 55
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
-  m_AllowMSAA: 1
+  m_HDR: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -5526,7 +5530,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853978878486986}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 15000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -5541,7 +5545,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1176912455147008}
   serializedVersion: 2
-  m_Mass: 5000
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -6163,7 +6167,7 @@ MonoBehaviour:
     volumeCollisionSounds: 0.5
     wheelImpactSound: {fileID: 0}
   theEngineIsRunning: 1
-  carMixer: {fileID: 0}
+  carMixer: {fileID: 243656509231899636, guid: 2e6c4e9d7e0289941ae3fba7bd762253, type: 2}
   KMh: 0
   currentGear: 0
   disableVehicle: 0
@@ -6193,6 +6197,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RecievedDamage: 0
+--- !u!114 &114356471566589488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868259607184360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a0e4d493904c89c459aab579420b774d, type: 2}
 --- !u!114 &114577651644999358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6645,7 +6661,7 @@ MonoBehaviour:
     maxVelocityGears: 1e0000002d0000003c0000004b0000005a00000069000000780000008700000096000000a5000000b4000000c3000000
   _vehicleSettings:
     startOn: 1
-    vehicleMass: 1500
+    vehicleMass: 4000
     improveControl:
       tireSlipsFactor: 1
       helpToTurn: 0.3
@@ -6744,17 +6760,53 @@ MonoBehaviour:
       standardSound: {fileID: 0}
       standardVolume: 0.5
     collisionSounds:
-    - {fileID: 0}
-    - {fileID: 0}
-    volumeCollisionSounds: 0.5
+    - {fileID: 8300000, guid: 3bd32420e10f29441a631f1ef300d8ae, type: 3}
+    - {fileID: 8300000, guid: e19b158a41d5aab4bbdd9699b7339dc4, type: 3}
+    volumeCollisionSounds: 0.2
     wheelImpactSound: {fileID: 8300000, guid: a99ada3784fb7154da6bd9979d56d23a, type: 3}
   theEngineIsRunning: 0
-  carMixer: {fileID: 0}
+  carMixer: {fileID: 243656509231899636, guid: 2e6c4e9d7e0289941ae3fba7bd762253, type: 2}
   KMh: 0
   currentGear: 0
   disableVehicle: 0
   handBrakeTrue: 0
   isInsideTheCar: 0
+--- !u!114 &114836537866588746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519850047163544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a0e4d493904c89c459aab579420b774d, type: 2}
+--- !u!114 &114882436478290424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904637390402412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a0e4d493904c89c459aab579420b774d, type: 2}
+--- !u!114 &114932992963791992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1670530416044008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: a0e4d493904c89c459aab579420b774d, type: 2}
 --- !u!124 &124245267102887796
 Behaviour:
   m_ObjectHideFlags: 1

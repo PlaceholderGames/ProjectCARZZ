@@ -17,14 +17,17 @@ public class AICollision : MonoBehaviour
     public MeshRenderer cube;
     public AudioSource zombieCry;
     private Collider sphereColider;
+    private TimeBodyZombies[] timeBodyZombies;
 
-    public float despawnTime = 5.0f;
+    
     public bool gaveDamage = false;
     public bool hitPlayer = false;
     public bool ishit = false;
     public bool unrag = false;
     public bool displayFin;
-    public bool detectPlayerTrigger = false;
+    public bool dead = false;
+
+    float time = 10.0f;
 
     private void Start()
     {
@@ -38,6 +41,7 @@ public class AICollision : MonoBehaviour
         ds = FindObjectOfType<DamageSystem>();
         aib = GetComponent<AIBehaviour>();
         healthSlider = GameObject.Find("healthSlider").GetComponent<Slider>();
+        timeBodyZombies = GetComponentsInChildren<TimeBodyZombies>();
         zombieCry = gameObject.GetComponent<AudioSource>();
 
     }
@@ -63,6 +67,8 @@ public class AICollision : MonoBehaviour
                 healthSlider.value -= ds.RecievedDamage;
                 aib.enabled = false;
                 sphereColider.enabled = false;
+                cube.enabled = false;
+                time = 10.0f;
             }
             if (ls.finished())
             {
@@ -71,7 +77,7 @@ public class AICollision : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
 
         float dist = Vector3.Distance(vehicle.transform.position, transform.position);
@@ -79,10 +85,34 @@ public class AICollision : MonoBehaviour
         if (dist > spawnObject.radius)
         {
             gameObject.SetActive(false);
-            
-
         }
-        
+
+
+
+        if (ishit)
+        {
+            Invoke("Destroy", 5.0f);
+            time -= Time.deltaTime;
+            if(Input.GetKeyUp(KeyCode.R) && time > 0)
+            {
+                CancelInvoke();
+                anim.enabled = true;
+                cs.zombieIsDead = false;
+                ishit = false;
+                aib.enabled = true;
+                sphereColider.enabled = true;
+                cube.enabled = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.R) && time <= 0)
+            {
+                foreach(TimeBodyZombies o in timeBodyZombies)
+                {
+                    o.StopKinematic();
+                }
+            }
+        }
+       
+
         /*
          * 
          * Respawning of zombies code
@@ -100,18 +130,13 @@ public class AICollision : MonoBehaviour
 
         //}
 
-        if (ishit)
-        {
-            Invoke("Destroy", 2.0f);
-        }
 
-        
 
-        if (unrag)
-        {
-            //unragdoll();
-            unrag = false;
-        }
+        //if (unrag)
+        //{
+        //    //unragdoll();
+        //    unrag = false;
+        //}
     }
     private void OnTriggerStay(Collider other)
     {
@@ -138,23 +163,10 @@ public class AICollision : MonoBehaviour
         yield return null;
     }
 
-    void unragdoll()
-    {
-        foreach (Rigidbody a in bones)
-        {
-            a.isKinematic = false;
-            a.useGravity = false;
-        }
-        GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Rigidbody>().useGravity = true;
-        
-    }
-
     void Destroy()
     {
+        dead = true;
         gameObject.SetActive(false);
-        ishit = false;
-        cube.enabled = false;
     }
 }
 

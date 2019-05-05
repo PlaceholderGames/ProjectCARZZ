@@ -58,14 +58,14 @@ public class ComboSystem : MonoBehaviour
 
         if (zombieIsDead){                                                              ///if a zombie dies
             timer = timerMax;                                                         ///reset the timer to 6
-            if (SceneController.vehicleCode.isInsideTheCar)
-            {
-                shaking.TriggerShake(SceneController.vehicleCode.GetComponent<Camera>().transform);
-            }
-            else
-            {
-                shaking.TriggerShake(playerCam.transform);
-            }
+            //if (SceneController.vehicleCode.isInsideTheCar)
+            //{
+            //    shaking.TriggerShake(SceneController.vehicleCode.GetComponent<Camera>().transform);
+            //}
+            //else
+            //{
+            //    shaking.TriggerShake(playerCam.transform);
+            //}
             
             zombiesKilledDuringComboTime++;                                             ///and increment the amount of zombies that have been killed
             SkullImage.DOColor(Color.white, 0f);                                      ///set the image and the 

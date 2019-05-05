@@ -14,10 +14,10 @@ public class OpenGate : MonoBehaviour {
     void Start()
     {
         animlist = new List<Animator>();
-        for (int i = 0; i < Elements.Length; i++)
-        {
-            animlist.Add(Elements[i].GetComponent<Animator>());
-        }
+        //for (int i = 0; i < Elements.Length; i++)
+        //{
+        //    animlist.Add(Elements[i].GetComponent<Animator>());
+        //}
     }
 
     void doorConflict()

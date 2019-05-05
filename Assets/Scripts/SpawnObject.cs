@@ -12,7 +12,6 @@ public class SpawnObject : MonoBehaviour {
     public int CurrentNumberAi = 0;//number of ai at current time
     public List<GameObject> PooledObjects;
 
-
     private Color col = new Color(1, 0, 0, 0.5f);
     private MSVehicleControllerFree vehicle;
     private Transform vehicleTransform;//vehicle in current scene
@@ -61,9 +60,10 @@ public class SpawnObject : MonoBehaviour {
             distanceV = Vector3.Distance(vehicle.transform.position, obj.transform.position);
             if (distanceV < radius)
             {
-                obj.SetActive(true);
-                //AICollision aic = obj.GetComponent<AICollision>();
-                //aic.unrag = true;
+                AICollision aic = obj.GetComponent<AICollision>();
+                if (!aic.dead)
+                    obj.SetActive(true);
+                
             }
         }
 	}

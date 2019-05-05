@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 54895898729391696}
   - component: {fileID: 144356376614045516}
   - component: {fileID: 136903711454430234}
+  - component: {fileID: 114926654453550434}
   m_Layer: 0
   m_Name: Zombie:LeftLeg
   m_TagString: Untagged
@@ -130,6 +131,7 @@ GameObject:
   - component: {fileID: 54216443967747776}
   - component: {fileID: 144929498309161488}
   - component: {fileID: 135904210526057088}
+  - component: {fileID: 114898869803327686}
   m_Layer: 0
   m_Name: Zombie:Head
   m_TagString: Untagged
@@ -225,6 +227,7 @@ GameObject:
   - component: {fileID: 54185791012656358}
   - component: {fileID: 136658738822068792}
   - component: {fileID: 195675335334827454}
+  - component: {fileID: 114253813402294766}
   m_Layer: 0
   m_Name: RagdollAI
   m_TagString: Zombie
@@ -303,6 +306,7 @@ GameObject:
   - component: {fileID: 54294597654761254}
   - component: {fileID: 144059016778324516}
   - component: {fileID: 136034875127176440}
+  - component: {fileID: 114680978284699748}
   m_Layer: 0
   m_Name: Zombie:LeftUpLeg
   m_TagString: Untagged
@@ -591,6 +595,7 @@ GameObject:
   - component: {fileID: 54334563144686596}
   - component: {fileID: 144589450113890926}
   - component: {fileID: 136604740091794168}
+  - component: {fileID: 114541918033508172}
   m_Layer: 0
   m_Name: Zombie:LeftArm
   m_TagString: Untagged
@@ -669,6 +674,7 @@ GameObject:
   - component: {fileID: 54872707779685566}
   - component: {fileID: 144015203911520276}
   - component: {fileID: 136879581489314462}
+  - component: {fileID: 114338224984322782}
   m_Layer: 0
   m_Name: Zombie:RightLeg
   m_TagString: Untagged
@@ -852,6 +858,7 @@ GameObject:
   - component: {fileID: 54879944487586838}
   - component: {fileID: 144129467401146012}
   - component: {fileID: 136877042239962452}
+  - component: {fileID: 114771369137715968}
   m_Layer: 0
   m_Name: Zombie:RightUpLeg
   m_TagString: Untagged
@@ -930,6 +937,7 @@ GameObject:
   - component: {fileID: 54704903449287388}
   - component: {fileID: 144223153621867002}
   - component: {fileID: 136553662473241038}
+  - component: {fileID: 114335323240552038}
   m_Layer: 0
   m_Name: Zombie:RightArm
   m_TagString: Untagged
@@ -1175,6 +1183,7 @@ GameObject:
   - component: {fileID: 4495488938259628}
   - component: {fileID: 54778506853640674}
   - component: {fileID: 65264005317587816}
+  - component: {fileID: 114120153814730946}
   m_Layer: 0
   m_Name: Zombie:Hips
   m_TagString: Untagged
@@ -1223,6 +1232,7 @@ GameObject:
   - component: {fileID: 54203212390096988}
   - component: {fileID: 144103942916748832}
   - component: {fileID: 65600592315852292}
+  - component: {fileID: 114842279267750326}
   m_Layer: 0
   m_Name: Zombie:Spine1
   m_TagString: Untagged
@@ -1421,6 +1431,7 @@ GameObject:
   - component: {fileID: 54566295875441896}
   - component: {fileID: 144802401595027762}
   - component: {fileID: 136559764826923972}
+  - component: {fileID: 114488955056769934}
   m_Layer: 0
   m_Name: Zombie:RightForeArm
   m_TagString: Untagged
@@ -1439,6 +1450,7 @@ GameObject:
   - component: {fileID: 54586758110667000}
   - component: {fileID: 144183674831445856}
   - component: {fileID: 136966557388095492}
+  - component: {fileID: 114320777623380002}
   m_Layer: 0
   m_Name: Zombie:LeftForeArm
   m_TagString: Untagged
@@ -2233,7 +2245,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1119201099357936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 539.8297, y: 71.28981, z: 548.4022}
+  m_LocalPosition: {x: 447.32562, y: 51.550022, z: 567.9485}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4405311182521434}
@@ -3078,6 +3090,66 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114120153814730946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726761062821210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114253813402294766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1119201099357936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3637bb1e1ca822145a62b29f8136dc11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114320777623380002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985072370316566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114335323240552038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615582656486116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114338224984322782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474444234195196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
 --- !u!114 &114440079436889224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3110,6 +3182,42 @@ MonoBehaviour:
   unrag: 0
   displayFin: 0
   detectPlayerTrigger: 0
+--- !u!114 &114488955056769934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947811558302044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114541918033508172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1425093527941646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114680978284699748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1160546170500760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
 --- !u!114 &114701617012155682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3128,6 +3236,54 @@ MonoBehaviour:
   runMoveSpeed: 0.03
   detectDistance: 20
   nma: {fileID: 0}
+--- !u!114 &114771369137715968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573060062154900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114842279267750326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776382876274566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114898869803327686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046177086561354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
+--- !u!114 &114926654453550434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034412348402114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edc5574852b5634f8e6cc0e56672f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
 --- !u!135 &135904210526057088
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3435,7 +3591,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.09635417, y: -0.032730866, z: -0.000011466686}
+  m_ConnectedAnchor: {x: -0.096333824, y: -0.03273343, z: -0.000011466686}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -3479,7 +3635,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000029031114, y: 0.25480068, z: 0.014107999}
+  m_ConnectedAnchor: {x: 0.000000029031366, y: 0.25480318, z: 0.014107999}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -3523,7 +3679,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.09635417, y: -0.03273089, z: -0.000011467307}
+  m_ConnectedAnchor: {x: 0.096333824, y: -0.03273345, z: -0.000011467307}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -3567,7 +3723,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.27687413, y: -0.0000010965564, z: 0.000016719103}
+  m_ConnectedAnchor: {x: -0.27687413, y: 0.000001526048, z: 0.000016719103}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -3611,7 +3767,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.18465173, y: 0.22713488, z: -0.06877328}
+  m_ConnectedAnchor: {x: 0.18463138, y: 0.22713488, z: -0.06877328}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -3699,7 +3855,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.18465167, y: 0.22713488, z: -0.06877328}
+  m_ConnectedAnchor: {x: -0.18463132, y: 0.22713488, z: -0.06877328}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -3787,7 +3943,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000047503722, y: 0.35883352, z: -0.03862191}
+  m_ConnectedAnchor: {x: 0.000000047503722, y: 0.35883614, z: -0.03862191}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:

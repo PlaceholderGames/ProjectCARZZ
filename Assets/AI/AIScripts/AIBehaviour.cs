@@ -21,6 +21,10 @@ public class AIBehaviour : MonoBehaviour
     private Animator anim;
     public NavMeshAgent nma;
 
+    bool playerOnce = true;
+    bool vehicleOnce = true;
+    float timer = 5.0f;
+
 
     private void Start()
     {
@@ -30,26 +34,38 @@ public class AIBehaviour : MonoBehaviour
         sceneController = FindObjectOfType<MSSceneControllerFree>();
         player = FindObjectOfType<MSFPSControllerFree>();
         nma.SetDestination(Vector3.zero);
+        target = player.transform;
     }
 
    
 
     void Update()
     {
-
-
-        if (vehicle.isInsideTheCar == false)
+        
+        timer -= Time.deltaTime;
+        Debug.Log(timer);
+        if ((!vehicle.isInsideTheCar) && timer < 0.0f)
         //if(player.isActiveAndEnabled)
         {
-            player = FindObjectOfType<MSFPSControllerFree>();
-            target = player.transform;
-            nma.speed = 3.5f;
+            if(playerOnce)
+            {
+                player = FindObjectOfType<MSFPSControllerFree>();
+                target = player.transform;
+                nma.speed = 3.5f;
+                playerOnce = false;
+            }
+            timer = 5.0f;
         }
-        else
+        else if (vehicle.isInsideTheCar && timer < 0.0f)
         {
-            vehicle = FindObjectOfType<MSVehicleControllerFree>();
-            target = vehicle.transform;
-            nma.speed = 0.8f;
+            if(vehicleOnce)
+            {
+                vehicle = FindObjectOfType<MSVehicleControllerFree>();
+                target = vehicle.transform;
+                nma.speed = 0.8f;
+                vehicleOnce = false;
+            }
+            timer = 5.0f;
         }
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);

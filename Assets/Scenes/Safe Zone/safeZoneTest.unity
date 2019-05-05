@@ -1919,6 +1919,17 @@ Prefab:
       propertyPath: terrain
       value: 
       objectReference: {fileID: 169997973}
+    - target: {fileID: 114537582693368456, guid: bc536168e8f102b439cfbd1230b6372e,
+        type: 2}
+      propertyPath: SpawnPrefab
+      value: 
+      objectReference: {fileID: 1119201099357936, guid: fb7c0d85f5dade4479c1e915dfe3fed0,
+        type: 2}
+    - target: {fileID: 114537582693368456, guid: bc536168e8f102b439cfbd1230b6372e,
+        type: 2}
+      propertyPath: Zombies
+      value: 
+      objectReference: {fileID: 1513955015}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc536168e8f102b439cfbd1230b6372e, type: 2}
   m_IsPrefabAsset: 0
@@ -2025,7 +2036,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4458371381296706, guid: c34f07d0b50581445ad86ecc856b5e15, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c34f07d0b50581445ad86ecc856b5e15, type: 2}
@@ -2176,6 +2187,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: pauseMenuResume
+      objectReference: {fileID: 0}
+    - target: {fileID: 224746234930650344, guid: 36a7d9bcbc7dd5c44b144d9ff37590d4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20751953
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36a7d9bcbc7dd5c44b144d9ff37590d4, type: 2}
@@ -3329,7 +3345,7 @@ RectTransform:
   - {fileID: 1658263143}
   - {fileID: 1741437645}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6391,6 +6407,16 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224864033775985476, guid: d4a7d07c2b05a3546819acc481b3fbe7,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 17.021973
+      objectReference: {fileID: 0}
+    - target: {fileID: 224873712195748904, guid: d4a7d07c2b05a3546819acc481b3fbe7,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.020019531
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4a7d07c2b05a3546819acc481b3fbe7, type: 2}
   m_IsPrefabAsset: 0
@@ -6737,6 +6763,34 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224921496161052242, guid: 06ca7bba810190d4391c6ea2fd8b0472,
     type: 2}
   m_PrefabInternal: {fileID: 1514930105}
+--- !u!1 &1513955015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1513955016}
+  m_Layer: 0
+  m_Name: ZombiesSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1513955016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513955015}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 474.38727, y: 51.19847, z: 593.88916}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1514930105
 Prefab:
   m_ObjectHideFlags: 0
@@ -7745,40 +7799,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4148206098296980, guid: 08f569741300b1e4ea83b1b4c3debb36, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148206098296980, guid: 08f569741300b1e4ea83b1b4c3debb36, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 296.912
-      objectReference: {fileID: 0}
-    - target: {fileID: 114577651644999358, guid: 08f569741300b1e4ea83b1b4c3debb36,
-        type: 2}
-      propertyPath: carMixer
-      value: 
-      objectReference: {fileID: 243656509231899636, guid: 2e6c4e9d7e0289941ae3fba7bd762253,
-        type: 2}
-    - target: {fileID: 114031359334417886, guid: 08f569741300b1e4ea83b1b4c3debb36,
-        type: 2}
-      propertyPath: carMixer
-      value: 
-      objectReference: {fileID: 243656509231899636, guid: 2e6c4e9d7e0289941ae3fba7bd762253,
-        type: 2}
-    - target: {fileID: 114577651644999358, guid: 08f569741300b1e4ea83b1b4c3debb36,
-        type: 2}
-      propertyPath: _sounds.collisionSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3bd32420e10f29441a631f1ef300d8ae, type: 3}
-    - target: {fileID: 114577651644999358, guid: 08f569741300b1e4ea83b1b4c3debb36,
-        type: 2}
-      propertyPath: _sounds.collisionSounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: e19b158a41d5aab4bbdd9699b7339dc4, type: 3}
-    - target: {fileID: 1173053671301910, guid: 08f569741300b1e4ea83b1b4c3debb36, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1238579123849660, guid: 08f569741300b1e4ea83b1b4c3debb36, type: 2}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

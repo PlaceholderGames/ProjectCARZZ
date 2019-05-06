@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIBehaviour : MonoBehaviour
 {
-    public float killDistance;
+    public float killDistance = 100.0f;
     public Rigidbody rb;
     public Transform target;
     public float moveSpeed = 0.011f;
@@ -18,15 +19,17 @@ public class AIBehaviour : MonoBehaviour
     private MSSceneControllerFree sceneController;
 
     private Animator anim;
-    public AICollision aiCollision;
+    public NavMeshAgent nma;
+
 
     private void Start()
     {
-        
+        nma = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         vehicle = FindObjectOfType<MSVehicleControllerFree>();
         sceneController = FindObjectOfType<MSSceneControllerFree>();
         player = FindObjectOfType<MSFPSControllerFree>();
+        nma.SetDestination(Vector3.zero);
     }
 
    
@@ -36,18 +39,24 @@ public class AIBehaviour : MonoBehaviour
 
 
         if (vehicle.isInsideTheCar == false)
+        //if(player.isActiveAndEnabled)
         {
             player = FindObjectOfType<MSFPSControllerFree>();
             target = player.transform;
+            nma.speed = 3.5f;
         }
         else
         {
+            vehicle = FindObjectOfType<MSVehicleControllerFree>();
             target = vehicle.transform;
+            nma.speed = 0.8f;
         }
         xpos = (target.position.x - transform.position.x);
         zpos = (target.position.z - transform.position.z);
+        float distance = Vector3.Distance(target.position, transform.position);
             //if the player is inside the detectable distance
-            if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
+            //if ((Math.Abs(xpos) < detectDistance && Math.Abs(zpos) < detectDistance))//&& !(aiCollision.hitPlayer)
+            if(distance < detectDistance)
             {
                 anim.SetBool("isIdle", false); ///Player in car
                 if (!vehicle.isInsideTheCar)
@@ -62,22 +71,20 @@ public class AIBehaviour : MonoBehaviour
                     anim.SetBool("isRunning", false);
                     speed = moveSpeed;
                 }
-                Vector3 rot = target.transform.position - transform.position;
-                rot.y = 0;
-                Quaternion rotation = Quaternion.LookRotation(rot);
-                transform.rotation = rotation;
-                //The AI gets the position of the player and it goes towards it.
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+            //Vector3 rot = target.transform.position - transform.position;
+            //rot.y = 0;
+            //Quaternion rotation = Quaternion.LookRotation(rot);
+            //transform.rotation = rotation;
+            ////The AI gets the position of the player and it goes towards it.
+            //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+                nma.SetDestination(target.position);
             }
             else //Resets to idle animation if they're out of the range
             {
                 anim.SetBool("isIdle", true);
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isRunning", false);
+                nma.ResetPath();
             }
-        if(Vector3.Distance(vehicle.transform.position, transform.position) > killDistance)
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 33372580345705762}
   - component: {fileID: 23794458958490434}
   - component: {fileID: 64213350333519744}
-  - component: {fileID: 65529810254167902}
   - component: {fileID: 114938404181950100}
+  - component: {fileID: 114911901182134890}
   m_Layer: 0
   m_Name: StreetLamp
   m_TagString: Untagged
@@ -126,22 +126,10 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d52015c33c418144d8e5bd15f26c0d7b, type: 3}
---- !u!65 &65529810254167902
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1410146779631320}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 12, y: 12, z: 1.2370822}
-  m_Center: {x: 0.02, y: -0.3534555, z: 0.6181317}
 --- !u!108 &108317161636297900
 Light:
   m_ObjectHideFlags: 1
@@ -179,6 +167,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114911901182134890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410146779631320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3637bb1e1ca822145a62b29f8136dc11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordTime: 5
 --- !u!114 &114938404181950100
 MonoBehaviour:
   m_ObjectHideFlags: 1

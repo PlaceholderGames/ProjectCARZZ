@@ -43,7 +43,7 @@ public class AIBehaviour : MonoBehaviour
     {
         
         timer -= Time.deltaTime;
-        Debug.Log(timer);
+
         if ((!vehicle.isInsideTheCar) && timer < 0.0f)
         //if(player.isActiveAndEnabled)
         {
